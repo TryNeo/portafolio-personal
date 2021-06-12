@@ -6,6 +6,8 @@ from django.urls import reverse_lazy
 from django.core.mail import EmailMessage
 from .forms import ContactForm
 from django.conf import settings
+from apps.dashboard.modelos.model_contact import *
+
 import threading
 
 
@@ -38,6 +40,7 @@ class ContactView(FormView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["title"] = 'Contacto'
+        context['tarjet_contact'] = Contact.objects.all()
         return context
 
     def post(self, request, *args, **kwargs):
