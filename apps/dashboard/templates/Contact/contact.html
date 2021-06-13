@@ -11,19 +11,17 @@
                     data-target="#exampleModalLong">Añadir tarjeta
             </button>
             <hr>
-            <div class="row">
+            <div class="row" id="insert-card">
                 {% for info in contact_info %}
-                    <div class="col-sm-4">
+                <div class="col-sm-12">
                     <div class="grid-col">
                         <div class="card card-bordered">
                             <div class="card-body">
                                 <div class="col-md-12">
-                                    <button type="button" class="close" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
+                                    <a href="#" rel="{{info.id_contact}}" class="close btnDelete"><i class="fa fa-trash"></i></a>
+                                    <a href="#" rel="{{info.id_contact}}" class="close btnEdit"><i class="fa fa-edit"></i></a>
                                     <div class="row">
-                                        <h3><i class="{{info.icon}} col-md-2"></i></h3>
-                                        <h4>{{ info.title }}</h4>
+                                        <h3><i class="{{info.icon}}"></i> {{ info.title }}</h3>
                                     </div>
                                     <p>{{info.description}}</p>
                                 </div>
@@ -32,7 +30,34 @@
                     </div>
                 </div>
                 {% endfor%}
+
+                {% if is_paginated %}
+                <div class="mx-auto">
+                    <ul class="pagination pg-color-border">
+                        {% if page_obj.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+                        </li>
+                        {% endif %}
+
+                        {% for i in paginator.page_range %}
+                        {% if page_obj.number == i %}
+                        <li class="page-item active"><span class="page-link">{{ i }}<span
+                                class="sr-only">(current)</span></span></li>
+                        {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                        {% endfor %}
+                        {% if page_obj.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+                {% endif %}
             </div>
+
         </div>
     </div>
 </div>
@@ -46,21 +71,22 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Creacion de tarjeta | Contacto</h5>
+                    <h5 class="modal-title" id="exampleModalLabel"><span></span></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="true">&times</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <input type="hidden" name="action" value="add">
+                    <input type="hidden" name="id_contact" id="id_contact" value="0">
                     <div class="form-group">
-                        {{form.icon}}
+                        {{form.icon|attr:'placeholder:icono'}}
                     </div>
                     <div class="form-group">
-                        {{form.title}}
+                        {{form.title|attr:'placeholder:titulo'}}
                     </div>
                     <div class="form-group">
-                        {{form.description}}
+                        {{form.description|attr:'placeholder:descripcion'|attr:'rows:3'}}
                     </div>
                 </div>
                 <div class="modal-footer">

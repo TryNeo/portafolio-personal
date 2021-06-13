@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import model_to_dict
 
 
 class Contact(models.Model):
@@ -13,4 +14,8 @@ class Contact(models.Model):
         ordering = ['id_contact']
 
     def __str__(self):
-        return '{}'.format(self.title)
+        return '{} {} {} {}'.format(self.id_contact,self.icon,self.title,self.description)
+
+    def toJSON(self):
+        contact_data = model_to_dict(self)
+        return contact_data

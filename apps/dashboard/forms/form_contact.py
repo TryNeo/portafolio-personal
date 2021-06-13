@@ -28,8 +28,8 @@ class ContactForm(forms.ModelForm):
             ),
             'description': forms.Textarea(
                 attrs={
-                    'placeholder': 'descripcion',
-                    'rows': 4,
+                    'placeholder': 'Mensaje',
+                    'rows': 3,
                 }
             ),
         }
