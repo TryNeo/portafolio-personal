@@ -1,8 +1,7 @@
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
-from django.utils.decorators import method_decorator
-from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import ListView
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView
 from apps.dashboard.modelos.model_contact import *
 from apps.dashboard.forms.form_contact import *
 import time
@@ -14,10 +13,7 @@ class ContactView(ListView):
     context_object_name = 'contact_info'
     paginate_by = 3
 
-    @method_decorator(csrf_exempt)
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
-
+    """
     def post(self, request, *args, **kwargs):
         data = {}
         try:
@@ -59,8 +55,30 @@ class ContactView(ListView):
         except Exception as e:
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
+    """
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["form"] = ContactForm
-        return context
+
+class ContactCreateView(CreateView):
+    model = Contact
+    form_class = ContactForm
+    template_name = 'Contact/contact_create.html'
+
+    def post(self, request, *args, **kwargs):
+        if request.is_ajax():
+            data = {}
+            form = self.form_class(request.POST)
+            if form.is_valid():
+                form.save()
+                data['status'] = 1
+                data['message'] = 'Se ha guardado exitosamente!'
+                response = JsonResponse(data)
+                response.status_code = 201
+                return response
+            else:
+                data['status'] = 0
+                data['message'] = form.errors
+                response = JsonResponse(data)
+                response.status_code = 400
+                return response
+        else:
+            return redirect('dash:contact')

@@ -1717,7 +1717,12 @@ table.dbkit-table tr td {
     letter-spacing: 0;
     font-size: 13px;
     border: none;
+    margin-top:4px;
     padding: 10px 16px;
+}
+
+.alert-hidden{
+    display:none;
 }
 
 .alert strong,
@@ -1904,12 +1909,24 @@ p.card-text {
 
 
 /*-------------------- 17. Form ------------------- */
+.form-validate{
+    position: relative;
+}
+
+.form-validate i {
+	visibility: hidden;
+    position: absolute;
+    font-size:16px;
+	top: 13px;
+	right: 18px;
+}
 
 .form-control,
 .form-control:focus {
     outline: none;
     box-shadow: none;
 }
+
 
 .form-rounded {
     border-radius: 40px;
@@ -1921,6 +1938,25 @@ p.card-text {
     padding: 10.72px 12.8px;
     padding: .67rem .8rem;
 }
+
+.form-control.success {
+    border-color: #2ecc71;
+}
+
+.form-control.error {
+	border-color: #e74c3c;
+}
+
+.form-validate.success i.fa-check-circle {
+	color: #2ecc71;
+	visibility: visible;
+}
+
+.form-validate.error i.fa-exclamation-circle {
+	color: #e74c3c;
+	visibility: visible;
+}
+
 
 .form-control-sm,
 .input-group-sm>.form-control,

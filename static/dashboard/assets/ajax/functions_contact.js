@@ -1,82 +1,47 @@
-document.addEventListener('DOMContentLoaded', function () {
-        $('.tarjetContact').on('click', function () {
-            $('input[name="action"]').val('add');
-            $('.modal-title').find('span').html('Creacion de Tarjeta Contacto')
-            document.getElementById('formContact').reset();
-            $('#ContactModal').modal('show');
-        })
-        let formContacto = document.querySelector('#formContact');
-        if (formContacto != null) {
-            $(formContacto).on('submit', function (e) {
-                e.preventDefault();
+$(function() {
+    
+    let formContact = document.querySelector('#fntContactCreate');
+    let inputFormat = document.querySelectorAll('#fntContactCreate input')
+    
+    campsList = {
+        'resultado':false,
+    }
+    
+    const validateData = (e) => {
+        switch (e.target.name) {
+            case 'icon':
+                campsList['resultado'] = validateEmptyField(e.target.value,'#id_icon','#icon');
+            break;
+            case 'title':
+                campsList['resultado'] = validateEmptyField(e.target.value,'#id_title','#title');
+            break;
+        }
+    }
+
+    validateForm(inputFormat,validateData);
+
+    if (formContact != null) {
+        let url = $(formContact).attr("action");
+        $(formContact).on('submit', function (e) {
+            e.preventDefault();
+            if (campsList['resultado']){
                 let form_data = $(this).serializeArray();
                 $.ajax({
-                    url: 'http://127.0.0.1:8000/dashboard/contact/',
+                    url: url,
                     type: 'POST',
                     data: form_data,
                     dataType: 'json'
                 }).done(function (data) {
-                    if (data['status']) {
-                        $('#ContactModal').modal('hide');
-                        document.getElementById('formContact').reset();
-                        mensaje('success', 'Exitoso', data['message']);
-                    } else {
-                        mensaje_json('error', 'Oops..', data['message']);
-                    }
+                    alert("hello")
                 }).fail(function (jqXHR, textStatus, errorThrown) {
                     console.log(textStatus, errorThrown);
                 })
-            })
-        }
-
-        $('.btnEdit').on('click', function (e) {
-            e.preventDefault();
-            let id_contact = $(this).attr('rel')
-            let data = {'action': 'load_data', 'id_contact': id_contact};
-            $.ajax({
-                url: 'http://127.0.0.1:8000/dashboard/contact/',
-                type: 'POST',
-                data: data,
-            }).done(function (data) {
-                if (data['status']) {
-                    $('.modal-title').find('span').html('Edicion de Tarjeta Contacto')
-                    $('input[name="action"]').val('edit');
-                    $('input[name="id_contact"]').val(data['message']['id_contact']);
-                    $('input[name="icon"]').val(data['message']['icon']);
-                    $('input[name="title"]').val(data['message']['title']);
-                    $('textarea[name="description"]').val(data['message']['description']);
-                    $('#ContactModal').modal('show');
-                } else {
-                    mensaje_json('error', 'Oops.. lo siento', data['message']);
-                }
-            }).fail(function (jqXHR, textStatus, errorThrown) {
-                console.log(textStatus, errorThrown);
-            })
+            }else{
+                mensaje("error","Campos invalidos",'Los campos no son validos')
+            }
         })
-
-     $('.btnDelete').on('click', function (e) {
-            e.preventDefault();
-            let id_contact = $(this).attr('rel')
-            let data = {'action': 'delete', 'id_contact': id_contact};
-            $.ajax({
-                url: 'http://127.0.0.1:8000/dashboard/contact/',
-                type: 'POST',
-                data: data,
-            }).done(function (data) {
-                if(data['status']){
-                    mensaje('success','Exitoso',data['message'])
-                    setTimeout(function(){
-                        location.reload()
-                    },2000)
-                }
-            }).fail(function (jqXHR, textStatus, errorThrown) {
-                console.log(textStatus, errorThrown);
-            })
-        })
-
-    },
-    false);
-
+    }
+});
 
 function loadingCardsContact() {
     $.ajax({

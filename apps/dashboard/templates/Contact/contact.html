@@ -1,14 +1,14 @@
 {% extends 'dashboard/base.html' %}
 {% load static%}
-{% load widget_tweaks %}
 {% block title %}Dashboard | Contactos {% endblock %}
 {% block content %}
 <div class="col-12 mt-5">
     <div class="card">
         <div class="card-body">
             <h4 class="header-title text-center">Tarjetas | Contacto </h4>
-            <button type="button" class="btn btn-primary btn-flat btn-lg mt-3 tarjetContact" data-toggle="modal"
-                    data-target="#exampleModalLong">Añadir tarjeta
+            <button type="button" onclick="abrir_modal('#popup','{% url 'dash:contact_create' %}');"
+                    class="btn btn-primary btn-flat btn-lg mt-3"
+            >Añadir tarjeta
             </button>
             <hr>
             <div class="row" id="insert-card">
@@ -18,8 +18,10 @@
                         <div class="card card-bordered">
                             <div class="card-body">
                                 <div class="col-md-12">
-                                    <a href="#" rel="{{info.id_contact}}" class="close btnDelete"><i class="fa fa-trash"></i></a>
-                                    <a href="#" rel="{{info.id_contact}}" class="close btnEdit"><i class="fa fa-edit"></i></a>
+                                    <a href="#" rel="{{info.id_contact}}" class="close btnDelete"><i
+                                            class="fa fa-trash"></i></a>
+                                    <a href="#" rel="{{info.id_contact}}" class="close btnEdit"><i
+                                            class="fa fa-edit"></i></a>
                                     <div class="row">
                                         <h3><i class="{{info.icon}}"></i> {{ info.title }}</h3>
                                     </div>
@@ -60,40 +62,5 @@
 
         </div>
     </div>
-</div>
-{% endblock %}
-
-{% block extra_js %}
-<script src="{% static 'dashboard/assets/ajax/functions_contact.js'%}"></script>
-<div class="modal fade" id="ContactModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <form method="POST" action="." id="formContact">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"><span></span></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <input type="hidden" name="action" value="add">
-                    <input type="hidden" name="id_contact" id="id_contact" value="0">
-                    <div class="form-group">
-                        {{form.icon|attr:'placeholder:icono'}}
-                    </div>
-                    <div class="form-group">
-                        {{form.title|attr:'placeholder:titulo'}}
-                    </div>
-                    <div class="form-group">
-                        {{form.description|attr:'placeholder:descripcion'|attr:'rows:3'}}
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Guardar</button>
-                </div>
-            </div>
-        </div>
-    </form>
 </div>
 {% endblock %}
