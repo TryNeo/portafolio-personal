@@ -15,6 +15,12 @@
     <a href="#">
         <img alt="Build" src="https://img.shields.io/static/v1?label=BUILD&message=process&color=blue&style=for-the-badge&logo=buildkite&logoColor=white">
     </a>
+    <a href="#">
+        <img alt="Django" src="https://img.shields.io/static/v1?label=django&message=3.0.4&color=green&style=for-the-badge&logo=django&logoColor=white">
+    </a>
+     <a href="#">
+       <img alt="Python" src="https://img.shields.io/static/v1?label=python&message=3.8&color=blue&style=for-the-badge&logo=python&logoColor=white">
+    </a>
   </p>
 </p>
 
@@ -32,3 +38,5 @@
 
 
 ## Acerca del proyecto
+
+[![portafolio](https://i.imgur.com/CBzuQI5.gif)](https://i.imgur.com/CBzuQI5.gif)
