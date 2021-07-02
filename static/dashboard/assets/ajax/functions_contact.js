@@ -1,46 +1,48 @@
 $(function() {
     
     let formContact = document.querySelector('#fntContactCreate');
-    let inputFormat = document.querySelectorAll('#fntContactCreate input')
-    
-    campsList = {
-        'resultado':false,
-    }
-    
-    const validateData = (e) => {
-        switch (e.target.name) {
-            case 'icon':
-                campsList['resultado'] = validateEmptyField(e.target.value,'#id_icon','#icon');
-            break;
-            case 'title':
-                campsList['resultado'] = validateEmptyField(e.target.value,'#id_title','#title');
-            break;
-        }
-    }
+    let formContactDelete = document.querySelector('#fntContactDelete');
 
-    validateForm(inputFormat,validateData);
-
+    //let inputFormat = document.querySelectorAll('#fntContactCreate input')
     if (formContact != null) {
         let url = $(formContact).attr("action");
         $(formContact).on('submit', function (e) {
             e.preventDefault();
-            if (campsList['resultado']){
-                let form_data = $(this).serializeArray();
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    data: form_data,
-                    dataType: 'json'
-                }).done(function (data) {
-                    alert("hello")
-                }).fail(function (jqXHR, textStatus, errorThrown) {
-                    console.log(textStatus, errorThrown);
-                })
-            }else{
-                mensaje("error","Campos invalidos",'Los campos no son validos')
-            }
+            let form_data = $(this).serializeArray();
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: form_data,
+                dataType: 'json'
+            }).done(function (data) {
+                $('#popup').modal('hide');
+                mensaje('success','Exitoso',data['message']);
+            }).fail(function (error) {
+                mensaje_json('error','Campos no validos',error.responseJSON['message']);
+            })
         })
     }
+
+    if (formContactDelete != null) {
+        let url = $(formContactDelete).attr("action");
+        $(formContactDelete).on('submit', function (e) {
+            e.preventDefault();
+            let form_data = $(this).serializeArray();
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: form_data,
+                dataType: 'json'
+            }).done(function (data) {
+                $('#popup').modal('hide');
+                mensaje('success','Exitoso',data['message']);
+            }).fail(function (error) {
+                $('#popup').modal('hide');
+                mensaje('error','Hubo problemas al eliminar',error);
+            })
+        })
+    }
+
 });
 
 function loadingCardsContact() {

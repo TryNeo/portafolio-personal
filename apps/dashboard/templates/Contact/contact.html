@@ -18,10 +18,10 @@
                         <div class="card card-bordered">
                             <div class="card-body">
                                 <div class="col-md-12">
-                                    <a href="#" rel="{{info.id_contact}}" class="close btnDelete"><i
-                                            class="fa fa-trash"></i></a>
-                                    <a href="#" rel="{{info.id_contact}}" class="close btnEdit"><i
-                                            class="fa fa-edit"></i></a>
+                                    <button  type="button"  onclick="abrir_modal('#popup','{% url 'dash:contact_delete' info.id_contact %}');"  class="close btnDelete">
+                                        <i class="fa fa-trash"></i></button>
+                                    <button type="button" onclick="abrir_modal('#popup','{% url 'dash:contact_update' info.id_contact %}');" class="close btnEdit"><i
+                                            class="fa fa-edit"></i></button>
                                     <div class="row">
                                         <h3><i class="{{info.icon}}"></i> {{ info.title }}</h3>
                                     </div>

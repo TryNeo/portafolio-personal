@@ -50,7 +50,12 @@ function abrir_modal(tagName,urlBase){
 
 
 
-
+/**
+ * Funciona que obtiene los eventos cada vez que un input es aplastado
+ * @param {String} tagName - recibe un selector de clase o id
+ * @param {function} funciontValidate - recibe una funcion la cual actuara como intermediario para la validacion
+ * 
+ */
 
 function validateForm(inputSelector,functionValidate){
     inputSelector.forEach((input) => {
@@ -81,4 +86,26 @@ function validateEmptyField(value, tagSelector,tagId){
     return valid;
 }
 
+
+
+// IGNORAR ESTAS LINEAS DE CODIGOS - EN PROCESO DE CONSTRUCION O NO.
+
+/*
+*    campsList = {
+        'resultado':false,
+    }
+    
+    const validateData = (e) => {
+        switch (e.target.name) {
+            case 'icon':
+                campsList['resultado'] = validateEmptyField(e.target.value,'#id_icon','#icon');
+            break;
+            case 'title':
+                campsList['resultado'] = validateEmptyField(e.target.value,'#id_title','#title');
+            break;
+        }
+    }
+
+    validateForm(inputFormat,validateData);
+*/
 

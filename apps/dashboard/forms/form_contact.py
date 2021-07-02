@@ -3,6 +3,7 @@ from apps.dashboard.modelos.model_contact import Contact
 from django.core.exceptions import ValidationError
 
 
+
 class ContactForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -29,7 +30,7 @@ class ContactForm(forms.ModelForm):
             return icon
         else:
             raise ValidationError(
-                ('El icon %(value)s debe ser mas largo.'),
+                ('El nombre del icono [ %(value)s ] debe ser mas largo.'),
                 params={'value': icon},
             )
     
