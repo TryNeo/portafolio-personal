@@ -24,6 +24,9 @@
     <link href="{% static 'web/assets/vendor/icofont/icofont.min.css' %}" rel="stylesheet">
     <link href="{% static 'web/assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
     <link href="{% static 'web/assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+
+    {% block extra_css %}
+    {% endblock %}
     <!-- modernizr css -->
     <script src="{% static 'dashboard/assets/js/vendor/modernizr-2.8.3.min.js' %}"></script>
 </head>
@@ -68,11 +71,14 @@
                         <div class="horizontal-menu">
                             <nav>
                                 <ul id="nav_menu">
-                                    <li>
-                                        <a href="javascript:void(0)"><i class="ti-dashboard"></i><span>dashboard</span></a>
+                                    <li class="{% if request.path == '/dashboard/' %}active{% endif %}">
+                                        <a href="{% url 'dash:index'%}"><i class="ti-dashboard"></i><span>dashboard</span></a>
                                     </li>
-                                    <li class="active">
-                                        <a href="javascript:void(0)"><i class="fa fa-book"></i><span>Tarjeta | Contactos</span></a>
+                                    <li class="{% if request.path == '/dashboard/contact/' %}active{% endif %}">
+                                        <a href="{% url 'dash:contact'%}"><i class="fa fa-book"></i><span>Tarjeta | Contactos</span></a>
+                                    </li>
+                                    <li class="{% if request.path == '/dashboard/social/' %}active{% endif %}">
+                                        <a href="{% url 'dash:social_media'%}"><i class="fa fa-share-alt"></i><span>Redes | Sociales</span></a>
                                     </li>
                                 </ul>
                             </nav>

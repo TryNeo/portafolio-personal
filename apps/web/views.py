@@ -7,6 +7,7 @@ from django.core.mail import EmailMessage
 from .forms import ContactForm
 from django.conf import settings
 from apps.dashboard.modelos.model_contact import *
+from apps.dashboard.modelos.model_social_media import *
 
 import threading
 
@@ -41,6 +42,7 @@ class ContactView(FormView):
         context = super().get_context_data(**kwargs)
         context["title"] = 'Contacto'
         context['tarjet_contact'] = Contact.objects.all()
+        context['social_media'] = SocialMedia.objects.all()
         return context
 
     def post(self, request, *args, **kwargs):
