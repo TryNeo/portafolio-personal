@@ -1,0 +1,49 @@
+{% load widget_tweaks %}
+{%  load static %}
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+            {% if obj %}
+            <form id="fntSocialMediaCreate" method="post" role="form" action="{% url 'dash:social_media_edit' obj.pk %}">
+                
+            {% else %}
+            <form id="fntSocialMediaCreate" method="post" role="form" action="{% url 'dash:social_media_create'%}">
+            {% endif %}
+                {% csrf_token %}
+            <div class="modal-header">
+                <h5 class="modal-title">Creacion | Red Social <span></span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="form-validate" id="name">
+                        {{form.name|attr:'placeholder:nombre'}}
+                        <i class="fa fa-check-circle"></i>
+                        <i class="fa fa-exclamation-circle"></i>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-validate" id="name">
+                        {{form.icon|attr:'placeholder:icono'}}
+                        <i class="fa fa-check-circle"></i>
+                        <i class="fa fa-exclamation-circle"></i>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-validate" id="social_url">
+                        {{form.social_url|attr:'placeholder:url'}}
+                        <i class="fa fa-check-circle"></i>
+                        <i class="fa fa-exclamation-circle"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="{% static 'dashboard/assets/ajax/functions_social_media.js' %}"></script>
+
+

@@ -12,7 +12,7 @@
     <div class="card">
         <div class="card-body">
             <h4 class="header-title text-center">Redes | Sociales </h4>
-            <button type="button"
+            <button type="button" onclick="abrir_modal('#popup','{% url 'dash:social_media_create' %}');"
                     class="btn btn-primary btn-flat btn-lg mt-3"
             >Añadir Red Social
             </button>
@@ -25,6 +25,7 @@
                                 <th scope="col">NOMBRE</th>
                                 <th scope="col">ICONO</th>
                                 <th scope="col">URL</th>
+                                <th scope="col">OPCIONES</th>
                             </tr>
                         </thead>
                         <tbody>

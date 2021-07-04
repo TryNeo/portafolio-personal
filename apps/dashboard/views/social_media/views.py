@@ -12,7 +12,6 @@ class SocialMediaView(ListView):
     model = SocialMedia
     context_object_name = 'social_media_info'
 
-
     def get(self, request, *args, **kwargs):
         if request.is_ajax():
             data = [i.toJSON() for i in SocialMedia.objects.all()]
@@ -21,3 +20,56 @@ class SocialMediaView(ListView):
             return response
         else:
             return super(SocialMediaView, self).get(request, *args, **kwargs)
+
+
+class SocialMediaCreateView(CreateView):
+    model = SocialMedia
+    form_class = SocialMediaForm
+    context_object_name = 'obj'
+    template_name = 'Social_media/social_media_form.html'
+
+    def post(self, request, *args, **kwargs):
+        if request.is_ajax():
+            data = {}
+            form = self.form_class(request.POST)
+            if form.is_valid():
+                form.save()
+                data['status'] = 1
+                data['message'] = 'Se ha guardado exitosamente!'
+                response = JsonResponse(data)
+                response.status_code = 201
+                return response
+            else:
+                data['status'] = 0
+                data['message'] = form.errors
+                response = JsonResponse(data)
+                response.status_code = 400
+                return response
+        else:
+            return redirect('dash:social_media')
+        
+class SocialMediaUpdateView(UpdateView):
+    model = SocialMedia
+    form_class = SocialMediaForm
+    context_object_name = 'obj'
+    template_name = 'Social_media/social_media_form.html'
+
+    def post(self, request, *args, **kwargs):
+        if request.is_ajax():
+            data = {}
+            form = self.form_class(request.POST,instance=self.get_object())
+            if form.is_valid():
+                form.save()
+                data['status'] = 1
+                data['message'] = 'Se ha actualizado exitosamente!'
+                response = JsonResponse(data)
+                response.status_code = 201
+                return response
+            else:
+                data['status'] = 0
+                data['message'] = form.errors
+                response = JsonResponse(data)
+                response.status_code = 400
+                return response
+        else:
+            return redirect('dash:social_media')

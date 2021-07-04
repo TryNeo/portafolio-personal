@@ -38,6 +38,7 @@ $(function() {
             {"data":"name"},
             {"data":"icon"},
             {"data":"social_url"},
+            {"data":"opciones"}
         ],
         "columnDefs":[
             {
@@ -46,10 +47,43 @@ $(function() {
                 render:function(data,type,row){
                     return '<i class="'+row.icon+'"></i>'
                 }
+            },
+            {
+                targets:[4],
+                orderable:false,
+                render:function(data,type,row){
+                    let url_edit = url_social+"edit/"+row.id_social_media
+                    console.log(url_edit)
+                    let base_opcion = '<ul class="d-flex justify-content-center">'+
+                    '<li class="mr-3"><button type="button" onclick=abrir_modal("#popup","'+url_edit+'"); class="text-secondary"><i class="fa fa-edit"></i></button></li></ul>';
+                    return base_opcion;
+                }
+
             }
-        ],
+        ], 
         "order":[[0,"desc"]]
     });
 
-    table_social_media.ajax.reload();
+    let formSocialMedia = document.querySelector('#fntSocialMediaCreate');
+
+    if (formSocialMedia != null) {
+        let url = $(formSocialMedia).attr("action");
+        $(formSocialMedia).on('submit', function (e) {
+            e.preventDefault();
+            let form_data = $(this).serializeArray();
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: form_data,
+                dataType: 'json'
+            }).done(function (data) {
+                $('#popup').modal('hide');
+                mensaje('success','Exitoso',data['message']);
+                table_social_media.ajax.reload();
+            }).fail(function (error) {
+                mensaje_json('error','Campos no validos',error.responseJSON['message']);
+            })
+        })
+    }
+
 });
