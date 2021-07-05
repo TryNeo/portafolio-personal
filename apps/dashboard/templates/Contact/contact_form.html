@@ -10,7 +10,9 @@
 
             {% csrf_token %}
             <div class="modal-header">
-                <h5 class="modal-title">Creacion | Tarjetas Contacto <span></span></h5>
+                <h5 class="modal-title"><span>
+                    {% if obj %}Editar | Tarjeta Contacto <i class="fa fa-edit"></i>
+                    {% else %} Crear | Tarjeta Contacto <i class="fa fa-plus"></i>{% endif%}</span></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times</span>
                 </button>
@@ -39,7 +41,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Guardar</button>
+                <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">{% if obj %}Guardar <i class="fa fa-save"></i>{% else%} Crear <i class="fa fa-plus"></i>{% endif%}</button>
             </div>
         </form>
     </div>

@@ -73,3 +73,21 @@ class SocialMediaUpdateView(UpdateView):
                 return response
         else:
             return redirect('dash:social_media')
+
+
+class SocialMediaDeleteView(DeleteView):
+    model = SocialMedia
+    context_object_name = 'obj'
+    template_name = 'Social_media/social_media_delete.html'
+
+    def post(self,request,*args,**kwargs):
+        data = {}
+        if request.is_ajax():
+            social_media = self.get_object()
+            social_media.delete()
+            data['status'] = 1
+            data['message'] = 'Se ha eliminado exitosamente!'
+            response = JsonResponse(data)
+            response.status_code = 204
+            return response
+        return redirect('dash:social_media')

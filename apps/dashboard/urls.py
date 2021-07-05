@@ -1,7 +1,7 @@
 from django.urls import path
 from .views.dashboard.views import DashboardView
 from .views.contact.views import ContactView,ContactCreateView,ContactUpdateView,ContactDeleteView
-from .views.social_media.views import SocialMediaView,SocialMediaCreateView,SocialMediaUpdateView
+from .views.social_media.views import SocialMediaView,SocialMediaCreateView,SocialMediaUpdateView,SocialMediaDeleteView
 
 urlpatterns = [
     path('', DashboardView.as_view(), name='index'),
@@ -15,5 +15,6 @@ urlpatterns = [
     path('social/', SocialMediaView.as_view(), name='social_media'),
     path('social/add', SocialMediaCreateView.as_view(), name='social_media_create'),
     path('social/edit/<int:pk>', SocialMediaUpdateView.as_view(), name='social_media_edit'),
+    path('social/delete/<int:pk>', SocialMediaDeleteView.as_view(), name='social_media_delete'),
 
 ]

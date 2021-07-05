@@ -53,9 +53,8 @@ $(function() {
                 orderable:false,
                 render:function(data,type,row){
                     let url_edit = url_social+"edit/"+row.id_social_media
-                    console.log(url_edit)
                     let base_opcion = '<ul class="d-flex justify-content-center">'+
-                    '<li class="mr-3"><button type="button" onclick=abrir_modal("#popup","'+url_edit+'"); class="text-secondary"><i class="fa fa-edit"></i></button></li></ul>';
+                    '<li class="mr-3"><button type="button" onclick=abrir_modal("#popup","'+url_edit+'"); class="close text-secondary"><i class="fa fa-edit"></i></button></li></ul>';
                     return base_opcion;
                 }
 

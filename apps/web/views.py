@@ -15,6 +15,11 @@ import threading
 class HomeView(TemplateView):
     template_name = 'home/index.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['social_media'] = SocialMedia.objects.all()
+        return context
+
 def send_email(name, email, subject, message):
     template_email = render_to_string('contact/template_email.html',
                                       {
