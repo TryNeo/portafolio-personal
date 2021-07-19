@@ -7,7 +7,6 @@
         {% else %}
             <form id="fntContactCreate" method="post" role="form" action="{% url 'dash:contact_create'%}">
         {% endif %}
-
             {% csrf_token %}
             <div class="modal-header">
                 <h5 class="modal-title"><span>
@@ -19,29 +18,31 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <div class="form-validate" id="icon">
+                    <div class="input-group">
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fas fa-question" aria-hidden="true"></i>
+                            </span>
+                        </div>
                         {{form.icon|attr:'placeholder:icono'}}
-                        <i class="fa fa-check-circle"></i>
-                        <i class="fa fa-exclamation-circle"></i>
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="form-validate" id="title">
+                    <div class="input-group">
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fas fa-address-book" aria-hidden="true"></i>
+                            </span>
+                        </div>
                         {{form.title|attr:'placeholder:titulo'}}
-                        <i class="fa fa-check-circle"></i>
-                        <i class="fa fa-exclamation-circle"></i>
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="form-validate" id="description">
-                        {{form.description|attr:'placeholder:descripcion'|attr:'rows:4'}}
-                        <i class="fa fa-check-circle"></i>
-                        <i class="fa fa-exclamation-circle"></i>
-                    </div>
+                    {{form.description|attr:'placeholder:descripcion'|attr:'rows:2'|attr:'style:margin-top: 0px; margin-bottom: 0px; height: 100px;'}}
                 </div>
+                <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">{% if obj %}Guardar <i class="fa fa-save"></i>{% else%} Crear <i class="fa fa-plus"></i>{% endif%}</button>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">{% if obj %}Guardar <i class="fa fa-save"></i>{% else%} Crear <i class="fa fa-plus"></i>{% endif%}</button>
             </div>
         </form>
     </div>

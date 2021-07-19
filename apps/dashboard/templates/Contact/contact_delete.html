@@ -2,7 +2,7 @@
 {%  load static %}
 <div class="modal-dialog" role="document">
     <div class="modal-content">
-        <form id="fntContactDelete" method="POST" role="form" class="form-inline" action="{% url 'dash:contact_delete' obj.pk %}">
+        <form id="fntContactDelete" method="POST" role="form"  action="{% url 'dash:contact_delete' obj.pk %}">
             {% csrf_token %}
             <div class="modal-header">
                 <h5 class="modal-title" >Eliminar tarjeta | Contactos </h5>
@@ -12,14 +12,17 @@
             </div>
             <div class="modal-body">
                 <p>
-                    Desea Eliminar la tarjeta <strong> {{obj.title }} </strong>
+                    Desea Eliminar la tarjeta <strong> {{obj.title }} </strong> con los datos
+                    <br>
                     icono : <strong>{{obj.icon}}</strong>
+                    <br>
                     descripcion :  <strong>{{obj.description}}</strong> 
                 </p>
+                  
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i>Si,Eliminar
-                </button>                    
+                <button type="submit" class="btn btn-danger">Si,Eliminar <i class="fas fa-trash"></i>
+                </button>   
             </div>
         </form>
     </div>
