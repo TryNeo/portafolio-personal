@@ -10,7 +10,7 @@ class ContactForm(forms.ModelForm):
         for field in iter(self.fields):
             self.fields[field].widget.attrs.update(
                 {
-                    'class': 'form-control',
+                    'class': 'form-control is-invalid',
                 }
             )
 
@@ -18,19 +18,12 @@ class ContactForm(forms.ModelForm):
         model = Contact
         fields = '__all__'
     
-    def clean_icon(self):
-        icon = self.cleaned_data['icon']
-        if len(icon) >= 5:
-            #if Contact.objects.filter(id_contact=Contact.objects.filter(icon = icon)).exists():
-            #    raise ValidationError(
-            #        ('El icon %(value)s ya existe largo.'),
-            #        params={'value': icon},
-            #    )
-            #else:
-            return icon
-        else:
+
+    def clean_title(self):
+        title = self.cleaned_data['title']
+        if not len(title) > 0:
             raise ValidationError(
-                ('El nombre del icono [ %(value)s ] debe ser mas largo.'),
-                params={'value': icon},
+                ('El nombre del titulo  %(value)s  debe ser mas largo.'),
+                params={'value': title},
             )
-    
+        return title

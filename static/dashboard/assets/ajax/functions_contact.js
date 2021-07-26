@@ -1,55 +1,26 @@
 $(function() {
-    
-    let formContact = document.querySelector('#fntContactCreate');
-    let formContactDelete = document.querySelector('#fntContactDelete');
-    // Bootstrap 4 Validation
-    $(".needs-validation").submit(function() {
-        var form = $(this);
-        if (form[0].checkValidity() === false) {
-        event.preventDefault();
-        event.stopPropagation();
-        }
-        form.addClass('was-validated');
+
+    const fieldsToValidate = ['icon','title','description']
+
+    let validatorServerSide = $('form.needs-validation').jbvalidator({
+        errorMessage: true,
+        successClass: true,
     });
 
-    if (formContact != null) {
-        let url = $(formContact).attr("action");
-        $(formContact).on('submit', function (e) {
-            e.preventDefault();
-            let form_data = $(this).serializeArray();
-            $.ajax({
-                url: url,
-                type: 'POST',
-                data: form_data,
-                dataType: 'json'
-            }).done(function (data) {
-                $('#popup').modal('hide');
-                mensaje('success','Exitoso',data['message']);
-            }).fail(function (error) {
-                mensaje_json('error','Campos no validos',error.responseJSON['message']);
-            })
-        })
+    validatorServerSide.validator.custom = function(el, event){
+        if($(el).is('[name=icon]')){
+            let value = $(el).val()
+
+            if (value < 5){
+                return 'El nombre de icono '+value+' debe ser mas largo';
+            }
+            
+        }
     }
 
-    if (formContactDelete != null) {
-        let url = $(formContactDelete).attr("action");
-        $(formContactDelete).on('submit', function (e) {
-            e.preventDefault();
-            let form_data = $(this).serializeArray();
-            $.ajax({
-                url: url,
-                type: 'POST',
-                data: form_data,
-                dataType: 'json'
-            }).done(function (data) {
-                $('#popup').modal('hide');
-                mensaje('success','Exitoso',data['message']);
-            }).fail(function (error) {
-                $('#popup').modal('hide');
-                mensaje('error','Hubo problemas al eliminar',error);
-            })
-        })
-    }
+    sendingDataServerSide('#fntContactCreate',validatorServerSide,fieldsToValidate)
+
+    sendingDataServerSide('#fntContactUpdate',validatorServerSide,fieldsToValidate)
 
 });
 

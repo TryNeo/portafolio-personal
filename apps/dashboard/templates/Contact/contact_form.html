@@ -3,9 +3,9 @@
 <div class="modal-dialog" role="document">
     <div class="modal-content">
         {% if obj %}
-            <form id="fntContactCreate" method="post" role="form" action="{% url 'dash:contact_update' obj.pk%}">
+            <form class="needs-validation" id="fntContactUpdate" method="post" role="form" action="{% url 'dash:contact_update' obj.pk%}" novalidate="">
         {% else %}
-            <form id="fntContactCreate" method="post" role="form" action="{% url 'dash:contact_create'%}">
+            <form class="needs-validation" id="fntContactCreate" method="post" role="form" action="{% url 'dash:contact_create'%}" novalidate="">
         {% endif %}
             {% csrf_token %}
             <div class="modal-header">
@@ -24,7 +24,14 @@
                                 <i class="fas fa-question" aria-hidden="true"></i>
                             </span>
                         </div>
+                        {%if obj %}
+                        {{form.icon|attr:'placeholder:icono'|attr:'class:form-control is-valid'}}
+                        {%else %}
                         {{form.icon|attr:'placeholder:icono'}}
+                        {% endif %}
+                        <div class="invalid-feedback">
+                            no puedes dejar el campo vacio
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
@@ -34,13 +41,29 @@
                                 <i class="fas fa-address-book" aria-hidden="true"></i>
                             </span>
                         </div>
-                        {{form.title|attr:'placeholder:titulo'}}
+                        {%if obj %}
+                            {{form.title|attr:'placeholder:titulo'|attr:'class:form-control is-valid'}}
+                        {%else %}
+                            {{form.title|attr:'placeholder:titulo'}}
+                        {% endif %}
+                        <div class="invalid-feedback">
+                            no puedes dejar el campo vacio
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    {{form.description|attr:'placeholder:descripcion'|attr:'rows:2'|attr:'style:margin-top: 0px; margin-bottom: 0px; height: 100px;'}}
+                    {%if obj %}
+                        {{form.description|attr:'rows:2'|attr:'style:margin-top: 0px; margin-bottom: 0px; height: 100px;'|attr:'class:form-control is-valid'}}
+                    {%else %}
+                        {{form.description|attr:'rows:2'|attr:'style:margin-top: 0px; margin-bottom: 0px; height: 100px;'}}
+                    {% endif %}
+                    <div class="invalid-feedback">
+                        no puedes dejar el campo vacio
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">{% if obj %}Guardar <i class="fa fa-save"></i>{% else%} Crear <i class="fa fa-plus"></i>{% endif%}</button>
+                <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4 is-valid">
+                    {% if obj %}Guardar <i class="fa fa-save"></i>
+                    {% else%} Crear <i class="fa fa-plus"></i>{% endif%}</button>
             </div>
             <div class="modal-footer">
             </div>

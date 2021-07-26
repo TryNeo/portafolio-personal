@@ -116,13 +116,13 @@ class ContactDeleteView(DeleteView):
     template_name = 'Contact/contact_delete.html'
 
     def post(self,request,*args,**kwargs):
-        data = {}
         if request.is_ajax():
+            data = {}
             tarjet = self.get_object()
             tarjet.delete()
             data['status'] = 1
             data['message'] = 'Se ha eliminado exitosamente!'
             response = JsonResponse(data)
-            response.status_code = 204
+            response.status_code = 200
             return response
         return redirect('dash:contact')
