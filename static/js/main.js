@@ -94,5 +94,22 @@ function sendingDataServerSide(idForm,validatorServerSide,fieldsToValidate){
 
 
 function validString(value){
+    
+}
 
+
+function validateNumbers(value){
+    if (value.match(regex_numbers) === null){
+        return false;
+    }
+    return true;
+}
+
+function validateStringLength(value,MaxStringlength){
+    if (validString(value)){
+        if(value.length >= MaxStringlength){
+            return true;
+        }
+    }
+    return false;
 }
