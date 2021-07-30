@@ -4,7 +4,7 @@
  * @const {regex} regex_numbers - contiene una exprecion regular que acepta numeros solamente.
  * @const {regex} regex_username_password - contiene una exprecion regular que acepta letras y numeros y caracteres especiales.
  */
- const regex_string = '^[a-\.-zA-ZáéíóñÁÉÍÓÚÑ ]+$';
+ const regex_string = '^[a-zA-ZáéíóñÁÉÍÓÚÑ \-]+$';
  const regex_numbers = '^[0-9]+$';
  const regex_fechas = '^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$';
  const regex_username_password = '^[a-zA-Z0-9_-]{4,18}$';
@@ -94,5 +94,8 @@ function sendingDataServerSide(idForm,validatorServerSide,fieldsToValidate){
 
 
 function validString(value){
-
+    if (value.match(regex_string) === null){
+        return false;
+    }
+    return true
 }
