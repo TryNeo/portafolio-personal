@@ -1,3 +1,4 @@
+from apps.dashboard.validator.validators import Validators
 from django import forms
 from apps.dashboard.modelos.model_contact import Contact
 from django.core.exceptions import ValidationError
@@ -15,15 +16,30 @@ class ContactForm(forms.ModelForm):
             )
 
     class Meta:
-        model = Contact
+        model = Contact 
         fields = '__all__'
     
+    def clean_icon(self):
+        icon = self.cleaned_data['icon']
+        validator = Validators(icon)
+        if validator.validateStringLength('El nombre del icono debe ser mas largo.',6):
+            raise validator.validateStringLength('El nombre del icono debe ser mas largo.',6)
+
+        if validator.validateString('El nombre del icono contiene numeros'):
+            raise validator.validateString('El nombre del icono contiene numeros')
+
+        return icon
 
     def clean_title(self):
         title = self.cleaned_data['title']
-        if not len(title) > 0:
-            raise ValidationError(
-                ('El nombre del titulo  %(value)s  debe ser mas largo.'),
-                params={'value': title},
-            )
+        validator = Validators(title)
+        if validator.validateStringLength('El nombre del titulo debe ser mas largo.',5):
+            raise validator.validateStringLength('El nombre del titulo debe ser mas largo.',5)
+
+        if validator.validateString('El nombre del titulo contiene numeros'):
+            raise validator.validateString('El nombre del titulo contiene numeros')
+
         return title
+
+
+        

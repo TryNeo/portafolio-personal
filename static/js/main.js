@@ -93,9 +93,26 @@ function sendingDataServerSide(idForm,validatorServerSide,fieldsToValidate){
 }
 
 
+
+
 function validString(value){
     if (value.match(regex_string) === null){
         return false;
     }
-    return true
+    return true;
 }
+
+function validateNumbers(value){
+    if (value.match(regex_numbers) === null){
+        return false;
+    }
+    return true;
+}
+
+function validateStringLength(value,MaxStringlength){
+    if(value.length >= MaxStringlength){
+        return true;
+    }
+    return false;
+}
+
