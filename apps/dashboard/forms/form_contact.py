@@ -32,14 +32,17 @@ class ContactForm(forms.ModelForm):
 
     def clean_title(self):
         title = self.cleaned_data['title']
+        filter = Contact.objects.get(title=title)
         validator = Validators(title)
+
+        print(self.instance)
         if validator.validateStringLength('El nombre del titulo debe ser mas largo.',5):
             raise validator.validateStringLength('El nombre del titulo debe ser mas largo.',5)
 
         if validator.validateString('El nombre del titulo contiene numeros'):
             raise validator.validateString('El nombre del titulo contiene numeros')
 
+        if validator.validateExists('Ya se encuentra registrado',self.instance,Contact,filter):
+            raise validator.validateExists('Ya se encuentra registrado',self.instance,Contact,filter)
+
         return title
-
-
-        

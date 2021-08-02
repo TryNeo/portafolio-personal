@@ -40,10 +40,6 @@ $(function() {
             if (!validateStringLength(value,5)){
                 return 'La descripcion '+value+' debe ser mas largo';
             }
-            
-            if(!validString(value)){
-                return 'La descripcion '+value+' contiene o numeros';
-            }
         }
     }
 
