@@ -12,10 +12,11 @@
             </button>
             <hr>
             <div class="row" id="insert-card">
+                {% if contact_info %}
                 {% for info in contact_info %}
                 <div class="col-sm-12">
                     <div class="grid-col">
-                        <div class="card card-bordered">
+                        <div class="card shadow p-3 mb-5 bg-white rounded">
                             <div class="card-body">
                                 <div class="col-md-12">
                                     <button  type="button"  onclick="abrir_modal('#popup','{% url 'dash:contact_delete' info.id_contact %}');"  class="close btnDelete">
@@ -32,6 +33,11 @@
                     </div>
                 </div>
                 {% endfor%}
+                {% else %}
+                <div class="col-sm-12">
+                    <p class="text-center">No existen datos, ingresalos o verifica que todo este correctamente</p>
+                </div>
+                {% endif%}
 
                 {% if is_paginated %}
                 <div class="mx-auto">

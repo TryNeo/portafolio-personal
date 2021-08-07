@@ -1,7 +1,7 @@
 from apps.dashboard.validator.validators import Validators
 from django import forms
 from apps.dashboard.modelos.model_contact import Contact
-from django.core.exceptions import ValidationError
+from django.core.exceptions import MultipleObjectsReturned, ValidationError
 
 
 
@@ -32,17 +32,25 @@ class ContactForm(forms.ModelForm):
 
     def clean_title(self):
         title = self.cleaned_data['title']
-        filter = Contact.objects.get(title=title)
-        validator = Validators(title)
+        try:
+            validator = Validators(title)
+            filter = Contact.objects.get(title =title)
+            if validator.validateExists('Existe',self.instance,filter):
+                raise validator.validateExists('El nombre '+title+' ya se encuentra registrado',self.instance,filter)
+            if validator.validateStringLength('El nombre del titulo debe ser mas largo.',5):
+                raise validator.validateStringLength('El nombre del titulo debe ser mas largo.',5)
 
-        print(self.instance)
-        if validator.validateStringLength('El nombre del titulo debe ser mas largo.',5):
-            raise validator.validateStringLength('El nombre del titulo debe ser mas largo.',5)
-
-        if validator.validateString('El nombre del titulo contiene numeros'):
-            raise validator.validateString('El nombre del titulo contiene numeros')
-
-        if validator.validateExists('Ya se encuentra registrado',self.instance,Contact,filter):
-            raise validator.validateExists('Ya se encuentra registrado',self.instance,Contact,filter)
-
+            if validator.validateString('El nombre del titulo contiene numeros'):
+                raise validator.validateString('El nombre del titulo contiene numeros')
+        except Contact.DoesNotExist:
+            pass
+        except Contact.MultipleObjectsReturned:
+            pass
         return title
+
+    def clean_description(self):
+        description = self.cleaned_data['description']
+        validator = Validators(description)
+        if validator.validateStringLength('La descripcion debe ser mas larga',5):
+            raise validator.validateStringLength('La descripcion debe ser mas larga',5)
+        return description

@@ -3,10 +3,11 @@
 <div class="modal-dialog" role="document">
     <div class="modal-content">
             {% if obj %}
-            <form id="fntSocialMediaCreate" method="post" role="form" action="{% url 'dash:social_media_edit' obj.pk %}">
-                
+            <form class="needs-validation" id="fntSocialMediaUpdate" 
+                method="post" role="form" action="{% url 'dash:social_media_edit' obj.pk %}" novalidate="">
             {% else %}
-            <form id="fntSocialMediaCreate" method="post" role="form" action="{% url 'dash:social_media_create'%}">
+            <form class="needs-validation" id="fntSocialMediaCreate" 
+                method="post" role="form" action="{% url 'dash:social_media_create'%}" novalidate="">
             {% endif %}
                 {% csrf_token %}
             <div class="modal-header">
@@ -23,29 +24,62 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <div class="form-validate" id="name">
+                    <div class="input-group">
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-text-height" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                        {%if obj %}
+                        {{form.name|attr:'placeholder:nombre'|attr:'class:form-control is-valid'}}
+                        {%else %}
                         {{form.name|attr:'placeholder:nombre'}}
-                        <i class="fa fa-check-circle"></i>
-                        <i class="fa fa-exclamation-circle"></i>
+                        {% endif %}
+                        <div class="invalid-feedback">
+                            no puedes dejar el campo vacio
+                        </div>
                     </div>
                 </div>
+
                 <div class="form-group">
-                    <div class="form-validate" id="name">
+                    <div class="input-group">
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fas fa-question" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                        {%if obj %}
+                        {{form.icon|attr:'placeholder:icono'|attr:'class:form-control is-valid'}}
+                        {%else %}
                         {{form.icon|attr:'placeholder:icono'}}
-                        <i class="fa fa-check-circle"></i>
-                        <i class="fa fa-exclamation-circle"></i>
+                        {% endif %}
+                        <div class="invalid-feedback">
+                            no puedes dejar el campo vacio
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="form-validate" id="social_url">
+                    <div class="input-group">
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-link" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                        {%if obj %}
+                        {{form.social_url|attr:'placeholder:url'|attr:'class:form-control is-valid'}}
+                        {%else %}
                         {{form.social_url|attr:'placeholder:url'}}
-                        <i class="fa fa-check-circle"></i>
-                        <i class="fa fa-exclamation-circle"></i>
+                        {% endif %}
+                        <div class="invalid-feedback">
+                            no puedes dejar el campo vacio
+                        </div>
                     </div>
                 </div>
+                <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">
+                    {% if obj %}Guardar <i class="fa fa-save"></i>
+                    {% else%} Crear <i class="fa fa-plus"></i>{% endif%}</button>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">{% if obj %}Guardar <i class="fa fa-save"></i>{% else%} Crear <i class="fa fa-plus"></i>{% endif%}</button>
             </div>
         </form>
     </div>

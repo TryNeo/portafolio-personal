@@ -1,14 +1,21 @@
-
 /**
  * @const {regex} regex_string  - contiene una exprecion regular que acepta letras y espacios.
+ */
+const regex_string = '^[a-zA-ZáéíóñÁÉÍÓÚÑ \-]+$';
+
+/**
  * @const {regex} regex_numbers - contiene una exprecion regular que acepta numeros solamente.
+ */
+const regex_numbers = '^[0-9]+$';
+
+/**
  * @const {regex} regex_username_password - contiene una exprecion regular que acepta letras y numeros y caracteres especiales.
  */
- const regex_string = '^[a-zA-ZáéíóñÁÉÍÓÚÑ \-]+$';
- const regex_numbers = '^[0-9]+$';
- const regex_fechas = '^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$';
- const regex_username_password = '^[a-zA-Z0-9_-]{4,18}$';
- const regex_email = '^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$';
+const regex_username_password = '^[a-zA-Z0-9_-]{4,18}$';
+
+const regex_fechas = '^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$';
+const regex_email = '^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$';
+const regex_url = '/(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi';
 
 
 
@@ -65,11 +72,12 @@ function abrir_modal(tagName,urlBase){
 
 
 /**
- * @param {Selector} idForm - 
- * @param {function} validatorServerSide -
- * @param {list} fieldsToValidate - 
+ * Funcion registrar datos al servidor - permirte el registro de datos enviado los datos al servidor
+ * @param {Selector} idForm - recibe un selector de clase o id , que venga de una formulario
+ * @param {function} validatorServerSide - recibe una funcion que valida que todo los campos del formulario esten correctos
+ * @param {list} fieldsToValidate - recibe una lista con los campos que seran validos
  */
-function sendingDataServerSide(idForm,validatorServerSide,fieldsToValidate){
+function sendingDataServerSide(idForm,validatorServerSide,fieldsToValidate,table,nametable){
     let url = $(idForm).attr("action");
     $(document).on('submit',idForm,function (e) {
         e.preventDefault();
@@ -82,6 +90,9 @@ function sendingDataServerSide(idForm,validatorServerSide,fieldsToValidate){
         }).done(function (data) {
             $('#popup').modal('hide');
             mensaje('success','Exitoso',data['message']);
+            if(table){
+                nametable.ajax.reload();
+            }
         }).fail(function (error) {
             fieldsToValidate.forEach((value,index) => {
                 if (error.responseJSON['message'].hasOwnProperty(fieldsToValidate[index])){
@@ -92,6 +103,29 @@ function sendingDataServerSide(idForm,validatorServerSide,fieldsToValidate){
     })
 }
 
+
+/**
+ * @param {Selector} idForm - 
+ */
+function deleteDataofServerSide(idForm){
+    let url = $(idForm).attr("action");
+    $(idForm).on('submit', function (e) {
+        e.preventDefault();
+        let form_data = $(this).serializeArray();
+        $.ajax({
+            url: url,
+            type: 'post',
+            data: form_data,
+            dataType: 'json'
+        }).done(function (data) {
+            $('#popup').modal('hide');
+            mensaje('success','Exitoso',data['message']);
+        }).fail(function (error) {
+            $('#popup').modal('hide');
+            mensaje('error','Hubo problemas al eliminar',error);
+        })
+    })
+}
 
 
 
@@ -116,3 +150,10 @@ function validateStringLength(value,MaxStringlength){
     return false;
 }
 
+
+function validateUrl(value){
+    if(value.match(regex_url) === null){
+        return false;
+    }
+    return true;
+}

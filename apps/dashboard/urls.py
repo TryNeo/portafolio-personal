@@ -12,7 +12,7 @@ urlpatterns = [
     path('contact/delete/<int:pk>', ContactDeleteView.as_view(), name='contact_delete'),
     
     #Urls Social Media
-    path('social/', SocialMediaView.as_view(), name='social_media'),
+    path('social-media/', SocialMediaView.as_view(), name='social_media'),
     path('social/add', SocialMediaCreateView.as_view(), name='social_media_create'),
     path('social/edit/<int:pk>', SocialMediaUpdateView.as_view(), name='social_media_edit'),
     path('social/delete/<int:pk>', SocialMediaDeleteView.as_view(), name='social_media_delete'),

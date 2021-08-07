@@ -1,8 +1,9 @@
-let table_social_media;
 $(function() {
-    table_social_media = $('.tableSocialMedia').DataTable({
+
+    let table_social_media = $('.tableSocialMedia').DataTable({
         "aProcessing":true,
         "aServerSide":true,
+        "paginate":false,
         "language": {
             "sProcessing": "Procesando...",
             "sLengthMenu": "Mostrar _MENU_ registros",
@@ -53,8 +54,10 @@ $(function() {
                 orderable:false,
                 render:function(data,type,row){
                     let url_edit = url_social+"edit/"+row.id_social_media
-                    let base_opcion = '<ul class="d-flex justify-content-center">'+
-                    '<li class="mr-3"><button type="button" onclick=abrir_modal("#popup","'+url_edit+'"); class="close text-secondary"><i class="fa fa-edit"></i></button></li></ul>';
+                    let base_opcion = '<div class="d-flex justify-content-center">'+
+                    '<a href="#" class="text-primary"><i class="fa fa-edit"></i></a>'+
+                    '<a href="#" class="text-danger"><i class="fa fa-trash"></i></a></div>';
+                    // let base_opcion = '<button type="button" onclick=abrir_modal("#popup","'+url_edit+'"); class="close text-secondary"><i class="fa fa-edit"></i></button>'
                     return base_opcion;
                 }
 
@@ -63,26 +66,54 @@ $(function() {
         "order":[[0,"desc"]]
     });
 
-    let formSocialMedia = document.querySelector('#fntSocialMediaCreate');
 
-    if (formSocialMedia != null) {
-        let url = $(formSocialMedia).attr("action");
-        $(formSocialMedia).on('submit', function (e) {
-            e.preventDefault();
-            let form_data = $(this).serializeArray();
-            $.ajax({
-                url: url,
-                type: 'POST',
-                data: form_data,
-                dataType: 'json'
-            }).done(function (data) {
-                $('#popup').modal('hide');
-                mensaje('success','Exitoso',data['message']);
-                table_social_media.ajax.reload();
-            }).fail(function (error) {
-                mensaje_json('error','Campos no validos',error.responseJSON['message']);
-            })
-        })
+    const fieldsToValidate = ['name','icon','social_url']
+
+    let validatorServerSide = $('form.needs-validation').jbvalidator({
+        errorMessage: true,
+        successClass: true,
+    });
+
+
+    validatorServerSide.validator.custom = function(el, event){
+   
+        if($(el).is('[name=name]')){
+            let value= $(el).val()
+
+            if (!validateStringLength(value,5)){
+                return 'El nombre del titulo '+value+' debe ser mas largo';
+            }
+            
+            if(!validString(value)){
+                return 'El nombre del titulo '+value+' contiene caracteres especiales o numeros';
+            }
+        }
+
+
+        if($(el).is('[name=icon]')){
+            let value= $(el).val()
+
+            if (!validateStringLength(value,5)){
+                return 'El nombre del icono '+value+' debe ser mas largo';
+            }
+            
+            if(!validString(value)){
+                return 'El nombre del icono '+value+' contiene caracteres especiales o numeros';
+            }
+        }
+        
+        
+        if($(el).is('[name=social_url]')){
+            let value= $(el).val()
+
+            if (!validateStringLength(value,5)){
+                return 'El URL '+value+' debe ser mas largo';
+            }
+
+        }
+
     }
+   
+    sendingDataServerSide('#fntSocialMediaCreate',validatorServerSide,fieldsToValidate,true,table_social_media)
 
 });

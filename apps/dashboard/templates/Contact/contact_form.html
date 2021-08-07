@@ -3,7 +3,8 @@
 <div class="modal-dialog" role="document">
     <div class="modal-content">
         {% if obj %}
-            <form class="needs-validation" id="fntContactUpdate" method="post" role="form" action="{% url 'dash:contact_update' obj.pk%}" novalidate="">
+            <form class="needs-validation" id="fntContactUpdate"
+             method="post" role="form" action="{% url 'dash:contact_update' obj.pk%}" novalidate="">
         {% else %}
             <form class="needs-validation" id="fntContactCreate" method="post" role="form" action="{% url 'dash:contact_create'%}" novalidate="">
         {% endif %}

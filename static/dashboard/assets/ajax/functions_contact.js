@@ -43,8 +43,9 @@ $(function() {
         }
     }
 
-    sendingDataServerSide('#fntContactCreate',validatorServerSide,fieldsToValidate)
-    sendingDataServerSide('#fntContactUpdate',validatorServerSide,fieldsToValidate)
+    sendingDataServerSide('#fntContactCreate',validatorServerSide,fieldsToValidate);
+    sendingDataServerSide('#fntContactUpdate',validatorServerSide,fieldsToValidate);
+    deleteDataofServerSide('#fntContactDelete');
 });
 
 function loadingCardsContact() {
