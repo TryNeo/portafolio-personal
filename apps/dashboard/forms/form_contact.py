@@ -1,5 +1,5 @@
-from apps.dashboard.validator.validators import Validators
 from django import forms
+from validator.validators import Validators
 from apps.dashboard.modelos.model_contact import Contact
 from django.core.exceptions import MultipleObjectsReturned, ValidationError
 
@@ -35,7 +35,7 @@ class ContactForm(forms.ModelForm):
         try:
             validator = Validators(title)
             filter = Contact.objects.get(title =title)
-            if validator.validateExists('Existe',self.instance,filter):
+            if validator.validateExists('El nombre '+name+' ya se encuentra registrado',self.instance,filter):
                 raise validator.validateExists('El nombre '+title+' ya se encuentra registrado',self.instance,filter)
             if validator.validateStringLength('El nombre del titulo debe ser mas largo.',5):
                 raise validator.validateStringLength('El nombre del titulo debe ser mas largo.',5)
