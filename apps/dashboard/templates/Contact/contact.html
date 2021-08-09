@@ -3,69 +3,71 @@
 {% block title_page %}Dashboard &mdash; Contactos {% endblock %}
 {% block title %}Tarjetas | Contacto{% endblock %}
 {% block content %}
-<div class="col-12 mt-5">
-    <div class="card">
-        <div class="card-body">
-            <button type="button" onclick="abrir_modal('#popup','{% url 'dash:contact_create' %}');"
-                    class="btn btn-primary mb-3 btn-lg mb-3"
-            >Agregar <i class="fa fa-plus"></i>
-            </button>
-            <hr>
-            <div class="row" id="insert-card">
-                {% if contact_info %}
-                {% for info in contact_info %}
-                <div class="col-sm-12">
-                    <div class="grid-col">
-                        <div class="card shadow p-3 mb-5 bg-white rounded">
-                            <div class="card-body">
-                                <div class="col-md-12">
-                                    <button  type="button"  onclick="abrir_modal('#popup','{% url 'dash:contact_delete' info.id_contact %}');"  class="close btnDelete">
-                                        <i class="fa fa-trash"></i></button>
-                                    <button type="button" onclick="abrir_modal('#popup','{% url 'dash:contact_update' info.id_contact %}');" class="close btnEdit"><i
-                                            class="fa fa-edit"></i></button>
-                                    <div class="row">
-                                        <h3><i class="{{info.icon}}"></i> {{ info.title }}</h3>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <button type="button" onclick="abrir_modal('#popup','{% url 'dash:contact_create' %}');"
+                        class="btn btn-primary mb-3 btn-lg mb-3"
+                >Agregar <i class="fa fa-plus"></i>
+                </button>
+                <hr>
+                <div class="row" id="insert-card">
+                    {% if contact_info %}
+                    {% for info in contact_info %}
+                    <div class="col-sm-12">
+                        <div class="grid-col">
+                            <div class="card shadow p-3 mb-5 bg-white rounded">
+                                <div class="card-body">
+                                    <div class="col-md-12">
+                                        <button  type="button"  onclick="abrir_modal('#popup','{% url 'dash:contact_delete' info.id_contact %}');"  class="close btnDelete">
+                                            <i class="fa fa-trash"></i></button>
+                                        <button type="button" onclick="abrir_modal('#popup','{% url 'dash:contact_update' info.id_contact %}');" class="close btnEdit"><i
+                                                class="fa fa-edit"></i></button>
+                                        <div class="row">
+                                            <h3><i class="{{info.icon}}"></i> {{ info.title }}</h3>
+                                        </div>
+                                        <p>{{info.description}}</p>
                                     </div>
-                                    <p>{{info.description}}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    {% endfor%}
+                    {% else %}
+                    <div class="col-sm-12">
+                        <p class="text-center">No existen datos, ingresalos o verifica que todo este correctamente</p>
+                    </div>
+                    {% endif%}
+    
+                    {% if is_paginated %}
+                    <div class="mx-auto">
+                        <ul class="pagination pg-color-border">
+                            {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+                            </li>
+                            {% endif %}
+    
+                            {% for i in paginator.page_range %}
+                            {% if page_obj.number == i %}
+                            <li class="page-item active"><span class="page-link">{{ i }}<span
+                                    class="sr-only">(current)</span></span></li>
+                            {% else %}
+                            <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                            {% endif %}
+                            {% endfor %}
+                            {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    {% endif %}
                 </div>
-                {% endfor%}
-                {% else %}
-                <div class="col-sm-12">
-                    <p class="text-center">No existen datos, ingresalos o verifica que todo este correctamente</p>
-                </div>
-                {% endif%}
-
-                {% if is_paginated %}
-                <div class="mx-auto">
-                    <ul class="pagination pg-color-border">
-                        {% if page_obj.has_previous %}
-                        <li class="page-item">
-                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
-                        </li>
-                        {% endif %}
-
-                        {% for i in paginator.page_range %}
-                        {% if page_obj.number == i %}
-                        <li class="page-item active"><span class="page-link">{{ i }}<span
-                                class="sr-only">(current)</span></span></li>
-                        {% else %}
-                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-                        {% endif %}
-                        {% endfor %}
-                        {% if page_obj.has_next %}
-                        <li class="page-item">
-                            <a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a>
-                        </li>
-                        {% endif %}
-                    </ul>
-                </div>
-                {% endif %}
+    
             </div>
-
         </div>
     </div>
 </div>

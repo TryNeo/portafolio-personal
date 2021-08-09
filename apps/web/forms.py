@@ -1,6 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
-import re
+from validator.validators import Validators
 
 
 class ContactForm(forms.Form):
@@ -45,32 +45,21 @@ class ContactForm(forms.Form):
 
     def clean_name(self):
         name = self.cleaned_data['name']
-        regex_name = "^([a-zA-Z]{2,}\s[a-zA-Z]{1,}'?-?[a-zA-Z]{2,}\s?([a-zA-Z]{1,})?)"
-        if re.search(regex_name, name):
-            return name
-        else:
-            raise ValidationError(
-                ('El nombre y apellido %(value)s no son validos.'),
-                params={'value': name},
-            )
+        validator = Validators(name)
+        if validator.validateName('El nombre y apellido no son validos'):
+            raise validator.validateName('El nombre y apellido no son validos')
+        return name
 
     def clean_email(self):
         email = self.cleaned_data['email']
-        regex_email = '^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$'
-        if re.search(regex_email, email):
-            return email
-        else:
-            raise ValidationError(
-                ('El email %(value)s no es valido.'),
-                params={'value': email},
-            )
+        validator = Validators(email)
+        if validator.validateEmail('El Email no es valido'):
+            raise validator.validateEmail('El Email no es valido')
+        return email
 
     def clean_subject(self):
         subject = self.cleaned_data['subject']
-        if len(subject) >= 10:
-            return subject
-        else:
-            raise ValidationError(
-                ('El asunto %(value)s debe ser mas largo.'),
-                params={'value': subject},
-            )
+        validator = Validators(subject)
+        if validator.validateStringLength(f'El asunto {subject} debe ser mas largo',10):
+            raise validator.validateStringLength(f'El asunto {subject} debe ser mas largo',10)
+        return subject

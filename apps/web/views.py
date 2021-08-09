@@ -20,6 +20,10 @@ class HomeView(TemplateView):
         context['social_media'] = SocialMedia.objects.all()
         return context
 
+class ServicesView(TemplateView):
+    template_name = 'services/services.html'
+
+
 def send_email(name, email, subject, message):
     template_email = render_to_string('contact/template_email.html',
                                       {
@@ -32,7 +36,7 @@ def send_email(name, email, subject, message):
         subject,
         template_email,
         settings.EMAIL_HOST_USER,
-        ['jjhuacon@est.itsgg.edu.ec']
+        ['ts.josu3@gmail.com']
     )
     send_email.fail_silently = False
     send_email.send()
@@ -73,3 +77,5 @@ class ContactView(FormView):
         except Exception as e:
             data['error'] = str(e)
         return JsonResponse(data)
+
+

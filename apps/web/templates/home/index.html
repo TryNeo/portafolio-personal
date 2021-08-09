@@ -4,7 +4,7 @@
 {% block socials %}
 <div class="social-links">
     {% for social in social_media %}
-        <a href="{{ social.social_url }}" class="{{social.name}}"><i class="{{social.icon}}"></i></a>    
+        <a href="{{ social.social_url }}" class="{{social.name}}"  target="_blank" ><i class="{{social.icon}}"></i></a>    
     {% endfor %}
         
     {% comment %}
@@ -21,7 +21,7 @@
 <script text="text/javascript">
     new TypeIt("#element", {
         strings: 'Programacion',
-        speed: 40,
+        speed: 120,
         startDelay: 350,
         loopDelay: 1000,
         loop: true,

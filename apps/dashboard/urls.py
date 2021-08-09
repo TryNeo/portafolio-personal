@@ -1,7 +1,7 @@
 from django.urls import path
 from .views.dashboard.views import DashboardView
 from .views.contact.views import ContactView,ContactCreateView,ContactUpdateView,ContactDeleteView
-from .views.social_media.views import SocialMediaView,SocialMediaCreateView,SocialMediaUpdateView,SocialMediaDeleteView
+from .views.social_media.views import SocialMediaView,SocialMediaListView,SocialMediaCreateView,SocialMediaUpdateView,SocialMediaDeleteView
 
 urlpatterns = [
     path('', DashboardView.as_view(), name='index'),
@@ -12,9 +12,10 @@ urlpatterns = [
     path('contact/delete/<int:pk>', ContactDeleteView.as_view(), name='contact_delete'),
     
     #Urls Social Media
-    path('social-media/', SocialMediaView.as_view(), name='social_media'),
-    path('social/add', SocialMediaCreateView.as_view(), name='social_media_create'),
-    path('social/edit/<int:pk>', SocialMediaUpdateView.as_view(), name='social_media_edit'),
-    path('social/delete/<int:pk>', SocialMediaDeleteView.as_view(), name='social_media_delete'),
+    path('social-media/',SocialMediaView.as_view(),name='social_media'),
+    path('social-media/json', SocialMediaListView.as_view(), name='social_media_json'),
+    path('social-media/add', SocialMediaCreateView.as_view(), name='social_media_create'),
+    path('social-media/edit/<int:pk>', SocialMediaUpdateView.as_view(), name='social_media_edit'),
+    path('social-media/delete/<int:pk>', SocialMediaDeleteView.as_view(), name='social_media_delete'),
 
 ]

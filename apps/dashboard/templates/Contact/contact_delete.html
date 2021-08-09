@@ -1,6 +1,6 @@
 {% load widget_tweaks %}
 {%  load static %}
-<div class="modal-dialog" role="document">
+<div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
         <form id="fntContactDelete" method="POST" role="form"  action="{% url 'dash:contact_delete' obj.pk %}">
             {% csrf_token %}

@@ -1,26 +1,25 @@
 from django.http import JsonResponse
+from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
-from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView,DeleteView
+from django.views.generic import ListView, CreateView, UpdateView,DeleteView,TemplateView
 from apps.dashboard.modelos.model_social_media import *
 from apps.dashboard.forms.form_social_media import *
 
 
 
-class SocialMediaView(ListView):
+class SocialMediaView(TemplateView):
     template_name = 'Social_media/social_media.html'
+
+class SocialMediaListView(ListView):
+    template_name = 'Social_media/social_media_json.html'
     model = SocialMedia
     context_object_name = 'social_media_info'
 
-    def get(self, request, *args, **kwargs):
-        if request.is_ajax():
-            data = [i.toJSON() for i in SocialMedia.objects.all()]
-            response = JsonResponse(data,safe=False)
-            response.status_code = 200
-            return response
-        else:
-            return super(SocialMediaView, self).get(request, *args, **kwargs)
-
+    def render_to_response(self, context):
+        data = [i.toJSON() for i in self.model.objects.all()]
+        response = JsonResponse(data,safe=False)
+        response.status_code = 200
+        return HttpResponse(response, content_type='application/json')
 
 class SocialMediaCreateView(CreateView):
     model = SocialMedia
@@ -73,7 +72,6 @@ class SocialMediaUpdateView(UpdateView):
                 return response
         else:
             return redirect('dash:social_media')
-
 
 class SocialMediaDeleteView(DeleteView):
     model = SocialMedia
