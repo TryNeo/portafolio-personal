@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 let form_data = $(this).serializeArray();
                 document.getElementById('mb-3').innerHTML = "<div class='loading' id='loading'>Cargando..</div>";
                 $.ajax({
-                    url: 'http://127.0.0.1:8000/contact/',
+                    url: 'http://186.68.169.149:8000/contact/',
                     type: 'POST',
                     data: form_data,
                     dataType: 'json'
