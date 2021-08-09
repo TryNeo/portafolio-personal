@@ -1,0 +1,80 @@
+{% load widget_tweaks %}
+{%  load static %}
+<div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+            {% if obj %}
+            <form class="needs-validation" id="fntServiceUpdate" 
+                method="post" role="form" action="{% url 'dash:service_edit' obj.pk %}" novalidate="">
+            {% else %}
+            <form class="needs-validation" id="fntServiceCreate" 
+                method="post" role="form" action="{% url 'dash:service_create'%}" novalidate="">
+            {% endif %}
+                {% csrf_token %}
+            <div class="modal-header">
+                <h5 class="modal-title">
+                     <span>
+                        {% if obj %}
+                        Editar | Mi Servicio <i class="fa fa-edit"></i>
+                        {% else %}
+                        Crear | Mi Servicio <i class="fa fa-plus"></i>
+                        {% endif %}</span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-question" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                        {%if obj %}
+                        {{form.icon|attr:'placeholder:icono'|attr:'class:form-control is-valid'}}
+                        {%else %}
+                        {{form.icon|attr:'placeholder:icono'}}
+                        {% endif %}
+                        <div class="invalid-feedback">
+                            no puedes dejar el campo vacio
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fas fa-text-height" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                        {%if obj %}
+                        {{form.title|attr:'placeholder:titulo'|attr:'class:form-control is-valid'}}
+                        {%else %}
+                        {{form.title|attr:'placeholder:titulo'}}
+                        {% endif %}
+                        <div class="invalid-feedback">
+                            no puedes dejar el campo vacio
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    {%if obj %}
+                    {{form.description|attr:'rows:2'|attr:'style:margin-top: 0px; margin-bottom: 0px; height: 100px;'|attr:'class:form-control is-valid'}}
+                    {%else %}
+                        {{form.description|attr:'rows:2'|attr:'style:margin-top: 0px; margin-bottom: 0px; height: 100px;'}}
+                    {% endif %}
+                    <div class="invalid-feedback">
+                        no puedes dejar el campo vacio
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">
+                    {% if obj %}Guardar <i class="fa fa-save"></i>
+                    {% else%} Crear <i class="fa fa-plus"></i>{% endif%}</button>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </form>
+    </div>
+</div>
+<script src="{% static 'dashboard/assets/ajax/functions_service.js' %}"></script>
