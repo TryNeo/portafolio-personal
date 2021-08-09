@@ -1,8 +1,8 @@
 from django.urls import path
 from .views.dashboard.views import DashboardView
-from .views.contact.views import ContactView,ContactCreateView,ContactUpdateView,ContactDeleteView
-from .views.social_media.views import SocialMediaView,SocialMediaListView,SocialMediaCreateView,SocialMediaUpdateView,SocialMediaDeleteView
-
+from .views.contact.views import *
+from .views.social_media.views import *
+from .views.service.views import *
 urlpatterns = [
     path('', DashboardView.as_view(), name='index'),
     #Urls Contact
@@ -18,4 +18,10 @@ urlpatterns = [
     path('social-media/edit/<int:pk>', SocialMediaUpdateView.as_view(), name='social_media_edit'),
     path('social-media/delete/<int:pk>', SocialMediaDeleteView.as_view(), name='social_media_delete'),
 
+    #Urls Service
+    path('service/',ServiceView.as_view(), name='service'),
+    path('service/json',ServiceListView.as_view(), name='service_json'),
+    path('service/add', ServiceCreateView.as_view(), name='service_create'),
+    path('service/edit/<int:pk>', ServiceUpdateView.as_view(), name='service_edit'),
+    path('service/delete/<int:pk>', ServiceDeleteView.as_view(), name='service_delete'),
 ]

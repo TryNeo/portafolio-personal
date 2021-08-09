@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 from django.template.loader import render_to_string
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView,ListView
 from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
 from django.core.mail import EmailMessage
@@ -8,6 +8,7 @@ from .forms import ContactForm
 from django.conf import settings
 from apps.dashboard.modelos.model_contact import *
 from apps.dashboard.modelos.model_social_media import *
+from apps.dashboard.modelos.model_service import *
 
 import threading
 
@@ -20,9 +21,11 @@ class HomeView(TemplateView):
         context['social_media'] = SocialMedia.objects.all()
         return context
 
-class ServicesView(TemplateView):
+class ServicesView(ListView):
     template_name = 'services/services.html'
-
+    model = Service
+    context_object_name = 'services'
+    paginate_by = 5
 
 def send_email(name, email, subject, message):
     template_email = render_to_string('contact/template_email.html',

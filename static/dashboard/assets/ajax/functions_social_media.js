@@ -38,4 +38,6 @@ $(function(){
     }
     sendingDataServerSide('#fntSocialMediaCreate',validatorServerSide,fieldsToValidate,true,table_social_media);
     sendingDataServerSide('#fntSocialMediaUpdate',validatorServerSide,fieldsToValidate,true,table_social_media);
+    deleteDataofServerSide('#fntSocialMediaDelete',true,table_social_media);
+
 });

@@ -76,6 +76,10 @@
               <li class="{% if request.path == '/dashboard/social-media/' %}active{% endif %}">
                 <a class="nav-link" href="{% url 'dash:social_media' %}"><i class="fas fa-poll"></i><span>Redes Sociales</span></a>
               </li>
+              <li class="menu-header">Servicios</li>
+              <li class="{% if request.path == '/dashboard/service/' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'dash:service' %}"><i class="fab fa-accusoft"></i><span>Mis Servicios</span></a>
+              </li>
             </ul>
         </aside>
       </div>

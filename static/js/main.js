@@ -77,7 +77,7 @@ function abrir_modal(tagName,urlBase){
  * @param {function} validatorServerSide - recibe una funcion que valida que todo los campos del formulario esten correctos
  * @param {list} fieldsToValidate - recibe una lista con los campos que seran validos
  */
-function sendingDataServerSide(idForm,validatorServerSide,fieldsToValidate,table,nametable){
+function sendingDataServerSide(idForm,validatorServerSide,fieldsToValidate,table = false,nametable){
     let url = $(idForm).attr("action");
     $(document).on('submit',idForm,function (e) {
         e.preventDefault();
@@ -107,7 +107,7 @@ function sendingDataServerSide(idForm,validatorServerSide,fieldsToValidate,table
 /**
  * @param {Selector} idForm - 
  */
-function deleteDataofServerSide(idForm){
+function deleteDataofServerSide(idForm,table = false,nametable){
     let url = $(idForm).attr("action");
     $(idForm).on('submit', function (e) {
         e.preventDefault();
@@ -120,6 +120,9 @@ function deleteDataofServerSide(idForm){
         }).done(function (data) {
             $('#popup').modal('hide');
             mensaje('success','Exitoso',data['message']);
+            if(table){
+                nametable.ajax.reload();
+            }
         }).fail(function (error) {
             $('#popup').modal('hide');
             mensaje('error','Hubo problemas al eliminar',error);

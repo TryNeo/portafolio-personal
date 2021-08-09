@@ -101,9 +101,10 @@ var table_social_media = $('#tableSocialMedia').DataTable({
                 orderable:false,
                 render:function(data,type,row){
                     let url_edit = url_social+"edit/"+row.id_social_media
+                    let url_delete = url_social+"delete/"+row.id_social_media
                     let base_opcion = '<div class="d-flex justify-content-center">'+
                     '<button type="button" onclick=abrir_modal("#popup","'+url_edit+'"); class="close text-primary"><i class="fa fa-edit"></i></button>'+
-                    '<button type="button" class="close text-danger"><i class="fa fa-trash"></i></button>';
+                    '<button type="button" onclick=abrir_modal("#popup","'+url_delete+'"); class="close text-danger"><i class="fa fa-trash"></i></button>';
                     return base_opcion;
                 }
 

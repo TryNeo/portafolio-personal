@@ -9,58 +9,54 @@
             <h2>Servicios</h2>
             <p>Mi Servicios</p>
         </div>
-
+        {% if services %}
         <div class="row">
-            <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-                <div class="icon-box">
-                    <div class="icon"><i class="bx bxl-dribbble"></i></div>
-                    <h4><a href="">Lorem Ipsum</a></h4>
-                    <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
-                </div>
-            </div>
-
+            {% for service in services %}
             <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
                 <div class="icon-box">
-                    <div class="icon"><i class="bx bx-file"></i></div>
-                    <h4><a href="">Sed ut perspiciatis</a></h4>
-                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
+                    <div class="icon"><i class="{{service.icon}}"></i></div>
+                    <h4><a href="{% url 'web:contact' %}">{{service.title}}</a></h4>
+                    <p>{{service.description}}</p>
                 </div>
             </div>
-
-            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
-                <div class="icon-box">
-                    <div class="icon"><i class="bx bx-tachometer"></i></div>
-                    <h4><a href="">Magni Dolores</a></h4>
-                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
-                <div class="icon-box">
-                    <div class="icon"><i class="bx bx-world"></i></div>
-                    <h4><a href="">Nemo Enim</a></h4>
-                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
-                <div class="icon-box">
-                    <div class="icon"><i class="bx bx-slideshow"></i></div>
-                    <h4><a href="">Dele cardo</a></h4>
-                    <p>Quis consequatur saepe eligendi voluptatem consequatur dolor consequuntur</p>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
-                <div class="icon-box">
-                    <div class="icon"><i class="bx bx-arch"></i></div>
-                    <h4><a href="">Divera don</a></h4>
-                    <p>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
-                </div>
-            </div>
-
+            {% endfor %}
         </div>
 
+        {% else %}
+        <div class="mb-3" id="mb-3">
+            <div class="text-center">
+                <h3>No se han encontrado servicios disponibles</h3>
+            </div>
+        </div>
+        {% endif%}
+        <hr>
+        <div class="row">
+        {% if is_paginated %}
+            <div class="mx-auto">
+                <ul class="pagination pg-color-border">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+                    </li>
+                    {% endif %}
+
+                    {% for i in paginator.page_range %}
+                    {% if page_obj.number == i %}
+                    <li class="page-item active"><span class="page-link">{{ i }}<span
+                            class="sr-only">(current)</span></span></li>
+                    {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        {% endif %}
+        </div>
     </div>
 </section><!-- End Services Section -->
 {% endblock %}
