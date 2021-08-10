@@ -3,6 +3,8 @@ from .views.dashboard.views import DashboardView
 from .views.contact.views import *
 from .views.social_media.views import *
 from .views.service.views import *
+from .views.category.views import *
+
 urlpatterns = [
     path('', DashboardView.as_view(), name='index'),
     #Urls Contact
@@ -24,4 +26,12 @@ urlpatterns = [
     path('service/add', ServiceCreateView.as_view(), name='service_create'),
     path('service/edit/<int:pk>', ServiceUpdateView.as_view(), name='service_edit'),
     path('service/delete/<int:pk>', ServiceDeleteView.as_view(), name='service_delete'),
+
+    #Urls Category
+    path('category/',CategoryView.as_view(), name='category'),
+    path('category/json',CategoryListView.as_view(), name='category_json'),
+    path('category/add', CategoryCreateView.as_view(), name='category_create'),
+    path('category/edit/<int:pk>', CategoryUpdateView.as_view(), name='category_edit'),
+    path('category/delete/<int:pk>', CategoryDeleteView.as_view(), name='category_delete'),
+
 ]
