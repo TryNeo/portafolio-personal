@@ -16,6 +16,7 @@
                         <thead class="text-uppercase">
                             <tr>
                                 <th scope="col">ID</th>
+                                <th scope="col">FILTER</th>
                                 <th scope="col">NOMBRE</th>
                                 <th scope="col">OPCIONES</th>
                             </tr>
@@ -76,12 +77,13 @@ var table_category = $('#tableCategory').DataTable({
         },
         "columns":[
             {"data":"id_category"},
+            {"data":"filter"},
             {"data":"name"},
             {"data":"opciones"}
         ],
         "columnDefs":[
             {
-                targets:[2],
+                targets:[3],
                 orderable:false,
                 render:function(data,type,row){
                     let url_edit = url_category+"edit/"+row.id_category

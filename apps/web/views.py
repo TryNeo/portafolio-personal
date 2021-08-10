@@ -9,6 +9,7 @@ from django.conf import settings
 from apps.dashboard.modelos.model_contact import *
 from apps.dashboard.modelos.model_social_media import *
 from apps.dashboard.modelos.model_service import *
+from apps.dashboard.modelos.model_category import *
 
 import threading
 
@@ -26,6 +27,16 @@ class ServicesView(ListView):
     model = Service
     context_object_name = 'services'
     paginate_by = 5
+
+
+class PortfolioView(ListView):
+    model = Category
+    template_name = 'portfolio/portfolio.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category'] = Category.objects.all()
+        return context    
 
 def send_email(name, email, subject, message):
     template_email = render_to_string('contact/template_email.html',
