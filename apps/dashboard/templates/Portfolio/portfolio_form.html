@@ -1,0 +1,134 @@
+{% load widget_tweaks %}
+{%  load static %}
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        {% if obj %}
+            <form class="needs-validation" id="fntPortfolioUpdate"
+             method="post" role="form" action="{% url 'dash:portfolio_edit' obj.pk%}" novalidate="">
+        {% else %}
+            <form class="needs-validation" id="fntPortfolioCreate" method="post" role="form" action="{% url 'dash:portfolio_create'%}" novalidate="">
+        {% endif %}
+            {% csrf_token %}
+            <div class="modal-header">
+                <h5 class="modal-title"><span>
+                    {% if obj %}Editar | Proyecto <i class="fa fa-edit"></i>
+                    {% else %} Crear | Proyectos <i class="fa fa-plus"></i>{% endif%}</span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="fas fa-text-height" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            {%if obj %}
+                            {{form.title|attr:'placeholder:titulo'|attr:'class:form-control is-valid'}}
+                            {%else %}
+                            {{form.title|attr:'placeholder:titulo'}}
+                            {% endif %}
+                            <div class="invalid-feedback">
+                                no puedes dejar el campo vacio
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="fas fa-text-width" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            {%if obj %}
+                            {{form.subtitle|attr:'placeholder:subtitulo'|attr:'class:form-control is-valid'}}
+                            {%else %}
+                            {{form.subtitle|attr:'placeholder:subtitulo'}}
+                            {% endif %}
+                            <div class="invalid-feedback">
+                                no puedes dejar el campo vacio
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="fas fa-user" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            {%if obj %}
+                            {{form.client|attr:'placeholder:cliente'|attr:'class:form-control is-valid'}}
+                            {%else %}
+                            {{form.client|attr:'placeholder:cliente'}}
+                            {% endif %}
+                            <div class="invalid-feedback">
+                                no puedes dejar el campo vacio
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="fas fa-list-alt" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            {%if obj %}
+                            {{form.id_category|attr:'class:form-control is-valid'}}
+                            {%else %}
+                            {{form.id_category}}
+                            {% endif %}
+                            <div class="invalid-feedback">
+                                no puedes dejar el campo vacio
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="far fa-calendar-check"></i>
+                                </span>
+                            </div>
+                            {%if obj %}
+                            {{form.project_date|attr:'class:form-control is-valid'}}
+                            {%else %}
+                            {{form.project_date}}
+                            {% endif %}
+                            <div class="invalid-feedback">
+                                no puedes dejar el campo vacio
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="far fa-calendar-minus"></i>
+                                </span>
+                            </div>
+                            {%if obj %}
+                            {{form.project_end_date|attr:'class:form-control is-valid'}}
+                            {%else %}
+                            {{form.project_end_date}}
+                            {% endif %}
+                            <div class="invalid-feedback">
+                                no puedes dejar el campo vacio
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4 is-valid">
+                    {% if obj %}Guardar <i class="fa fa-save"></i>
+                    {% else%} Crear <i class="fa fa-plus"></i>{% endif%}</button>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </form>
+    </div>
+</div>
+<script src="{% static 'dashboard/assets/ajax/functions_category.js' %}"></script>

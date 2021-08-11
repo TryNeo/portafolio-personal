@@ -14,7 +14,7 @@ class Category(models.Model):
         ordering = ['id_category']
 
     def __str__(self):
-        return '{}'.format(self.id_contact)
+        return '{}'.format(self.name)
 
     def toJSON(self):
         contact_data = model_to_dict(self)

@@ -4,6 +4,7 @@ from .views.contact.views import *
 from .views.social_media.views import *
 from .views.service.views import *
 from .views.category.views import *
+from .views.portfolio.views import *
 
 urlpatterns = [
     path('', DashboardView.as_view(), name='index'),
@@ -33,5 +34,10 @@ urlpatterns = [
     path('category/add', CategoryCreateView.as_view(), name='category_create'),
     path('category/edit/<int:pk>', CategoryUpdateView.as_view(), name='category_edit'),
     path('category/delete/<int:pk>', CategoryDeleteView.as_view(), name='category_delete'),
+
+    #Urls Portfolio
+    path('portfolio/',PortfolioView.as_view(), name='portfolio'),
+    path('portfolio/json',PortfolioListView.as_view(), name='portfolio_json'),
+    path('portfolio/add', PortfolioCreateView.as_view(), name='portfolio_create'),
 
 ]
