@@ -102,4 +102,5 @@ $(function(){
     }
     sendingDataServerSide('#fntPortfolioCreate',validatorServerSide,fieldsToValidate,true,table_portfolio);
     sendingDataServerSide('fntPortfolioUpdate',validatorServerSide,fieldsToValidate,true,table_portfolio);
+    deleteDataofServerSide('#fntPortfolioDelete',true,table_service);
 });

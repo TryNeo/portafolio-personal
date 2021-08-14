@@ -48,3 +48,47 @@ class PortfolioCreateView(CreateView):
                 return response
         else:
             return redirect('dash:portfolio')
+
+
+class PortfolioUpdateView(UpdateView):
+    model = Portfolio
+    form_class = PortfolioForm
+    context_object_name = 'obj'
+    template_name = 'Portfolio/portfolio_form.html'
+
+    def post(self, request, *args, **kwargs):
+        if request.is_ajax():
+            data = {}
+            form = self.form_class(request.POST,instance=self.get_object())
+            if form.is_valid():
+                form.save()
+                data['status'] = 1
+                data['message'] = 'Se ha actualizado exitosamente!'
+                response = JsonResponse(data)
+                response.status_code = 201
+                return response
+            else:
+                data['status'] = 0
+                data['message'] = form.errors
+                response = JsonResponse(data)
+                response.status_code = 400
+                return response
+        else:
+            return redirect('dash:portfolio')
+
+class PortfolioDeleteView(DeleteView):
+    model = Portfolio
+    context_object_name = 'obj'
+    template_name = 'Portfolio/portfolio_delete.html'
+
+    def post(self,request,*args,**kwargs):
+        if request.is_ajax():
+            data = {}
+            service = self.get_object()
+            service.delete()
+            data['status'] = 1
+            data['message'] = 'Se ha eliminado exitosamente!'
+            response = JsonResponse(data)
+            response.status_code = 200
+            return response
+        return redirect('dash:portfolio')

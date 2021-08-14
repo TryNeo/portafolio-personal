@@ -19,3 +19,37 @@ class PortfolioForm(forms.ModelForm):
         fields = '__all__'
 
 
+    def clean_title(self):
+        title = self.cleaned_data['title']
+        try:
+            validator = Validators(title)
+            filter = Portfolio.objects.get(title =title)
+            if validator.validateExists('El nombre '+title+' ya se encuentra registrado',self.instance,filter):
+                raise validator.validateExists('El nombre '+title+' ya se encuentra registrado',self.instance,filter)
+            if validator.validateStringLength('El nombre del titulo debe ser mas largo.',5):
+                raise validator.validateStringLength('El nombre del titulo debe ser mas largo.',5)
+
+            if validator.validateString('El nombre del titulo contiene numeros'):
+                raise validator.validateString('El nombre del titulo contiene numeros')
+        except Portfolio.DoesNotExist:
+            pass
+        except Portfolio.MultipleObjectsReturned:
+            pass
+        return title
+
+    def clean_subtitle(self):
+        subtitle = self.cleaned_data['title']
+        validator = Validators(subtitle)
+        if validator.validateStringLength('El nombre del subtitulo debe ser mas largo.',5):
+            raise validator.validateStringLength('El nombre del subtitulo debe ser mas largo.',5)
+        if validator.validateString('El nombre del subtitulo contiene numeros'):
+            raise validator.validateString('El nombre del subtitulo contiene numeros')
+        return subtitle
+
+    
+    def clean_description(self):
+        description = self.cleaned_data['description']
+        validator = Validators(description)
+        if validator.validateStringLength('La descripcion debe ser mas larga',5):
+            raise validator.validateStringLength('La descripcion debe ser mas larga',5)
+        return description

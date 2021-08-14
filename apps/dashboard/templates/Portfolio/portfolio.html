@@ -19,7 +19,10 @@
                                 <th scope="col">TITULO</th>
                                 <th scope="col">SUBTITULO</th>
                                 <th scope="col">CLIENTE</th>
+                                <th scope="col">DESCRIPCION</th>
+                                <th scope="col">PROJECTO URL</th>
                                 <th scope="col">FILTRO</th>
+                                <th scope="col">OPCIONES</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -81,8 +84,26 @@ var table_portfolio = $('#tablePortfolio').DataTable({
             {"data":"title"},
             {"data":"subtitle"},
             {"data":"client"},
+            {"data":"description"},
+            {"data":"project_url"},
             {"data":"id_category"},
+            {"data":"opciones"}
         ],
+        "columnDefs":[
+            {
+                targets:[7],
+                orderable:false,
+                render:function(data,type,row){
+                    let url_edit = url_portfolio+"edit/"+row.id_portfolio
+                    let url_delete = url_portfolio+"delete/"+row.id_portfolio
+                    let base_opcion = '<div class="d-flex justify-content-center">'+
+                    '<button type="button" onclick=abrir_modal("#popup","'+url_edit+'"); class="close text-primary"><i class="fa fa-edit"></i></button>'+
+                    '<button type="button" onclick=abrir_modal("#popup","'+url_delete+'"); class="close text-danger"><i class="fa fa-trash"></i></button>';
+                    return base_opcion;
+                }
+
+            }
+        ], 
         "order":[[0,"desc"]]
     });
 </script>

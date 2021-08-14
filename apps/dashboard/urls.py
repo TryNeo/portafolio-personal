@@ -39,5 +39,6 @@ urlpatterns = [
     path('portfolio/',PortfolioView.as_view(), name='portfolio'),
     path('portfolio/json',PortfolioListView.as_view(), name='portfolio_json'),
     path('portfolio/add', PortfolioCreateView.as_view(), name='portfolio_create'),
-
+    path('portfolio/edit/<int:pk>', PortfolioUpdateView.as_view(), name='portfolio_edit'),
+    path('portfolio/delete/<int:pk>', PortfolioDeleteView.as_view(), name='portfolio_delete'),
 ]

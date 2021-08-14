@@ -95,7 +95,7 @@
                                 </span>
                             </div>
                             {%if obj %}
-                            {{form.project_date|attr:'class:form-control is-valid'|attr:'type:date'}}
+                            {{form.project_date|attr:'class:form-control is-valid'}}
                             {%else %}
                             {{form.project_date|attr:'type:date'}}
                             {% endif %}
@@ -112,7 +112,7 @@
                                 </span>
                             </div>
                             {%if obj %}
-                            {{form.project_end_date|attr:'class:form-control is-valid'|attr:'type:date'}}
+                            {{form.project_end_date|attr:'class:form-control is-valid'}}
                             {%else %}
                             {{form.project_end_date|attr:'type:date'}}
                             {% endif %}

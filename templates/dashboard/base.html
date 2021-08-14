@@ -84,6 +84,10 @@
               <li class="{% if request.path == '/dashboard/category/' %}active{% endif %}">
                 <a class="nav-link" href="{% url 'dash:category' %}"><i class="fas fa-th-large"></i><span>Categorias</span></a>
               </li>
+              <li class="menu-header">Portafolio</li>
+              <li class="{% if request.path == '/dashboard/portfolio/' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'dash:portfolio' %}"><i class="fas fa-briefcase"></i><span>Portafolio</span></a>
+              </li>
             </ul>
         </aside>
       </div>

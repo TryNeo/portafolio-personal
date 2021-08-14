@@ -1,0 +1,26 @@
+{% load widget_tweaks %}
+{%  load static %}
+<div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <form id="fntPortfolioDelete" method="POST" role="form"  action="{% url 'dash:portfolio_delete' obj.pk %}">
+            {% csrf_token %}
+            <div class="modal-header">
+                <h5 class="modal-title" >Eliminar Proyecto </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Desea Eliminar el proyecto <strong> {{ obj.title}} </strong>
+                </p>
+                  
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-danger">Si,Eliminar <i class="fas fa-trash"></i>
+                </button>   
+            </div>
+        </form>
+    </div>
+</div>
+<script src="{% static 'dashboard/assets/ajax/functions_portfolio.js' %}"></script>
