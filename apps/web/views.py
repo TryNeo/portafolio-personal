@@ -10,7 +10,7 @@ from apps.dashboard.modelos.model_contact import *
 from apps.dashboard.modelos.model_social_media import *
 from apps.dashboard.modelos.model_service import *
 from apps.dashboard.modelos.model_category import *
-
+from apps.dashboard.modelos.model_portfolio import *
 import threading
 
 
@@ -36,6 +36,7 @@ class PortfolioView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['category'] = Category.objects.all()
+        context['portfolio'] = Portfolio.objects.all()
         return context    
 
 def send_email(name, email, subject, message):
