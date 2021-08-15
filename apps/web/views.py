@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 from django.template.loader import render_to_string
-from django.views.generic import TemplateView,ListView
+from django.views.generic import TemplateView,ListView,DetailView
 from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
 from django.core.mail import EmailMessage
@@ -30,14 +30,20 @@ class ServicesView(ListView):
 
 
 class PortfolioView(ListView):
-    model = Category
+    model = Portfolio
+    context_object_name = 'portfolio'
     template_name = 'portfolio/portfolio.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['category'] = Category.objects.all()
-        context['portfolio'] = Portfolio.objects.all()
         return context    
+
+class PortfolioDetailView(DetailView):
+    model = Portfolio
+    template_name = 'portfolio/portfolio-details.html'
+    context_object_name = 'portfolio_details'
+
 
 def send_email(name, email, subject, message):
     template_email = render_to_string('contact/template_email.html',

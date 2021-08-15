@@ -132,3 +132,12 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'jjhuacon@est.itsgg.edu.ec'
 EMAIL_HOST_PASSWORD = os.environ['CONTRA_EMAIL']
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+
+
+HASHIDS = {
+    'SALT': 'OuidSd4wuXIroX1sidoBcRc4mn7qbU5i',
+    'MIN_LENGTH': 30
+}

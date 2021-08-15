@@ -32,8 +32,8 @@
                         <div class="portfolio-links">
                             <a href="{{port.preview_image_one}}" data-gall="portfolioGallery" class="venobox"
                                title="{{port.subtitle}}"><i class="bx bx-plus"></i></a>
-                            <a href="#" data-gall="portfolioDetailsGallery" data-vbtype="iframe"
-                               class="venobox" title="Portfolio Details"><i class="bx bx-link"></i></a>
+                            <a href="{% url 'web:portfolio_details' port.pk %}" data-gall="portfolioDetailsGallery" data-vbtype="iframe"
+                               class="venobox" title="{{port.title}}"><i class="bx bx-link"></i></a>
                         </div>
                     </div>
                 </div>

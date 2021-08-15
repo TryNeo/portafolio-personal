@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>{{portfolio_details.title}}</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link href="{% static 'web/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'web/assets/vendor/icofont/icofont.min.css' %}" rel="stylesheet">
+  <link href="{% static 'web/assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+  <link href="{% static 'web/assets/vendor/owl.carousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+  <link href="{% static 'web/assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'web/assets/vendor/venobox/venobox.css' %}" rel="stylesheet">
+  <link href="{% static 'web/assets/css/style.css' %}" rel="stylesheet">
+
+</head>
+
+<body id="particles-js">
+  <div id="particles-js"></div>
+  <main id="main">
+
+    <!-- ======= Portfolio Details ======= -->
+    <div id="portfolio-details" class="portfolio-details">
+      <div class="container">
+
+        <div class="row">
+
+          <div class="col-lg-8">
+            <h2 class="portfolio-title">Imagenes del Proyecto</h2>
+            <div class="owl-carousel portfolio-details-carousel">
+              <img src="{{portfolio_details.preview_image_one}}" class="img-fluid" alt="imagen">
+              <img src="{{portfolio_details.preview_image_two}}" class="img-fluid" alt="imagen">
+              <img src="{{portfolio_details.preview_image_three}}" class="img-fluid" alt="imagen">
+            </div>
+          </div>
+
+          <div class="col-lg-4 portfolio-info">
+            <h3>Informacion del Proyecto</h3>
+            <ul>
+              <li><strong>Categoria</strong>: {{portfolio_details.id_category.name}}</li>
+              <li><strong>Cliente</strong>: {{portfolio_details.id_client.name}} {{portfolio_details.id_client.last_name}}</li>
+              <li><strong>Creacion del proyecto</strong>: {{portfolio_details.project_date}}</li>
+              <li><strong>Fin del proyecto </strong>:{{portfolio_details.project_end_date}}</li>
+              <li><strong>Github</strong>: <a href="{{portfolio_details.project_url}}" target="_blank">{{portfolio_details.project_url}}</a></li>
+            </ul>
+            <p>
+              {{portfolio_details.description}}
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </div><!-- End Portfolio Details -->
+
+  </main><!-- End #main -->
+  <!-- Vendor JS Files -->
+  <script src="{% static 'web/assets/vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'web/assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'web/assets/vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+  <script src="{% static 'web/assets/vendor/waypoints/jquery.waypoints.min.js' %}"></script>
+  <script src="{% static 'web/assets/vendor/counterup/counterup.min.js' %}"></script>
+  <script src="{% static 'web/assets/vendor/owl.carousel/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'web/assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'web/assets/vendor/venobox/venobox.min.js' %}"></script>
+  <script src="{% static 'web/assets/libs/particles/particles.js' %}"></script>
+  <script src="{% static 'web/assets/libs/particles/app.js' %}"></script>
+  <!-- Template Main JS File -->
+  <script src="{% static 'web/assets/js/main.js' %}"></script>
+
+</body>
+
+</html>
