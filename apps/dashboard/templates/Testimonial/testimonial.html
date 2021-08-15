@@ -1,27 +1,23 @@
 {% extends 'dashboard/base.html' %}
 {% load static%}
-{% block title_page %}Dashboard &mdash; Proyectos {% endblock %}
-{% block title %}Proyectos{% endblock %}
+{% block title_page %}Dashboard &mdash; Testimonios {% endblock %}
+{% block title %}Testimonios{% endblock %}
 {% block content %}
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <button type="button" onclick="abrir_modal('#popup','{% url 'dash:portfolio_create' %}');"
+                <button type="button" onclick="abrir_modal('#popup','{% url 'dash:testimonial_create' %}');"
                         class="btn btn-primary mb-3 btn-lg mb-3"
                 >Agregar <i class="fa fa-plus"></i>
                 </button>
                 <div class="col-12">
-                    <table id="tablePortfolio" class="table table-striped first display responsive datatablem text-center" cellspacing="0"  style="width:100%">
+                    <table id="tableTestimonial" class="table table-striped first display responsive datatablem text-center" cellspacing="0"  style="width:100%">
                         <thead class="text-uppercase">
                             <tr>
                                 <th scope="col">ID</th>
-                                <th scope="col">TITULO</th>
-                                <th scope="col">SUBTITULO</th>
                                 <th scope="col">CLIENTE</th>
-                                <th scope="col">DESCRIPCION</th>
-                                <th scope="col">PROJECTO URL</th>
-                                <th scope="col">FILTRO</th>
+                                <th scope="col">COMENTARIOS</th>
                                 <th scope="col">OPCIONES</th>
                             </tr>
                         </thead>
@@ -43,8 +39,8 @@
 <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
 <script src="{% static 'dashboard/assets/ajax/functions_category.js' %}"></script>
 <script text="text/javascript">
-var url_portfolio = '{% url 'dash:portfolio' %}';
-var table_portfolio = $('#tablePortfolio').DataTable({
+var url_testimonial = '{% url 'dash:testimonial' %}';
+var table_testimonial = $('#tableTestimonial').DataTable({
         "aProcessing":true,
         "responsive":true,
         "destroy": false,
@@ -76,26 +72,22 @@ var table_portfolio = $('#tablePortfolio').DataTable({
             }
         },
         "ajax":{
-            "url" :url_portfolio+"json",
+            "url" :url_testimonial+"json",
             "dataSrc":""
         },
         "columns":[
-            {"data":"id_portfolio"},
-            {"data":"title"},
-            {"data":"subtitle"},
+            {"data":"id_testimonial"},
             {"data":"id_client"},
-            {"data":"description"},
-            {"data":"project_url"},
-            {"data":"id_category"},
+            {"data":"commentary"}
             {"data":"opciones"}
         ],
         "columnDefs":[
             {
-                targets:[7],
+                targets:[3],
                 orderable:false,
                 render:function(data,type,row){
-                    let url_edit = url_portfolio+"edit/"+row.id_portfolio
-                    let url_delete = url_portfolio+"delete/"+row.id_portfolio
+                    let url_edit = url_testimonial+"edit/"+row.id_testimonial
+                    let url_delete = url_testimonial+"delete/"+row.id_testimonial
                     let base_opcion = '<div class="d-flex justify-content-center">'+
                     '<button type="button" onclick=abrir_modal("#popup","'+url_edit+'"); class="close text-primary"><i class="fa fa-edit"></i></button>'+
                     '<button type="button" onclick=abrir_modal("#popup","'+url_delete+'"); class="close text-danger"><i class="fa fa-trash"></i></button>';

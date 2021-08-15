@@ -1,21 +1,22 @@
+from apps.dashboard.modelos.model_client import Client
 from django.db import models
 from django.forms import model_to_dict
 
 
 
-class Category(models.Model):
-    id_category = models.AutoField(primary_key=True)
-    filter = models.CharField("Filtro",max_length=20,blank=True)
-    name = models.CharField("Categoria",max_length=50,blank=True)
+class Testimonial(models.Model):
+    id_testimonial = models.AutoField(primary_key=True)
+    id_client = models.ForeignKey(Client, related_name='fk_client_two', on_delete=models.CASCADE)
+    commentary = models.TextField("Comentarios",blank=True)
 
     class Meta:
-        verbose_name = 'Category'
-        verbose_name_plural = 'Categories'
-        ordering = ['id_category']
+        verbose_name = 'Testimonial'
+        verbose_name_plural = 'Testimonials'
+        ordering = ['id_testimonial']
 
     def __str__(self):
-        return '{}'.format(self.name)
+        return '{}'.format(self.id_testimonial)
 
     def toJSON(self):
-        contact_data = model_to_dict(self)
-        return contact_data
+        testimonial_data = model_to_dict(self)
+        return testimonial_data

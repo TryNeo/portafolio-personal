@@ -61,9 +61,9 @@
                                 </span>
                             </div>
                             {%if obj %}
-                            {{form.client|attr:'placeholder:cliente'|attr:'class:form-control is-valid'}}
+                            {{form.id_client|attr:'placeholder:cliente'|attr:'class:form-control is-valid'}}
                             {%else %}
-                            {{form.client|attr:'placeholder:cliente'}}
+                            {{form.id_client|attr:'placeholder:cliente'}}
                             {% endif %}
                             <div class="invalid-feedback">
                                 no puedes dejar el campo vacio

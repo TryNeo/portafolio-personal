@@ -1,6 +1,6 @@
 $(function(){
     const fieldsToValidate = ['project_url','backgroud_image','description','title',
-    'subtitle','client','preview_image_one','preview_image_two','preview_image_three']
+    'subtitle','preview_image_one','preview_image_two','preview_image_three']
 
     let validatorServerSide = $('form.needs-validation').jbvalidator({
         errorMessage: true,
@@ -40,21 +40,6 @@ $(function(){
 
             if (!validString(value)){
                 return 'El subtitulo '+value+' contiene caracteres especiales o numeros';
-            }
-            
-        }
-
-
-
-        if($(el).is('[name=client]')){
-            let value= $(el).val()
-
-            if (!validateStringLength(value,5)){
-                return 'El nombre del cliente '+value+' debe ser mas largo';
-            }
-
-            if (!validString(value)){
-                return 'El nombre del cliente '+value+' contiene caracteres especiales o numeros';
             }
             
         }

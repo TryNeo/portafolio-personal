@@ -5,6 +5,8 @@ from .views.social_media.views import *
 from .views.service.views import *
 from .views.category.views import *
 from .views.portfolio.views import *
+from .views.client.views import *
+from .views.testimonial.views import *
 
 urlpatterns = [
     path('', DashboardView.as_view(), name='index'),
@@ -41,4 +43,18 @@ urlpatterns = [
     path('portfolio/add', PortfolioCreateView.as_view(), name='portfolio_create'),
     path('portfolio/edit/<int:pk>', PortfolioUpdateView.as_view(), name='portfolio_edit'),
     path('portfolio/delete/<int:pk>', PortfolioDeleteView.as_view(), name='portfolio_delete'),
+
+    #Urls Client
+    path('client/',ClientView.as_view(), name='client'),
+    path('client/json',ClientListView.as_view(), name='client_json'),
+    path('client/add', ClientCreateView.as_view(), name='client_create'),
+    path('client/edit/<int:pk>', ClientUpdateView.as_view(), name='client_edit'),
+    path('client/delete/<int:pk>', ClientDeleteView.as_view(), name='client_delete'),
+
+    #Urls Testimonial
+    path('testimonial/',TestimonialView.as_view(), name='testimonial'),
+    path('testimonial/json',TestimonialListView.as_view(), name='testimonial_json'),
+    path('testimonial/add', TestimonialCreateView.as_view(), name='testimonial_create'),
+    path('testimonial/edit/<int:pk>', TestimonialUpdateView.as_view(), name='testimonial_edit'),
+    path('testimonial/delete/<int:pk>', TestimonialDeleteView.as_view(), name='testimonial_delete'),
 ]

@@ -2,6 +2,7 @@ from django.db import models
 from django.forms import model_to_dict
 
 from apps.dashboard.modelos.model_category import Category
+from apps.dashboard.modelos.model_client import Client
 
 class Portfolio(models.Model):
     id_portfolio = models.AutoField(primary_key=True)
@@ -9,7 +10,7 @@ class Portfolio(models.Model):
     subtitle = models.CharField("Subtitulo", max_length=50,blank=True)
     backgroud_image = models.URLField(max_length = 200,unique=True,blank=True)
     id_category = models.ForeignKey(Category, related_name='fk_category', on_delete=models.CASCADE)
-    client = models.CharField("Cliente", max_length=50,blank=True)
+    id_client = models.ForeignKey(Client, related_name='fk_client', on_delete=models.CASCADE)
     description = models.TextField("Descripcion",blank=True)
     project_date = models.DateField("Fecha de inicio proyecto") 
     project_end_date = models.DateField("Fecha fin de proyecto")

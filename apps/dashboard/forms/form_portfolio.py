@@ -13,6 +13,7 @@ class PortfolioForm(forms.ModelForm):
                 }
             )
         self.fields['id_category'].empty_label = "Selecione la categoria"
+        self.fields['id_client'].empty_label = "Selecione el cliente"
 
     class Meta:
         model = Portfolio
