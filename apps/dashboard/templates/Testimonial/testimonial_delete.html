@@ -1,0 +1,26 @@
+{% load widget_tweaks %}
+{%  load static %}
+<div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <form id="fntTestimonialDelete" method="POST" role="form"  action="{% url 'dash:testimonial_delete' obj.pk %}">
+            {% csrf_token %}
+            <div class="modal-header">
+                <h5 class="modal-title" >Eliminar Testimonio </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Desea Eliminar el testimonio de <strong> {{ obj.id_client.name}} {{obj.id_client.last_name}} </strong>
+                </p>
+                  
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-danger">Si,Eliminar <i class="fas fa-trash"></i>
+                </button>   
+            </div>
+        </form>
+    </div>
+</div>
+<script src="{% static 'dashboard/assets/ajax/functions_testimonial.js' %}"></script>

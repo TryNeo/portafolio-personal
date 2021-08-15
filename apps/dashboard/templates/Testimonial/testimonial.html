@@ -37,7 +37,7 @@
 <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
-<script src="{% static 'dashboard/assets/ajax/functions_category.js' %}"></script>
+<script src="{% static 'dashboard/assets/ajax/functions_testimonial.js' %}"></script>
 <script text="text/javascript">
 var url_testimonial = '{% url 'dash:testimonial' %}';
 var table_testimonial = $('#tableTestimonial').DataTable({
@@ -78,7 +78,7 @@ var table_testimonial = $('#tableTestimonial').DataTable({
         "columns":[
             {"data":"id_testimonial"},
             {"data":"id_client"},
-            {"data":"commentary"}
+            {"data":"commentary"},
             {"data":"opciones"}
         ],
         "columnDefs":[

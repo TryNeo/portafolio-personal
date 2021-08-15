@@ -68,25 +68,26 @@
               <li class="nav-item dropdown {% if request.path == '/dashboard/' %}active{% endif %}">
                 <a href="{% url 'dash:index'%}" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
               </li>
-              <li class="menu-header">Tarjetas Contacto</li>
               <li class="{% if request.path == '/dashboard/contact/' %}active{% endif %}">
                 <a class="nav-link" href="{% url 'dash:contact' %}"><i class="fas fa-address-book"></i> <span>Contacto</span></a>
               </li>
-              <li class="menu-header">Redes Sociales</li>
               <li class="{% if request.path == '/dashboard/social-media/' %}active{% endif %}">
                 <a class="nav-link" href="{% url 'dash:social_media' %}"><i class="fas fa-poll"></i><span>Redes Sociales</span></a>
               </li>
-              <li class="menu-header">Servicios</li>
               <li class="{% if request.path == '/dashboard/service/' %}active{% endif %}">
                 <a class="nav-link" href="{% url 'dash:service' %}"><i class="fab fa-accusoft"></i><span>Mis Servicios</span></a>
               </li>
-              <li class="menu-header">Categorias</li>
               <li class="{% if request.path == '/dashboard/category/' %}active{% endif %}">
                 <a class="nav-link" href="{% url 'dash:category' %}"><i class="fas fa-th-large"></i><span>Categorias</span></a>
               </li>
-              <li class="menu-header">Portafolio</li>
               <li class="{% if request.path == '/dashboard/portfolio/' %}active{% endif %}">
                 <a class="nav-link" href="{% url 'dash:portfolio' %}"><i class="fas fa-briefcase"></i><span>Portafolio</span></a>
+              </li>
+              <li class="{% if request.path == '/dashboard/client/' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'dash:client' %}"><i class="fas fa-users"></i><span>Clientes</span></a>
+              </li>
+              <li class="{% if request.path == '/dashboard/testimonial/' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'dash:testimonial' %}"><i class="far fa-comments"></i><span>Testimonios</span></a>
               </li>
             </ul>
         </aside>
