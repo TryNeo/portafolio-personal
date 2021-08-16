@@ -1,16 +1,22 @@
 from django.http import JsonResponse
 from django.template.loader import render_to_string
+
 from django.views.generic import TemplateView,ListView,DetailView
 from django.views.generic.edit import FormView
+
 from django.urls import reverse_lazy
 from django.core.mail import EmailMessage
 from .forms import ContactForm
 from django.conf import settings
+
+
 from apps.dashboard.modelos.model_contact import *
 from apps.dashboard.modelos.model_social_media import *
 from apps.dashboard.modelos.model_service import *
 from apps.dashboard.modelos.model_category import *
 from apps.dashboard.modelos.model_portfolio import *
+from apps.dashboard.modelos.model_testimonial import *
+
 import threading
 
 
@@ -21,6 +27,15 @@ class HomeView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['social_media'] = SocialMedia.objects.all()
         return context
+
+class AboutView(TemplateView):
+    template_name = 'about/about.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['testimonials'] = Testimonial.objects.all()
+        return context    
+
 
 class ServicesView(ListView):
     template_name = 'services/services.html'
