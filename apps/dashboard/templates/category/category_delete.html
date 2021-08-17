@@ -1,7 +1,7 @@
-{% extends 'web/base_delete.html'%}
+{% extends 'dashboard/base_delete.html'%}
 {% load widget_tweaks %}
 {%  load static %}
-{% block model_title %}
+{% block model_form %}
 <form id="fntCategoryDelete" method="POST" role="form"  action="{% url 'dash:category_delete' obj.pk %}">
 {% csrf_token %}
 {% endblock%}

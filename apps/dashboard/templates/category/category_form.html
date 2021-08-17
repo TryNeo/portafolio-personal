@@ -2,20 +2,22 @@
 {% load widget_tweaks %}
 {%  load static %}
 {% block model_form%}
-<div class="modal-content">
-{% if obj %}
-<form class="needs-validation" id="fntCategoryUpdate"
-method="post" role="form" action="{% url 'dash:category_edit' obj.pk%}" novalidate="">
-{% else %}
-<form class="needs-validation" id="fntCategoryCreate" 
-method="post" role="form" action="{% url 'dash:category_create'%}" novalidate="">
-{% endif %}
-{% csrf_token %}
+    <div class="modal-content">
+    {% if obj %}
+    <form class="needs-validation" id="fntCategoryUpdate"
+    method="post" role="form" action="{% url 'dash:category_edit' obj.pk%}" novalidate="">
+    {% else %}
+    <form class="needs-validation" id="fntCategoryCreate" 
+    method="post" role="form" action="{% url 'dash:category_create'%}" novalidate="">
+    {% endif %}
+    {% csrf_token %}
 {% endblock%}
-{% block  model_title%}
-{% if obj %}Editar | Categoria <i class="fa fa-edit"></i>
-{% else %} Crear | Categoria <i class="fa fa-plus"></i>{% endif%}</span></h5>
+
+{% block  model_title %}
+    {% if obj %}Editar | Categoria <i class="fa fa-edit"></i>
+    {% else %} Crear | Categoria <i class="fa fa-plus"></i>{% endif%}</span></h5>
 {% endblock%}
+
 {% block model_content %}
 <div class="form-group">
     <div class="input-group">
@@ -52,10 +54,12 @@ method="post" role="form" action="{% url 'dash:category_create'%}" novalidate=""
     </div>
 </div>
 {% endblock%}
+
 {% block buttons_form %}
 {% if obj %}Guardar <i class="fa fa-save"></i>
 {% else%} Crear <i class="fa fa-plus"></i>{% endif%}</button>                    
 {% endblock %}
+
 {% block js_functions %}
 <script src="{% static 'dashboard/assets/ajax/functions_category.js' %}"></script>
 {% endblock %}
