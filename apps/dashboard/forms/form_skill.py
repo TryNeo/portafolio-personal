@@ -3,7 +3,7 @@ from validator.validators import Validators
 from apps.dashboard.modelos.model_skills import Skill
 from django.core.exceptions import MultipleObjectsReturned, ValidationError
 
-class CategoryForm(forms.ModelForm):
+class SkillForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in iter(self.fields):

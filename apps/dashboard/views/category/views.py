@@ -8,7 +8,7 @@ class CategoryView(TemplateView):
     template_name = 'category/category.html'
 
 class CategoryListView(JsonMixin,ListView):
-    template_name = 'service/category_json.html'
+    template_name = 'category/category_json.html'
     model = Category
     context_object_name = 'category_info'
     success_url = 'dash:category'

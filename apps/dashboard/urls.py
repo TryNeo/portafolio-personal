@@ -7,6 +7,7 @@ from .views.category.views import *
 from .views.portfolio.views import *
 from .views.client.views import *
 from .views.testimonial.views import *
+from .views.skill.views import *
 
 urlpatterns = [
     path('', DashboardView.as_view(), name='index'),
@@ -57,4 +58,11 @@ urlpatterns = [
     path('testimonial/add', TestimonialCreateView.as_view(), name='testimonial_create'),
     path('testimonial/edit/<int:pk>', TestimonialUpdateView.as_view(), name='testimonial_edit'),
     path('testimonial/delete/<int:pk>', TestimonialDeleteView.as_view(), name='testimonial_delete'),
+
+    #Urls Skill
+    path('skill/',SkillView.as_view(), name='skill'),
+    path('skill/json',SkillListView.as_view(), name='skill_json'),
+    path('skill/add', SkillCreateView.as_view(), name='skill_create'),
+    path('skill/edit/<int:pk>', SkillUpdateView.as_view(), name='skill_edit'),
+    path('skill/delete/<int:pk>', SkillDeleteView.as_view(), name='skill_delete'),
 ]

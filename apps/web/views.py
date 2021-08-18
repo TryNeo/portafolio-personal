@@ -16,7 +16,7 @@ from apps.dashboard.modelos.model_service import *
 from apps.dashboard.modelos.model_category import *
 from apps.dashboard.modelos.model_portfolio import *
 from apps.dashboard.modelos.model_testimonial import *
-
+from apps.dashboard.modelos.model_skills import *
 import threading
 
 
@@ -34,6 +34,7 @@ class AboutView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['testimonials'] = Testimonial.objects.all()
+        context['skills'] = Skill.objects.all()
         return context    
 
 
