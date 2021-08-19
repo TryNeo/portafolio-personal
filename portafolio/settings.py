@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'widget_tweaks',
     'apps.web',
-    'apps.dashboard'
+    'apps.dashboard',
+    'apps.login',
 ]
 
 MIDDLEWARE = [
@@ -136,6 +137,11 @@ EMAIL_HOST_PASSWORD = os.environ['CONTRA_EMAIL']
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 
+LOGIN_REDIRECT_URL = '/dashboard/'
+
+LOGOUT_REDIRECT_URL = '/login/'
+
+LOGIN_URL = '/login/'
 
 HASHIDS = {
     'SALT': 'OuidSd4wuXIroX1sidoBcRc4mn7qbU5i',

@@ -14,6 +14,7 @@ from apps.dashboard.modelos.model_contact import *
 from apps.dashboard.modelos.model_social_media import *
 from apps.dashboard.modelos.model_service import *
 from apps.dashboard.modelos.model_category import *
+from apps.dashboard.modelos.model_client import *
 from apps.dashboard.modelos.model_portfolio import *
 from apps.dashboard.modelos.model_testimonial import *
 from apps.dashboard.modelos.model_skills import *
@@ -35,6 +36,8 @@ class AboutView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['testimonials'] = Testimonial.objects.all()
         context['skills'] = Skill.objects.all()
+        context['clients'] = Client.objects.all().count()
+        context['proyects'] = Portfolio.objects.all().count()
         return context    
 
 

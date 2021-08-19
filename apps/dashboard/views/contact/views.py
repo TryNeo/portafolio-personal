@@ -1,13 +1,14 @@
 from django.http import JsonResponse
 from django.shortcuts import redirect
-from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView,DeleteView
+
 from apps.dashboard.modelos.model_contact import *
 from apps.dashboard.forms.form_contact import *
-import time
 
+from apps.dashboard.views.mixin.mixin import CreateMixin,UpdateMixin,DeleteMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-class ContactView(ListView):
+class ContactView(LoginRequiredMixin,ListView):
     template_name = 'Contact/contact.html'
     model = Contact
     context_object_name = 'contact_info'
@@ -58,71 +59,23 @@ class ContactView(ListView):
     """
 
 
-class ContactCreateView(CreateView):
+class ContactCreateView(LoginRequiredMixin,CreateMixin,CreateView):
     model = Contact
     form_class = ContactForm
     context_object_name = 'obj'
     template_name = 'Contact/contact_form.html'
+    success_url = 'dash:contact'
 
-    def post(self, request, *args, **kwargs):
-        if request.is_ajax():
-            data = {}
-            form = self.form_class(request.POST)
-            if form.is_valid():
-                form.save()
-                data['status'] = 1
-                data['message'] = 'Se ha guardado exitosamente!'
-                response = JsonResponse(data)
-                response.status_code = 201
-                return response
-            else:
-                data['status'] = 0
-                data['message'] = form.errors
-                response = JsonResponse(data)
-                response.status_code = 400
-                return response
-        else:
-            return redirect('dash:contact')
 
-class ContactUpdateView(UpdateView):
+class ContactUpdateView(LoginRequiredMixin,UpdateMixin,UpdateView):
     model = Contact
     form_class = ContactForm
     context_object_name = 'obj'
     template_name = 'Contact/contact_form.html'
-    
-    def post(self, request, *args, **kwargs):
-        if request.is_ajax():
-            data = {}
-            form = self.form_class(request.POST,instance=self.get_object())
-            if form.is_valid():
-                form.save()
-                data['status'] = 1
-                data['message'] = 'Se ha actualizado exitosamente!'
-                response = JsonResponse(data)
-                response.status_code = 201
-                return response
-            else:
-                data['status'] = 0
-                data['message'] = form.errors
-                response = JsonResponse(data)
-                response.status_code = 400
-                return response
-        else:
-            return redirect('dash:contact')
+    success_url = 'dash:contact'
 
-class ContactDeleteView(DeleteView):
+class ContactDeleteView(LoginRequiredMixin,DeleteMixin,DeleteView):
     model = Contact
     context_object_name = 'obj'
     template_name = 'Contact/contact_delete.html'
-
-    def post(self,request,*args,**kwargs):
-        if request.is_ajax():
-            data = {}
-            tarjet = self.get_object()
-            tarjet.delete()
-            data['status'] = 1
-            data['message'] = 'Se ha eliminado exitosamente!'
-            response = JsonResponse(data)
-            response.status_code = 200
-            return response
-        return redirect('dash:contact')
+    success_url = 'dash:contact'
