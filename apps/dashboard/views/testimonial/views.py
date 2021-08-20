@@ -1,6 +1,3 @@
-from django.http import JsonResponse
-from django.http.response import HttpResponse
-from django.shortcuts import redirect
 from django.views.generic import ListView, CreateView, UpdateView,DeleteView,TemplateView
 from apps.dashboard.modelos.model_testimonial import *
 from apps.dashboard.forms.form_testimonial import *
