@@ -1,10 +1,12 @@
+from django.http.response import HttpResponseRedirect
+from apps.login.forms import UserLoginForm
+from django.http import JsonResponse
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import redirect
 from django.views.generic import RedirectView
 from portafolio.settings import *
-
 class LoginFormView(LoginView):
     template_name = 'login.html'
 
@@ -15,9 +17,8 @@ class LoginFormView(LoginView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Dashboard | Iniciar Seccion'
+        context['title'] = 'Iniciar Sesion'
         return context
-
 
 class LogoutRedirectView(RedirectView):
     pattern_name = 'login'

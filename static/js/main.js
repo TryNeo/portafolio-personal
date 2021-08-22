@@ -77,7 +77,7 @@ function abrir_modal(tagName,urlBase){
  * @param {function} validatorServerSide - recibe una funcion que valida que todo los campos del formulario esten correctos
  * @param {list} fieldsToValidate - recibe una lista con los campos que seran validos
  */
-function sendingDataServerSide(idForm,validatorServerSide,fieldsToValidate,table = false,nametable){
+function sendingDataServerSide(idForm,validatorServerSide,fieldsToValidate,table = false,nametable=''){
     let url = $(idForm).attr("action");
     $(document).on('submit',idForm,function (e) {
         e.preventDefault();
@@ -156,6 +156,14 @@ function validateStringLength(value,MaxStringlength){
 
 function validateUrl(value){
     if(value.match(regex_url) === null){
+        return false;
+    }
+    return true;
+}
+
+
+function validateUser(value){
+    if(value.match(regex_username_password) === null){
         return false;
     }
     return true;

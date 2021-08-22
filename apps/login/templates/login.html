@@ -23,38 +23,50 @@
             <div class="row">
               <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
                 <div class="login-brand">
-                  <img src="../assets/img/stisla-fill.svg" alt="logo" width="100" class="shadow-light rounded-circle">
+                  <img src="{% static 'dashboard/assets/img/logo_size.jpg' %}" alt="logo" width="100" class="shadow-light rounded-circle">
                 </div>
     
-                <div class="card card-primary">
-                    <div class="card-header">
+                <div class="card card-dark">
+                  <br>
+                  <div class="">
                       <h4 class="text-center">Iniciar Sesión</h4>
-                      <p>
-
-                      </p>
-                    </div>
+                  </div>
                   <div class="card-body">
-                    <form method="POST" action="/login/" class="needs-validation" novalidate="">
+                    <form id="fntLogin" method="POST" action="/login/" class="needs-validation" novalidate="">
                     {% csrf_token %}
                       <div class="form-group">
                         <label for="email">Usuario</label>
-                        {{form.username|add_class:'form-control '|attr:'autocomplete:off'}}
-                        <div class="invalid-feedback">
-                          Porfavor ingrese su usuario
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <div class="input-group-text">
+                              <i class="fas fa-user"></i>
+                            </div>
+                          </div>
+                          {{form.username|add_class:'form-control is-invalid'|attr:'autocomplete:off'}}
+                          <div class="invalid-feedback">
+                            Porfavor ingrese su usuario
+                          </div>
                         </div>
                       </div>
                       <div class="form-group">
                         <div class="d-block">
                             <label for="password" class="control-label">Contraseña</label>
                         </div>
-                        {{form.password|add_class:'form-control '|attr:'autocomplete:off'}}
-                        <div class="invalid-feedback">
-                          Porfavor ingrese su contraseña
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <div class="input-group-text">
+                              <i class="fas fa-lock"></i>
+                            </div>
+                          </div>
+                          {{form.password|add_class:'form-control '|attr:'autocomplete:off'}}
+                          <div class="invalid-feedback">
+                            Porfavor ingrese su contraseña
+                          </div>
                         </div>
                       </div>
     
                       <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                        <button type="submit" class="btn btn-dark btn-lg btn-block" tabindex="4">
                           Login
                         </button>
                       </div>
@@ -76,6 +88,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emretulek/jbvalidator"></script>
   <script src="{% static 'dashboard/assets/js/stisla.js'%}"></script>
   <script type="application/javascript">
     {% if form.errors %}
@@ -102,6 +115,8 @@
 
   <!-- Template JS File -->
   <script src="{% static 'dashboard/assets/js/scripts.js'%}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+  <script src="{% static 'dashboard/assets/ajax/functions_login.js'%}"></script>
 
   <!-- Page Specific JS File -->
 </body>
