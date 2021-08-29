@@ -5,7 +5,7 @@ from django.forms import model_to_dict
 class Skill(models.Model):
     id_skill = models.AutoField(primary_key=True)
     name_skill =  models.CharField("Nombre de la habilidad",max_length=50,blank=True)
-    percentage = models.IntegerField("Porcentaje",max_length=100,blank=True)
+    percentage = models.IntegerField("Porcentaje",blank=True)
 
     class Meta:
         verbose_name = 'Skill'

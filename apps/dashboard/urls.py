@@ -1,4 +1,6 @@
 from django.urls import path
+
+
 from .views.dashboard.views import DashboardView
 from .views.contact.views import *
 from .views.social_media.views import *
@@ -8,6 +10,8 @@ from .views.portfolio.views import *
 from .views.client.views import *
 from .views.testimonial.views import *
 from .views.skill.views import *
+from .views.interents.views import *
+
 
 urlpatterns = [
     path('', DashboardView.as_view(), name='index'),
@@ -65,4 +69,11 @@ urlpatterns = [
     path('skill/add', SkillCreateView.as_view(), name='skill_create'),
     path('skill/edit/<int:pk>', SkillUpdateView.as_view(), name='skill_edit'),
     path('skill/delete/<int:pk>', SkillDeleteView.as_view(), name='skill_delete'),
+
+    #Urls Interents
+    path('interent/',InterentView.as_view(), name='interents'),
+    path('interent/json',InterentListView.as_view(), name='interents_json'),
+    path('interent/add', InterentCreateView.as_view(), name='interents_create'),
+    path('interent/edit/<int:pk>', InterentUpdateView.as_view(), name='interents_edit'),
+    path('interent/delete/<int:pk>', InterentDeleteView.as_view(), name='interents_delete'),
 ]

@@ -1,0 +1,118 @@
+{% extends 'dashboard/base.html' %}
+{% load static%}
+{% block title_page %}Dashboard &mdash; Intereses {% endblock %}
+{% block title %}Intereses{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <button type="button" onclick="abrir_modal('#popup','{% url 'dash:interents_create' %}');"
+                        class="btn btn-primary mb-3 btn-lg mb-3"
+                >Agregar <i class="fa fa-plus"></i>
+                </button>
+                <div class="col-12">
+                    <table id="tableInterents" class="table table-striped first display responsive datatablem text-center" cellspacing="0"  style="width:100%">
+                        <thead class="text-uppercase">
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">INTERES</th>
+                                <th scope="col">ICONO</th>
+                                <th scope="col">COLOR</th>
+                                <th scope="col">OPCIONES</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block extra_js%}
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+<script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
+<script src="{% static 'dashboard/assets/ajax/functions_interents.js' %}"></script>
+<script text="text/javascript">
+var url_interents = '{% url 'dash:interents' %}';
+var table_interents = $('#tableInterents').DataTable({
+        "aProcessing":true,
+        "responsive":true,
+        "destroy": false,
+        "searching": false,
+        "info": true,
+        "language": {
+            "sProcessing": "Procesando...",
+            "sLengthMenu": "Mostrar _MENU_ registros",
+            "sZeroRecords": "No se encontraron resultados",
+            "sEmptyTable": "Ningun dato disponible en esta tabla",
+            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix": "",
+            "sSearch": "Buscar:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst": "<span class='fa fa-angle-double-left'></span>",
+                "sLast": "<span class='fa fa-angle-double-right'></span>",
+                "sNext": "<span class='fa fa-angle-right'></span>",
+                "sPrevious": "<span class='fa fa-angle-left'></span>"
+            },
+            "oAria": {
+                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+        },
+        "ajax":{
+            "url" :url_interents+"json",
+            "dataSrc":""
+        },
+        "columns":[
+            {"data":"id_interent"},
+            {"data":"name"},
+            {"data":"icon"},
+            {"data":"color"},
+            {"data":"opciones"}
+        ],
+        "columnDefs":[
+            {
+                targets:[2],
+                orderable:false,
+                render:function(data,type,row){
+                    return '<i class="'+row.icon+'"></i>'
+                }
+            },
+            {
+                targets:[3],
+                orderable:false,
+                render:function(data,type,row){
+                    console.log(row.color)
+                    return '<p style="background:'+row.color+';color:white; font-weight: bold;border: 2px; border-radius: 6px;">'+row.color+'</p>'
+                }
+            },
+            {
+                targets:[4],
+                orderable:false,
+                render:function(data,type,row){
+                    let url_edit = url_interents+"edit/"+row.id_interent
+                    let url_delete = url_interents+"delete/"+row.id_interent
+                    let base_opcion = '<div class="d-flex justify-content-center">'+
+                    '<button type="button" onclick=abrir_modal("#popup","'+url_edit+'"); class="close text-primary"><i class="fa fa-edit"></i></button>'+
+                    '<button type="button" onclick=abrir_modal("#popup","'+url_delete+'"); class="close text-danger"><i class="fa fa-trash"></i></button>';
+                    return base_opcion;
+                }
+
+            }
+        ], 
+        "order":[[0,"desc"]]
+    });
+</script>
+{% endblock %}

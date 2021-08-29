@@ -18,6 +18,9 @@ from apps.dashboard.modelos.model_client import *
 from apps.dashboard.modelos.model_portfolio import *
 from apps.dashboard.modelos.model_testimonial import *
 from apps.dashboard.modelos.model_skills import *
+from apps.dashboard.modelos.model_interents import *
+
+
 import threading
 
 
@@ -36,8 +39,11 @@ class AboutView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['testimonials'] = Testimonial.objects.all()
         context['skills'] = Skill.objects.all()
+        context['interents'] = Interent.objects.all()
         context['clients'] = Client.objects.all().count()
         context['proyects'] = Portfolio.objects.all().count()
+        context['testimonials_count'] = Testimonial.objects.all().count()
+        context['skills_count'] = Skill.objects.all().count()
         return context    
 
 
