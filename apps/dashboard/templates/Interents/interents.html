@@ -94,7 +94,6 @@ var table_interents = $('#tableInterents').DataTable({
                 targets:[3],
                 orderable:false,
                 render:function(data,type,row){
-                    console.log(row.color)
                     return '<p style="background:'+row.color+';color:white; font-weight: bold;border: 2px; border-radius: 6px;">'+row.color+'</p>'
                 }
             },

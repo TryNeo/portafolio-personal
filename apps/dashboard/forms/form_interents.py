@@ -1,4 +1,5 @@
 from django import forms
+from django.forms.widgets import TextInput
 from validator.validators import Validators
 from apps.dashboard.modelos.model_interents import Interent
 
@@ -10,6 +11,9 @@ class InterentForm(forms.ModelForm):
                 {
                     'class': 'form-control is-invalid',
                 }
+            )
+        self.fields["color"].widget = TextInput(
+                attrs={"type": "color"}
             )
 
     class Meta:

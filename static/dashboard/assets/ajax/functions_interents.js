@@ -1,11 +1,12 @@
 $(function(){
-    const fieldsToValidate = ['name','icon','social_url']
+    const fieldsToValidate = ['name','icon']
 
     let validatorServerSide = $('form.needs-validation').jbvalidator({
         errorMessage: true,
         successClass: true,
     });
     validatorServerSide.validator.custom = function(el, event){
+
         if($(el).is('[name=name]')){
             let value= $(el).val()
             if (!validateStringLength(value,5)){
@@ -26,17 +27,9 @@ $(function(){
                 return 'El nombre del icono '+value+' contiene caracteres especiales o numeros';
             }
         }
-        
-        
-        if($(el).is('[name=social_url]')){
-            let value= $(el).val()
-            if (!validateStringLength(value,5)){
-                return 'El URL '+value+' debe ser mas largo';
-            }
-        }
     }
-    sendingDataServerSide('#fntSocialMediaCreate',validatorServerSide,fieldsToValidate,true,table_social_media);
-    sendingDataServerSide('#fntSocialMediaUpdate',validatorServerSide,fieldsToValidate,true,table_social_media);
-    deleteDataofServerSide('#fntSocialMediaDelete',true,table_social_media);
+    sendingDataServerSide('#fntInterentCreate',validatorServerSide,fieldsToValidate,true,table_interents);
+    sendingDataServerSide('#fntInterentUpdate',validatorServerSide,fieldsToValidate,true,table_interents);
+    deleteDataofServerSide('#fntInterentDelete',true,table_interents);
 
 });

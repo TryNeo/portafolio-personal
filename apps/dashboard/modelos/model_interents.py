@@ -8,7 +8,7 @@ class Interent(models.Model):
     id_interent = models.AutoField(primary_key=True)
     name = models.CharField("Nombre", max_length=50,blank=True)
     icon = models.CharField("Icono", max_length=20,blank=True)
-    color = ColorField(default='#FF0000')
+    color = ColorField()
     class Meta:
         verbose_name = 'Interent'
         verbose_name_plural = 'Interents'

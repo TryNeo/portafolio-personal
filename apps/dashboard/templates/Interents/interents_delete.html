@@ -1,0 +1,20 @@
+{% extends 'dashboard/base_delete.html'%}
+{% load widget_tweaks %}
+{%  load static %}
+{% block model_form %}
+<form id="fntInterentDelete" method="POST" role="form"  action="{% url 'dash:interents_delete' obj.pk %}">
+{% csrf_token %}
+{% endblock%}
+{% block model_title %}Eliminar Interes{% endblock%}
+{% block model_content %}
+<p>
+    Desea Eliminar el interes <strong> {{ obj.name}} </strong>
+</p>                
+{% endblock %}
+{% block button_modal %}
+<button type="submit" class="btn btn-danger">Si,Eliminar <i class="fas fa-trash"></i>
+</button>   
+{% endblock %}
+{% block  js_functions %}
+<script src="{% static 'dashboard/assets/ajax/functions_interents.js' %}"></script>
+{% endblock %}    

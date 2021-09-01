@@ -90,6 +90,9 @@
               <li class="{% if request.path == '/dashboard/testimonial/' %}active{% endif %}">
                 <a class="nav-link" href="{% url 'dash:testimonial' %}"><i class="far fa-comments"></i><span>Testimonios</span></a>
               </li>
+              <li class="{% if request.path == '/dashboard/interent/' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'dash:interents' %}"><i class="fas fa-tenge"></i><span>Intereses</span></a>
+              </li>
             </ul>
         </aside>
       </div>
