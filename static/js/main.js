@@ -90,6 +90,12 @@ function sendingDataServerSide(idForm,validatorServerSide,fieldsToValidate,table
         }).done(function (data) {
             $('#popup').modal('hide');
             mensaje('success','Exitoso',data['message']);
+            if (data['url']){
+                setTimeout(function(){
+                    window.location.href =  data['url'];
+                },2000)
+            }
+
             if(table){
                 nametable.ajax.reload();
             }

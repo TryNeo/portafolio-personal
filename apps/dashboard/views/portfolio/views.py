@@ -15,6 +15,8 @@ class PortfolioListView(LoginRequiredMixin,JsonMixin,ListView):
     context_object_name = 'portfolio_info'
     success_url = 'dash:portfolio'
 
+    
+
 class PortfolioCreateView(LoginRequiredMixin,CreateMixin,CreateView):
     model = Portfolio
     form_class = PortfolioForm

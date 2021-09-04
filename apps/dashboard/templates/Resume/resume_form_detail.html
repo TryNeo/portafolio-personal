@@ -1,0 +1,84 @@
+{% extends 'dashboard/base.html' %}
+{% load static%}
+{% load widget_tweaks %}
+{% block title_page %}Dashboard &mdash; Resumen {% endblock %}
+{% block title %}Detalle Resumen{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-12 col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <button type="button" onclick="abrir_modal('#popup','{% url 'dash:resume_create' %}');"
+                    class="btn btn-primary mb-3 btn-lg mb-3">Agregar item <i class="fa fa-plus"></i>
+                </button>
+            </div>
+            <form class="needs-validation" id="fntDetailResumeUpdate"  method="post"  action="{% url 'dash:resume_detail' obj.pk %}">
+            <div class="card-body">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-user"></i>
+                                        </span>
+                                    </div>
+                                    {{form.id_resume}}
+                                    <div class="invalid-feedback">
+                                        no puedes dejar el campo vacio
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <i class="fa fa-text-height" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                    {{form.title|attr:'placeholder:nombre'}}
+                                    <div class="invalid-feedback">
+                                        no puedes dejar el campo vacio
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                    {{form.years|attr:'placeholder:Año'}}
+                                    <div class="invalid-feedback">
+                                        no puedes dejar el campo vacio
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                    {{form.description|attr:'rows:2'|attr:'style:margin-top: 0px; margin-bottom: 0px; height: 100px;'}}
+                                <div class="invalid-feedback">
+                                    no puedes dejar el campo vacio
+                                </div>
+                            </div>
+            </div>
+            <div class="card-footer text-right">
+                <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4 is-valid">Guardar <i class="fa fa-save"></i></button>
+            </div>
+            </form>
+        </div>
+
+ 
+    </div>
+    <div class="col-12 col-md-6">
+        <div class="card">
+            Hola
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block extra_js%}
+<script>
+var table_resume = '';
+</script>
+<script src="{% static 'dashboard/assets/ajax/functions_resume.js' %}"></script>
+{% endblock %}

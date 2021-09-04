@@ -11,6 +11,7 @@ from .views.client.views import *
 from .views.testimonial.views import *
 from .views.skill.views import *
 from .views.interents.views import *
+from .views.resume.views import *
 
 
 urlpatterns = [
@@ -76,4 +77,13 @@ urlpatterns = [
     path('interent/add', InterentCreateView.as_view(), name='interents_create'),
     path('interent/edit/<int:pk>', InterentUpdateView.as_view(), name='interents_edit'),
     path('interent/delete/<int:pk>', InterentDeleteView.as_view(), name='interents_delete'),
+
+
+
+    path('resume/',ResumeView.as_view(), name='resume'),
+    path('resume/json',ResumeListView.as_view(), name='resume_json'),
+    path('resume/add', ResumeCreateView.as_view(), name='resume_create'),
+    path('resume/edit/<int:pk>', ResumeUpdateView.as_view(), name='resume_edit'),
+    path('resume/detail/<int:pk>',ResumeDetailView.as_view(),name='resume_detail'),
+
 ]

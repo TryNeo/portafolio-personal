@@ -29,4 +29,6 @@ class Portfolio(models.Model):
 
     def toJSON(self):
         portfolio_data = model_to_dict(self)
+        portfolio_data['id_client'] = self.id_client.toJSON()
+        portfolio_data['id_category'] = self.id_category.toJSON()
         return portfolio_data

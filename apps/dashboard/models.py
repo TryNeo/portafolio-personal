@@ -8,3 +8,4 @@ from .modelos.model_portfolio import *
 from .modelos.model_testimonial import *
 from .modelos.model_skills import *
 from .modelos.model_interents import *
+from .modelos.model_resume import *

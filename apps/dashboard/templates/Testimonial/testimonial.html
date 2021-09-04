@@ -16,7 +16,8 @@
                         <thead class="text-uppercase">
                             <tr>
                                 <th scope="col">ID</th>
-                                <th scope="col">CLIENTE</th>
+                                <th scope="col">NOMBRE</th>
+                                <th scope="col">APELLIDOO</th>
                                 <th scope="col">COMENTARIOS</th>
                                 <th scope="col">OPCIONES</th>
                             </tr>
@@ -77,13 +78,14 @@ var table_testimonial = $('#tableTestimonial').DataTable({
         },
         "columns":[
             {"data":"id_testimonial"},
-            {"data":"id_client"},
+            {"data":"id_client.name"},
+            {"data":"id_client.last_name"},
             {"data":"commentary"},
             {"data":"opciones"}
         ],
         "columnDefs":[
             {
-                targets:[3],
+                targets:[4],
                 orderable:false,
                 render:function(data,type,row){
                     let url_edit = url_testimonial+"edit/"+row.id_testimonial

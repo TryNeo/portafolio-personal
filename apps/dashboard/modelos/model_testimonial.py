@@ -19,4 +19,5 @@ class Testimonial(models.Model):
 
     def toJSON(self):
         testimonial_data = model_to_dict(self)
+        testimonial_data['id_client'] = self.id_client.toJSON()
         return testimonial_data
