@@ -1,7 +1,7 @@
 from django.views.generic import ListView, CreateView, UpdateView,DeleteView,TemplateView,DetailView,View
 from apps.dashboard.modelos.model_resume import *
 from apps.dashboard.forms.form_resume import *
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.http import JsonResponse
 
@@ -31,8 +31,7 @@ class ResumeCreateView(LoginRequiredMixin,CreateView):
             if form_resume.is_valid():
                 form_resume.save()
                 form_detail = ResumeDetailForm({
-                    'id_resume' : Resume.objects.get(title=request.POST.get('title')),
-                    'title':'texto de Ejemplo'
+                    'id_resume' : Resume.objects.get(title=request.POST.get('title'))
                 })
                 if form_detail.is_valid():
                     form_detail.save()
@@ -86,9 +85,40 @@ class ResumeDetailView(UpdateView):
         object = self.get_object()
         return reverse('dash:resume_detail', args=[object.pk])
 
+
 class ResumeUpdateView(LoginRequiredMixin,UpdateMixin,UpdateView):
     model = Resume
     form_class = ResumeForm
     context_object_name = 'obj'
     template_name = 'Resume/resume_form.html'
     success_url = 'dash:resume'
+
+
+
+class ResumeDetailItemCreateView(CreateView):
+    model = DetailItem
+    form_class = ResumeDetailItem
+    context_object_name = 'objx'
+    template_name = 'Resume/resume_form_item.html'
+    success_url = 'dash:resume'
+
+
+    def post(self, request, *args, **kwargs):
+        if request.is_ajax():
+            data = {}
+            form_item =self.form_class(request.POST)
+            if form_item.is_valid():
+                form_item.save()
+                data['status'] = 1
+                data['message'] = 'Se ha guardado exitosamente!'
+                response = JsonResponse(data)
+                response.status_code = 201
+                return response
+            else:
+                data['status'] = 0
+                data['message'] = form_item.errors
+                response = JsonResponse(data)
+                response.status_code = 400
+                return response
+        else:
+            return redirect(self.success_url)

@@ -85,5 +85,5 @@ urlpatterns = [
     path('resume/add', ResumeCreateView.as_view(), name='resume_create'),
     path('resume/edit/<int:pk>', ResumeUpdateView.as_view(), name='resume_edit'),
     path('resume/detail/<int:pk>',ResumeDetailView.as_view(),name='resume_detail'),
-
+    path('resume/detail/item/add',ResumeDetailItemCreateView.as_view(),name='resume_detail_item_add'),
 ]

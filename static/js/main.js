@@ -89,7 +89,9 @@ function sendingDataServerSide(idForm,validatorServerSide,fieldsToValidate,table
             dataType: 'json'
         }).done(function (data) {
             $('#popup').modal('hide');
-            mensaje('success','Exitoso',data['message']);
+            setTimeout(() => {
+                mensaje('success','Exitoso',data['message']);
+            },2000);
             if (data['url']){
                 setTimeout(function(){
                     window.location.href =  data['url'];

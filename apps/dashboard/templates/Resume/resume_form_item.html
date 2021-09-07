@@ -1,0 +1,48 @@
+{% extends 'dashboard/base_form.html' %}
+{% load widget_tweaks %}
+{%  load static %}
+{% block model_form%}
+    <script text="text/javascript">
+        $("#id_id_detail_resume").val(id_detalle_resume);
+        $("#id_id_detail_resume").change()
+    </script>
+    <div class="modal-content">
+        {% if objx %}
+        <form class="needs-validation" id="fntDetailItemUpdate"
+         method="post" role="form" action="" novalidate="">
+    {% else %}
+        <form class="needs-validation" id="fntDetailItemCreate" method="post" role="form" action="{% url 'dash:resume_detail_item_add' %}" novalidate="">
+    {% endif %}
+    {% csrf_token %}
+{% endblock%}
+
+{% block  model_title %}
+    {% if obj %}Editar | Item <i class="fa fa-edit"></i>
+    {% else %} Crear | Item <i class="fa fa-plus"></i>{% endif%}</span></h5>
+{% endblock%}
+
+{% block model_content %}
+{{form.id_detail_resume|attr:'class:custom-hidden'}}
+<div class="form-group">
+    <div class="input-group">
+        <div class="input-group-append">
+            <span class="input-group-text">
+                <i class="fas fa-text-height" aria-hidden="true"></i>
+            </span>
+        </div>
+        {{form.name}}
+        <div class="invalid-feedback">
+            no puedes dejar el campo vacio
+        </div>
+    </div>
+</div>
+{% endblock%}
+
+{% block buttons_form %}
+{% if objx %}Guardar <i class="fa fa-save"></i>
+{% else%} Crear <i class="fa fa-plus"></i>{% endif%}</button>                    
+{% endblock %}
+
+{% block js_functions %}
+<script src="{% static 'dashboard/assets/ajax/functions_resume.js' %}"></script>
+{% endblock %}

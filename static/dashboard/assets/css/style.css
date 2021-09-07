@@ -133,6 +133,10 @@ a:not(.btn-social-icon):not(.btn-social):not(.page-link) .fab {
 .lead {
   line-height: 34px; }
 
+.custom-hidden{
+  display:none;
+}
+
 @media (max-width: 575.98px) {
   .lead {
     font-size: 17px;

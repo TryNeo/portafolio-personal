@@ -8,7 +8,7 @@
     <div class="col-12 col-md-6">
         <div class="card">
             <div class="card-header">
-                <button type="button" onclick="abrir_modal('#popup','{% url 'dash:resume_create' %}');"
+                <button type="button" onclick="abrir_modal('#popup','{% url 'dash:resume_detail_item_add' %}');"
                     class="btn btn-primary mb-3 btn-lg mb-3">Agregar item <i class="fa fa-plus"></i>
                 </button>
             </div>
@@ -22,7 +22,8 @@
                                             <i class="fas fa-user"></i>
                                         </span>
                                     </div>
-                                    {{form.id_resume}}
+
+                                    {{form.id_resume|attr:'class:form-control is-valid'}}
                                     <div class="invalid-feedback">
                                         no puedes dejar el campo vacio
                                     </div>
@@ -35,7 +36,11 @@
                                             <i class="fa fa-text-height" aria-hidden="true"></i>
                                         </span>
                                     </div>
+                                    {% if obj.title == '' %}
                                     {{form.title|attr:'placeholder:nombre'}}
+                                    {% else %}
+                                    {{form.title|attr:'placeholder:nombre'|attr:'class:form-control is-valid'}}
+                                    {% endif %}
                                     <div class="invalid-feedback">
                                         no puedes dejar el campo vacio
                                     </div>
@@ -48,15 +53,23 @@
                                             <i class="fa fa-calendar" aria-hidden="true"></i>
                                         </span>
                                     </div>
+                                    {% if obj.years == None %}
                                     {{form.years|attr:'placeholder:Año'}}
+                                    {% else %}
+                                    {{form.years|attr:'placeholder:Año'|attr:'class:form-control is-valid'}}
+                                    {% endif %}
                                     <div class="invalid-feedback">
                                         no puedes dejar el campo vacio
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
+                                    {% if obj.description == '' %}
                                     {{form.description|attr:'rows:2'|attr:'style:margin-top: 0px; margin-bottom: 0px; height: 100px;'}}
-                                <div class="invalid-feedback">
+                                    {% else %}
+                                    {{form.description|attr:'class:form-control is-valid'|attr:'rows:2'|attr:'style:margin-top: 0px; margin-bottom: 0px; height: 100px;'}}
+                                    {% endif %}
+                                    <div class="invalid-feedback">
                                     no puedes dejar el campo vacio
                                 </div>
                             </div>
@@ -71,14 +84,94 @@
     </div>
     <div class="col-12 col-md-6">
         <div class="card">
-            Hola
+            <div class="card-body">
+                <div class="col-12">
+                    <table id="tableResume" class="table table-striped first display responsive datatablem text-center" cellspacing="0"  style="width:100%">
+                        <thead class="text-uppercase">
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">OPCIONES</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
 {% endblock %}
 {% block extra_js%}
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+<script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
+<script src="{% static 'dashboard/assets/ajax/functions_resume.js' %}"></script>
+<script text="text/javascript">
+var url_resume = '{% url 'dash:resume' %}';
+var table_resume = $('#tableResume').DataTable({
+        "aProcessing":true,
+        "responsive":true,
+        "destroy": false,
+        "searching": false,
+        "aServerSide":true,
+        "info": false,
+        "language": {
+            "sProcessing": "Procesando...",
+            "sLengthMenu": "Mostrar _MENU_ registros",
+            "sZeroRecords": "No se encontraron resultados",
+            "sEmptyTable": "Ningun dato disponible en esta tabla",
+            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix": "",
+            "sSearch": "Buscar:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst": "<span class='fa fa-angle-double-left'></span>",
+                "sLast": "<span class='fa fa-angle-double-right'></span>",
+                "sNext": "<span class='fa fa-angle-right'></span>",
+                "sPrevious": "<span class='fa fa-angle-left'></span>"
+            },
+            "oAria": {
+                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+        },
+        "ajax":{
+            "url" :url_resume+"json",
+            "dataSrc":""
+        },
+        "columns":[
+            {"data":"id_resume"},
+            {"data":"opciones"}
+        ],
+        "columnDefs":[
+            {
+                targets:[1],
+                orderable:false,
+                render:function(data,type,row){
+                    let url_edit = url_resume+"edit/"+row.id_resume
+                    let url_delete = url_resume+"delete/"+row.id_resume
+                    let base_opcion = '<div class="d-flex justify-content-center">'+
+                    '<button type="button" onclick=abrir_modal("#popup","'+url_edit+'"); class="close text-primary"><i class="fa fa-edit"></i></button>'+
+                    '<button type="button" onclick=abrir_modal("#popup","'+url_delete+'"); class="close text-danger"><i class="fa fa-trash"></i></button>';
+                    return base_opcion;
+                }
+
+            }
+        ], 
+        "order":[[0,"desc"]]
+    });
+</script>
 <script>
 var table_resume = '';
+var id_detalle_resume = {{obj.pk}};
 </script>
 <script src="{% static 'dashboard/assets/ajax/functions_resume.js' %}"></script>
 {% endblock %}
