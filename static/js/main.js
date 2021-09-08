@@ -70,6 +70,12 @@ function abrir_modal(tagName,urlBase){
     
 }
 
+function cerrar_modal(){
+    $('#popup').modal('hide');
+    return false;
+    }
+
+
 
 /**
  * Funcion registrar datos al servidor - permirte el registro de datos enviado los datos al servidor
@@ -79,19 +85,20 @@ function abrir_modal(tagName,urlBase){
  */
 function sendingDataServerSide(idForm,validatorServerSide,fieldsToValidate,table = false,nametable=''){
     let url = $(idForm).attr("action");
-    $(document).on('submit',idForm,function (e) {
+    $(idForm).on('submit',function (e) {
         e.preventDefault();
         let formData = $(this).serializeArray();
         $.ajax({
             url: url,
-            type: 'POST',
+            type: $(idForm).attr("method"),
             data: formData,
             dataType: 'json'
         }).done(function (data) {
+            
             $('#popup').modal('hide');
-            setTimeout(() => {
-                mensaje('success','Exitoso',data['message']);
-            },2000);
+            
+            mensaje('success','Exitoso',data['message']);
+            
             if (data['url']){
                 setTimeout(function(){
                     window.location.href =  data['url'];
@@ -101,6 +108,7 @@ function sendingDataServerSide(idForm,validatorServerSide,fieldsToValidate,table
             if(table){
                 nametable.ajax.reload();
             }
+
         }).fail(function (error) {
             fieldsToValidate.forEach((value,index) => {
                 if (error.responseJSON['message'].hasOwnProperty(fieldsToValidate[index])){

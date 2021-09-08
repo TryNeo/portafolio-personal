@@ -22,7 +22,7 @@ class Resume(models.Model):
 
 class DetailResume(models.Model):
     id_detail_resume = models.AutoField(primary_key=True)
-    id_resume =  models.ForeignKey(Resume, related_name='fk_resume', on_delete=models.CASCADE)
+    id_resume =  models.ForeignKey(Resume, related_name='fk_resume', on_delete=models.CASCADE,blank=True,null=True)
     title = models.CharField("Titulo", max_length=50,blank=True)
     years = models.CharField("Años", max_length=50,blank=True,null=True)
     description = models.TextField("Descripcion",blank=True)
@@ -39,3 +39,7 @@ class DetailItem(models.Model):
 
     def __str__(self):
         return '{}'.format(self.name)
+
+    def toJSON(self):
+        resume_detail_item_data = model_to_dict(self)
+        return resume_detail_item_data

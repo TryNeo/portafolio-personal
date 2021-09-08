@@ -1,6 +1,5 @@
 $(function(){
-    
-    const fieldsToValidate = ['title','years','description','name']
+    const fieldsToValidate = ['title','years','description']
     let validatorServerSide = $('form.needs-validation').jbvalidator({
         errorMessage: true,
         successClass: true,
@@ -17,15 +16,6 @@ $(function(){
                 return 'El nombre '+value+' contiene caracteres especiales o numeros';
             }
 
-        }
-
-        if($(el).is('[name=name')){
-            let value= $(el).val()
-
-            if (!validateStringLength(value,2)){
-                return 'El nombre '+value+' debe ser mas largo';
-            }
-            
         }
 
         if($(el).is('[name=years]')){
@@ -49,6 +39,4 @@ $(function(){
     sendingDataServerSide('#fntResumeCreate',validatorServerSide,fieldsToValidate,true,table_resume);
     sendingDataServerSide('#fntResumeUpdate',validatorServerSide,fieldsToValidate,true,table_resume);
     sendingDataServerSide('#fntDetailResumeUpdate',validatorServerSide,fieldsToValidate);
-    sendingDataServerSide('#fntDetailItemCreate',validatorServerSide,fieldsToValidate);
 });
-

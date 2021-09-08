@@ -110,7 +110,7 @@ class ResumeDetailItemCreateView(CreateView):
             if form_item.is_valid():
                 form_item.save()
                 data['status'] = 1
-                data['message'] = 'Se ha guardado exitosamente!'
+                data['message'] = 'Item creado exitosamente!'
                 response = JsonResponse(data)
                 response.status_code = 201
                 return response
@@ -122,3 +122,28 @@ class ResumeDetailItemCreateView(CreateView):
                 return response
         else:
             return redirect(self.success_url)
+
+
+class ResumeDetailItemListView(ListView):
+    template_name = 'Resume/resume_detail_item_json.html'
+    model = DetailItem
+    context_object_name = 'resume_detail_item_info'
+    success_url = 'dash:resume'
+    
+    def get(self, request, pk, *args, **kwargs):
+        return self.get_queryset(pk)
+
+    def get_queryset(self,id):
+        queryset = super(ResumeDetailItemListView, self).get_queryset()
+        queryset = [i.toJSON() for i in DetailItem.objects.filter(id_detail_resume=id)]
+        response = JsonResponse(queryset,safe=False)
+        response.status_code = 200
+        return HttpResponse(response, content_type='application/json')
+
+
+
+class ResumeDetailItemDeleteView(DeleteMixin,DeleteView):
+    model = DetailItem
+    context_object_name = 'obj'
+    template_name = 'Resume/resume_item_delete.html'
+    success_url = 'dash:resume'

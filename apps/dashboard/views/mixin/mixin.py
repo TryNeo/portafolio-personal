@@ -14,8 +14,8 @@ class JsonMixin(object):
 
 class CreateMixin(object):
     def post(self, request, *args, **kwargs):
+        data = {}
         if request.is_ajax():
-            data = {}
             form = self.form_class(request.POST)
             if form.is_valid():
                 form.save()
