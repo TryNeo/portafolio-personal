@@ -11,11 +11,30 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 class ResumeView(LoginRequiredMixin,TemplateView):
     template_name = 'Resume/resume.html'
 
-class ResumeListView(LoginRequiredMixin,JsonMixin,ListView):
+class ResumeListView(ListView):
     template_name = 'Resume/resume_json.html'
     model = Resume
     context_object_name = 'resume_info'
     success_url = 'dash:resume'
+
+
+    def get(self, request, *args, **kwargs):
+        return self.get_queryset()
+
+    def get_queryset(self):
+        queryset = super(ResumeListView, self).get_queryset()
+        data = {
+            'id_detail_resume': [i.toJSON() for i in DetailResume.objects.all()],
+        }
+        b = {}
+        dataFin = []
+        for i in range(len(data['id_detail_resume'])):
+            b[str(data['id_detail_resume'][i]['id_detail_resume'])] = DetailItem.objects.filter(id_detail_resume=data['id_detail_resume'][i]['id_detail_resume']).count()
+            data['id_detail_resume'][i].update({'total_items':b[str(data['id_detail_resume'][i]['id_detail_resume'])]})
+            dataFin.append(data['id_detail_resume'][i])
+        response = JsonResponse(dataFin,safe=False)
+        response.status_code = 200
+        return HttpResponse(response, content_type='application/json')
 
 class ResumeCreateView(LoginRequiredMixin,CreateView):
     model = Resume
@@ -95,35 +114,6 @@ class ResumeUpdateView(LoginRequiredMixin,UpdateMixin,UpdateView):
 
 
 
-class ResumeDetailItemCreateView(CreateView):
-    model = DetailItem
-    form_class = ResumeDetailItem
-    context_object_name = 'objx'
-    template_name = 'Resume/resume_form_item.html'
-    success_url = 'dash:resume'
-
-
-    def post(self, request, *args, **kwargs):
-        if request.is_ajax():
-            data = {}
-            form_item =self.form_class(request.POST)
-            if form_item.is_valid():
-                form_item.save()
-                data['status'] = 1
-                data['message'] = 'Item creado exitosamente!'
-                response = JsonResponse(data)
-                response.status_code = 201
-                return response
-            else:
-                data['status'] = 0
-                data['message'] = form_item.errors
-                response = JsonResponse(data)
-                response.status_code = 400
-                return response
-        else:
-            return redirect(self.success_url)
-
-
 class ResumeDetailItemListView(ListView):
     template_name = 'Resume/resume_detail_item_json.html'
     model = DetailItem
@@ -140,6 +130,21 @@ class ResumeDetailItemListView(ListView):
         response.status_code = 200
         return HttpResponse(response, content_type='application/json')
 
+
+
+class ResumeDetailItemCreateView(CreateMixin,CreateView):
+    model = DetailItem
+    form_class = ResumeDetailItem
+    context_object_name = 'obj'
+    template_name = 'Resume/resume_form_item.html'
+    success_url = 'dash:resume'
+
+class ResumeDetailItemUpdateView(UpdateMixin,UpdateView):
+    model = DetailItem
+    form_class = ResumeDetailItem
+    context_object_name = 'obj'
+    template_name = 'Resume/resume_form_item.html'
+    success_url = 'dash:resume'
 
 
 class ResumeDetailItemDeleteView(DeleteMixin,DeleteView):

@@ -162,7 +162,7 @@ var id_detalle_resume = {{obj.pk}};
                     targets:[2],
                     orderable:false,
                     render:function(data,type,row){
-                        let url_edit = url_resume_item+"edit/"+row.id_detail_item
+                        let url_edit = url_resume+"item/edit/"+row.id_detail_item
                         let url_delete = url_resume+"item/delete/"+row.id_detail_item
                         let base_opcion = '<div class="d-flex justify-content-center">'+
                         '<button type="button" onclick=abrir_modal("#popup","'+url_edit+'"); class="close text-primary"><i class="fa fa-edit"></i></button>'+

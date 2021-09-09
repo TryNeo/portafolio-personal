@@ -30,7 +30,10 @@ class DetailResume(models.Model):
     def __str__(self):
         return '{}'.format(self.id_detail_resume)
 
-
+    def toJSON(self):
+        resume_detail_data = model_to_dict(self)
+        resume_detail_data['id_resume'] = self.id_resume.toJSON()
+        return resume_detail_data
 
 class DetailItem(models.Model):
     id_detail_item = models.AutoField(primary_key=True)
@@ -42,4 +45,5 @@ class DetailItem(models.Model):
 
     def toJSON(self):
         resume_detail_item_data = model_to_dict(self)
+        resume_detail_item_data['id_detail_resume'] = self.id_detail_resume.toJSON()
         return resume_detail_item_data

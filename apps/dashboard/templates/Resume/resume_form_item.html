@@ -7,12 +7,13 @@
         $("#id_id_detail_resume").change()
     </script>
     <div class="modal-content">
-        {% if objx %}
-        <form class="needs-validation" id="fntDetailItemUpdate"
-         method="post" role="form" action="" novalidate="">
-    {% else %}
-        <form class="needs-validation" id="fntDetailItemCreate" method="post" role="form" action="{% url 'dash:resume_detail_item_add' %}" novalidate="">
-    {% endif %}
+        {% if obj %}
+            <form class="needs-validation" id="fntDetailItemUpdate"
+            method="post" role="form" action="{% url 'dash:resume_item_edit' obj.pk %}" novalidate="">
+        {% else %}
+            <form class="needs-validation" id="fntDetailItemCreate" 
+            method="post" role="form" action="{% url 'dash:resume_detail_item_add' %}" novalidate="">
+        {% endif %}
     {% csrf_token %}
 {% endblock%}
 
@@ -30,7 +31,11 @@
                 <i class="fas fa-text-height" aria-hidden="true"></i>
             </span>
         </div>
-        {{form.name}}
+        {%if obj %}
+        {{form.name|attr:'placeholder:nombre'|attr:'class:form-control is-valid'}}
+        {% else %}
+        {{form.name|attr:'placeholder:nombre'}}
+        {% endif%}
         <div class="invalid-feedback">
             no puedes dejar el campo vacio
         </div>
@@ -39,8 +44,11 @@
 {% endblock%}
 
 {% block buttons_form %}
-{% if objx %}Guardar <i class="fa fa-save"></i>
-{% else%} Crear <i class="fa fa-plus"></i>{% endif%}                
+    {% if obj %}
+        Guardar <i class="fa fa-save"></i>
+    {% else%} 
+        Crear <i class="fa fa-plus"></i>
+    {% endif%}                
 {% endblock %}
 
 {% block js_functions %}

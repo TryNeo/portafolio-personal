@@ -17,5 +17,6 @@ $(function(){
 
     }
     sendingDataServerSide('#fntDetailItemCreate',validatorServerSide,fieldsToValidate,true,table_item);
+    sendingDataServerSide('#fntDetailItemUpdate',validatorServerSide,fieldsToValidate,true,table_item);
     deleteDataofServerSide('#fntResumeItemDelete',true,table_item);
 });
