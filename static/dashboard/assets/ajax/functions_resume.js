@@ -37,6 +37,7 @@ $(function(){
 
     }
     sendingDataServerSide('#fntResumeCreate',validatorServerSide,fieldsToValidate,true,table_resume);
+    sendingDataServerSide('#fntResumeDetailCreate',validatorServerSide,fieldsToValidate,true,table_resume);
     sendingDataServerSide('#fntResumeUpdate',validatorServerSide,fieldsToValidate,true,table_resume);
     sendingDataServerSide('#fntDetailResumeUpdate',validatorServerSide,fieldsToValidate);
 });

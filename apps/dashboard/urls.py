@@ -84,6 +84,7 @@ urlpatterns = [
     path('resume/json',ResumeListView.as_view(), name='resume_json'),
     path('resume/add', ResumeCreateView.as_view(), name='resume_create'),
     path('resume/edit/<int:pk>', ResumeUpdateView.as_view(), name='resume_edit'),
+    path('resume/detail/add',ResumeDetailCreateView.as_view(),name='resume_detail_create'),
     path('resume/detail/<int:pk>',ResumeDetailView.as_view(),name='resume_detail'),
     
     path('resume/item/add',ResumeDetailItemCreateView.as_view(),name='resume_detail_item_add'),

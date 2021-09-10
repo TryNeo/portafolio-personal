@@ -1,0 +1,51 @@
+{% extends 'dashboard/base_form.html' %}
+{% load widget_tweaks %}
+{%  load static %}
+{% block model_form%}
+    <div class="modal-content">
+    <form class="needs-validation" id="fntResumeDetailCreate" 
+    method="post" role="form" action="{% url 'dash:resume_detail_create'%}" novalidate="">
+    {% csrf_token %}
+{% endblock%}
+
+{% block  model_title %}
+Crear | Detalle Resumen <i class="fa fa-plus"></i>
+</span></h5>
+{% endblock%}
+
+{% block model_content %}
+<div class="form-group">
+    <div class="input-group">
+        <div class="input-group-append">
+            <span class="input-group-text">
+                <i class="fas fa-list-alt" aria-hidden="true"></i>
+            </span>
+        </div>
+        {{form.id_resume}}
+        <div class="invalid-feedback">
+            no puedes dejar el campo vacio
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <div class="input-group">
+        <div class="input-group-append">
+            <span class="input-group-text">
+                <i class="fas fa-text-height" aria-hidden="true"></i>
+            </span>
+        </div>
+        {{form.title|attr:'placeholder:subtitulo'}}
+        <div class="invalid-feedback">
+            no puedes dejar el campo vacio
+        </div>
+    </div>
+</div>
+{% endblock%}
+
+{% block buttons_form %}
+Crear <i class="fa fa-plus"></i>
+{% endblock %}
+
+{% block js_functions %}
+<script src="{% static 'dashboard/assets/ajax/functions_resume.js' %}"></script>
+{% endblock %}

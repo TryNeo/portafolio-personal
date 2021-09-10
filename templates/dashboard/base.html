@@ -23,7 +23,7 @@
     {% endblock %}
 
 </head>
-<body class="sidebar-mini">
+<body>
   <div id="app">
     <div class="main-wrapper">
       <div class="navbar-bg"></div>
@@ -92,6 +92,14 @@
               </li>
               <li class="{% if request.path == '/dashboard/interent/' %}active{% endif %}">
                 <a class="nav-link" href="{% url 'dash:interents' %}"><i class="fas fa-tenge"></i><span>Intereses</span></a>
+              </li>
+              <li class="{% if request.path == '/dashboard/skill/' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'dash:skill' %}"><i class="fas fa-cogs"></i>
+                  <span>Habilidades</span></a>
+              </li>
+              <li class="{% if request.path == '/dashboard/resume/' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'dash:resume' %}"><i class="fas fa-paste"></i>
+                  <span>Resumen</span></a>
               </li>
             </ul>
         </aside>

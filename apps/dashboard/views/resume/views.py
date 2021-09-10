@@ -11,7 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 class ResumeView(LoginRequiredMixin,TemplateView):
     template_name = 'Resume/resume.html'
 
-class ResumeListView(ListView):
+class ResumeListView(LoginRequiredMixin,ListView):
     template_name = 'Resume/resume_json.html'
     model = Resume
     context_object_name = 'resume_info'
@@ -74,7 +74,14 @@ class ResumeCreateView(LoginRequiredMixin,CreateView):
     def get_success_url(self,id_detail):
         return reverse('dash:resume_detail', args=[id_detail])
 
-class ResumeDetailView(UpdateView):
+class ResumeDetailCreateView(LoginRequiredMixin,CreateMixin,CreateView):
+    model = DetailResume
+    form_class = ResumeDetailForm
+    context_object_name = 'obj'
+    template_name = 'Resume/resume_form_detail_create.html'
+    success_url = 'dash:resume'
+
+class ResumeDetailView(LoginRequiredMixin,UpdateView):
     model =DetailResume
     form_class = ResumeDetailForm
     context_object_name = 'obj'
@@ -104,7 +111,6 @@ class ResumeDetailView(UpdateView):
         object = self.get_object()
         return reverse('dash:resume_detail', args=[object.pk])
 
-
 class ResumeUpdateView(LoginRequiredMixin,UpdateMixin,UpdateView):
     model = Resume
     form_class = ResumeForm
@@ -112,9 +118,7 @@ class ResumeUpdateView(LoginRequiredMixin,UpdateMixin,UpdateView):
     template_name = 'Resume/resume_form.html'
     success_url = 'dash:resume'
 
-
-
-class ResumeDetailItemListView(ListView):
+class ResumeDetailItemListView(LoginRequiredMixin,ListView):
     template_name = 'Resume/resume_detail_item_json.html'
     model = DetailItem
     context_object_name = 'resume_detail_item_info'
@@ -131,15 +135,14 @@ class ResumeDetailItemListView(ListView):
         return HttpResponse(response, content_type='application/json')
 
 
-
-class ResumeDetailItemCreateView(CreateMixin,CreateView):
+class ResumeDetailItemCreateView(LoginRequiredMixin,CreateMixin,CreateView):
     model = DetailItem
     form_class = ResumeDetailItem
     context_object_name = 'obj'
     template_name = 'Resume/resume_form_item.html'
     success_url = 'dash:resume'
 
-class ResumeDetailItemUpdateView(UpdateMixin,UpdateView):
+class ResumeDetailItemUpdateView(LoginRequiredMixin,UpdateMixin,UpdateView):
     model = DetailItem
     form_class = ResumeDetailItem
     context_object_name = 'obj'
@@ -147,7 +150,7 @@ class ResumeDetailItemUpdateView(UpdateMixin,UpdateView):
     success_url = 'dash:resume'
 
 
-class ResumeDetailItemDeleteView(DeleteMixin,DeleteView):
+class ResumeDetailItemDeleteView(LoginRequiredMixin,DeleteMixin,DeleteView):
     model = DetailItem
     context_object_name = 'obj'
     template_name = 'Resume/resume_item_delete.html'
