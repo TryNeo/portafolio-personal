@@ -11,6 +11,7 @@ urlpatterns = [
     path('portfolio/',PortfolioView.as_view(), name='portfolio'),
     path('services/',ServicesView.as_view(), name='services'),
     path('contact/', ContactView.as_view(), name='contact'),
+    path('resume/',ResumeView.as_view(), name='resume'),
     path('about/',AboutView.as_view(), name='about'),
     path('', HomeView.as_view(), name='home'),
 

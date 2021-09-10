@@ -11,7 +11,7 @@ class Resume(models.Model):
     class Meta:
         verbose_name = 'Resume'
         verbose_name_plural = 'Resumes'
-        ordering = ['id_resume']
+        ordering = ['-title']
 
     def __str__(self):
         return '{}'.format(self.title)
@@ -27,12 +27,22 @@ class DetailResume(models.Model):
     years = models.CharField("Años", max_length=50,blank=True,null=True)
     description = models.TextField("Descripcion",blank=True)
     
+
+    class Meta:
+        verbose_name = 'Detail Resume'
+        verbose_name_plural = 'Detail Resumes'
+        ordering = ['-title']
+
     def __str__(self):
         return '{}'.format(self.id_detail_resume)
 
     def toJSON(self):
         resume_detail_data = model_to_dict(self)
         resume_detail_data['id_resume'] = self.id_resume.toJSON()
+        return resume_detail_data
+
+    def toJSONEXC(self):
+        resume_detail_data = model_to_dict(self)
         return resume_detail_data
 
 class DetailItem(models.Model):
@@ -46,4 +56,8 @@ class DetailItem(models.Model):
     def toJSON(self):
         resume_detail_item_data = model_to_dict(self)
         resume_detail_item_data['id_detail_resume'] = self.id_detail_resume.toJSON()
+        return resume_detail_item_data
+
+    def toJSONEXC(self):
+        resume_detail_item_data = model_to_dict(self)
         return resume_detail_item_data

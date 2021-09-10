@@ -1,4 +1,5 @@
 from django.http import JsonResponse
+from django.http.response import HttpResponse
 from django.template.loader import render_to_string
 
 from django.views.generic import TemplateView,ListView,DetailView
@@ -19,6 +20,7 @@ from apps.dashboard.modelos.model_portfolio import *
 from apps.dashboard.modelos.model_testimonial import *
 from apps.dashboard.modelos.model_skills import *
 from apps.dashboard.modelos.model_interents import *
+from apps.dashboard.modelos.model_resume import *
 
 
 import threading
@@ -46,6 +48,24 @@ class AboutView(TemplateView):
         context['skills_count'] = Skill.objects.all().count()
         return context    
 
+class ResumeView(TemplateView):
+    template_name = 'resume/resume.html'
+
+
+    def get_queryset(self):
+        data = [i.toJSON() for i in Resume.objects.all() ]
+        for i in data:
+            i.update({'detail_data':[i.toJSONEXC() for i in DetailResume.objects.filter(id_resume=i['id_resume'])]})
+
+        for i in data:
+            for x in range(len(i['detail_data'])):
+                i['detail_data'][x].update({'items':[i.toJSONEXC() for i in DetailItem.objects.filter(id_detail_resume = i['detail_data'][x]['id_detail_resume'])]})
+        return data
+        
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['resume'] = self.get_queryset()
+        return context    
 
 class ServicesView(ListView):
     template_name = 'services/services.html'

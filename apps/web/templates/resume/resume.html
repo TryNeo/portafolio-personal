@@ -1,0 +1,46 @@
+{% extends 'web/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block title %}Mi Informacion{% endblock%}
+{% block content %}
+<section id="resume" class="resume {% if request.path == '/resume/' %}section-show{% endif %}">
+    <div class="container">
+
+        <div class="section-title">
+            <h2>Informacion</h2>
+            <p>Checa Mi Informacion</p>
+        </div>
+        {% if resume %}
+        <div class="row">
+            {% for i in resume %}
+                <div class="col-lg-6">
+                    <h3 class="resume-title">{{i.title}}</h3>
+                    {% for x in i.detail_data %}
+                        <div class="resume-item">
+                            <h4>{{x.title}}</h4>
+                            {% if x.years != None %}
+                                <h5>{{x.years}}</h5>
+                            {% endif%}
+                            <p>{{x.description}}</p>
+                            <p>
+                            <ul>
+                                {% for z in x.items %}
+                                    <li>{{z.name}}</li>
+                                {% endfor %}
+                            </ul>
+                            </p>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor%}
+        </div>
+        {% else %}
+        <div class="mb-3" id="mb-3">
+            <div class="text-center">
+                <h3>No se han encontrado informacion disponible</h3>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
