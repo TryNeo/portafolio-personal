@@ -37,7 +37,11 @@ $(function(){
 
     }
     sendingDataServerSide('#fntResumeCreate',validatorServerSide,fieldsToValidate,true,table_resume);
-    sendingDataServerSide('#fntResumeDetailCreate',validatorServerSide,fieldsToValidate,true,table_resume);
     sendingDataServerSide('#fntResumeUpdate',validatorServerSide,fieldsToValidate,true,table_resume);
+    sendingDataServerSide('#fntResumeDetailCreate',validatorServerSide,fieldsToValidate,true,table_resume);
     sendingDataServerSide('#fntDetailResumeUpdate',validatorServerSide,fieldsToValidate);
+
+    deleteDataofServerSide('#fntResumeDelete',true,table_resume);
+    deleteDataofServerSide('#fntResumeDetailDelete',true,table_resume);
 });
+    

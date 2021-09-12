@@ -94,12 +94,14 @@ var table_resume = $('#tableResume').DataTable({
                 render:function(data,type,row){
                     let url_edit = url_resume+"edit/"+row.id_resume.id_resume
                     let url_delete = url_resume+"delete/"+row.id_resume.id_resume
+                    let url_delete_detail = url_resume+"detail/delete/"+row.id_detail_resume
                     let url_detalle = url_resume+"detail/"+row.id_detail_resume
                     //
                     let base_opcion = '<div class="btn-group d-flex justify-content-center">'+
                     '<a class="close text-info" href="'+url_detalle+'"target="_blank"><i class="fa fa-info-circle"></i></a>'+
                     '<button type="button" onclick=abrir_modal("#popup","'+url_edit+'"); class="close text-primary"><i class="fa fa-edit"></i></button>'+
-                    '<button type="button" onclick=abrir_modal("#popup","'+url_delete+'"); class="close text-danger"><i class="fa fa-trash"></i></button></div>';
+                    '<button type="button" onclick=abrir_modal("#popup","'+url_delete+'"); class="close text-dark"><i class="fa fa-trash"></i></button>'+
+                    '<button type="button" onclick=abrir_modal("#popup","'+url_delete_detail+'"); class="close text-danger"><i class="fa fa-trash"></i></button></div>';
                     return base_opcion;
                 }
 

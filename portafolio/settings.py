@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'colorfield',
     'widget_tweaks',
     'apps.web',
+    'apps.account',
     'apps.dashboard',
     'apps.login',
 ]
@@ -138,6 +139,7 @@ EMAIL_HOST_PASSWORD = os.environ['CONTRA_EMAIL']
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
+AUTH_USER_MODEL = 'account.User'
 
 LOGIN_REDIRECT_URL = '/dashboard/'
 

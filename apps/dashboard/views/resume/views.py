@@ -74,6 +74,19 @@ class ResumeCreateView(LoginRequiredMixin,CreateView):
     def get_success_url(self,id_detail):
         return reverse('dash:resume_detail', args=[id_detail])
 
+class ResumeUpdateView(LoginRequiredMixin,UpdateMixin,UpdateView):
+    model = Resume
+    form_class = ResumeForm
+    context_object_name = 'obj'
+    template_name = 'Resume/resume_form.html'
+    success_url = 'dash:resume'
+
+class ResumeDeleteView(LoginRequiredMixin,DeleteMixin,DeleteView):
+    model = Resume
+    context_object_name = 'obj'
+    template_name = 'Resume/resume_delete.html'
+    success_url = 'dash:resume'
+
 class ResumeDetailCreateView(LoginRequiredMixin,CreateMixin,CreateView):
     model = DetailResume
     form_class = ResumeDetailForm
@@ -111,12 +124,12 @@ class ResumeDetailView(LoginRequiredMixin,UpdateView):
         object = self.get_object()
         return reverse('dash:resume_detail', args=[object.pk])
 
-class ResumeUpdateView(LoginRequiredMixin,UpdateMixin,UpdateView):
-    model = Resume
-    form_class = ResumeForm
+class ResumeDetailDeleteView(LoginRequiredMixin,DeleteMixin,DeleteView):
+    model = DetailResume
     context_object_name = 'obj'
-    template_name = 'Resume/resume_form.html'
+    template_name = 'Resume/resume_delete_detail.html'
     success_url = 'dash:resume'
+
 
 class ResumeDetailItemListView(LoginRequiredMixin,ListView):
     template_name = 'Resume/resume_detail_item_json.html'

@@ -1,5 +1,6 @@
 from django.urls import path
 
+from apps.account.views import *
 
 from .views.dashboard.views import DashboardView
 from .views.contact.views import *
@@ -16,6 +17,7 @@ from .views.resume.views import *
 
 urlpatterns = [
     path('', DashboardView.as_view(), name='index'),
+    path('profile/', UserView.as_view(), name='profile'),
     #Urls Contact
     path('contact/', ContactView.as_view(), name='contact'),
     path('contact/add', ContactCreateView.as_view(), name='contact_create'),
@@ -84,7 +86,9 @@ urlpatterns = [
     path('resume/json',ResumeListView.as_view(), name='resume_json'),
     path('resume/add', ResumeCreateView.as_view(), name='resume_create'),
     path('resume/edit/<int:pk>', ResumeUpdateView.as_view(), name='resume_edit'),
+    path('resume/delete/<int:pk>', ResumeDeleteView.as_view(), name='resume_delete'),
     path('resume/detail/add',ResumeDetailCreateView.as_view(),name='resume_detail_create'),
+    path('resume/detail/delete/<int:pk>',ResumeDetailDeleteView.as_view(),name='resume_detail_delete'),
     path('resume/detail/<int:pk>',ResumeDetailView.as_view(),name='resume_detail'),
     
     path('resume/item/add',ResumeDetailItemCreateView.as_view(),name='resume_detail_item_add'),
