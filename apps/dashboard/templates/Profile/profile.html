@@ -1,112 +1,118 @@
-{% extends 'dashboard/base.html' %}
-{% load static%}
 {% load widget_tweaks %}
-{% block title_page %}Dashboard &mdash; Perfil {% endblock %}
-{% block title %}Perfil{% endblock %}
-{% block content %}
-    <div class="row mt-sm-4">
-      <div class="col-12 col-md-12 col-lg-12">
-        <div class="card  profile-widget">
-            <div class="profile-widget-header">
-                <img alt="image" src="{{request.user.get_image}}" class="rounded-circle profile-widget-picture">
+{%  load static %}
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+            <form class="needs-validation" id="fntProfileUpdate" method="post" role="form" action="{% url 'dash:profile'%}" novalidate="">
+            {% csrf_token %}
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <span>
+                        Perfil de {{request.user.first_name}} {{request.user.last_name}} 
+                        <br>
+                        ultimo acceso {{request.user.last_login}}
+                    </span>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times</span>
+                </button>
             </div>
-            <form class="needs-validation" id="fntCategoryCreate" method="post" role="form" action="{% url 'dash:profile' %}" novalidate="">                
-                {% csrf_token %}
-                <div class="card-body">
-                    <div class="form-row">
-                        <input type="password" name="password" maxlength="128" class="form-control is-invalid" required="" id="id_password">
-                        <input type="text" name="degree" maxlength="50" class="form-control is-invalid" required="" id="id_degree">
-                        <input type="number" name="age" class="form-control is-invalid" id="id_age">
-                        <input type="text" name="city" maxlength="50" class="form-control is-invalid" required="" id="id_city">
-                        <input type="url" name="website" maxlength="200" class="form-control is-invalid" required="" id="id_website">
-                        <input type="text" name="birthday" class="form-control is-invalid" id="id_birthday">
-                        <input type="url" name="image" maxlength="200" class="form-control is-invalid" id="id_image">
-                        <input type="text" name="college_degree" maxlength="50" class="form-control is-invalid" required="" id="id_college_degree">
-
-                        <div class="form-group col-md-6">
-                            <div class="input-group">
-                                <div class="input-group-append">
-                                    <span class="input-group-text">
-                                        <i class="fas fa-text-height" aria-hidden="true"></i>
-                                    </span>
-                                </div>
-                                {% if request.user.first_name == '' %}
-                                    <input type="text" value="{{request.user.first_name}}" name="first_name" maxlength="30" class="form-control is-invalid" id="id_first_name">
-                                {% else %}
-                                    <input type="text" value="{{request.user.first_name}}" name="first_name" maxlength="30" class="form-control is-valid" id="id_first_name">
-                                {% endif%}
-                                <div class="invalid-feedback">
-                                    no puedes dejar el campo vacio
-                                </div>
-                            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label class="form-label">Nombre</label>
+                        {{form.first_name}}
+                        <div class="invalid-feedback">
+                            no puedes dejar el campo vacio
                         </div>
-                        
-                        <div class="form-group col-md-6">
-                            <div class="input-group">
-                                <div class="input-group-append">
-                                    <span class="input-group-text">
-                                        <i class="fas fa-text-height" aria-hidden="true"></i>
-                                    </span>
-                                </div>
-                                <input type="text" value="{{request.user.last_name}}" name="last_name" maxlength="150" class="form-control is-invalid" id="id_last_name">
-                                <div class="invalid-feedback">
-                                    no puedes dejar el campo vacio
-                                </div>
-                            </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="form-label">Apellido</label>
+                        {{form.last_name}}
+                        <div class="invalid-feedback">
+                            no puedes dejar el campo vacio
                         </div>
-
-                        <div class="form-group col-md-6">
-                            <div class="input-group">
-                                <div class="input-group-append">
-                                    <span class="input-group-text">
-                                        <i class="fas fa-text-height" aria-hidden="true"></i>
-                                    </span>
-                                </div>
-                                <input type="text" value="{{request.user.username}}" name="username" maxlength="150" class="form-control is-invalid" required="" id="id_username">
-                                <div class="invalid-feedback">
-                                    no puedes dejar el campo vacio
-                                </div>
-                            </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="form-label">Correo</label>
+                        {{form.email}}
+                        <div class="invalid-feedback">
+                            no puedes dejar el campo vacio
                         </div>
-
-
-
-                        <div class="form-group col-md-6">
-                            <div class="input-group">
-                                <div class="input-group-append">
-                                    <span class="input-group-text">
-                                        <i class="fas fa-text-height" aria-hidden="true"></i>
-                                    </span>
-                                </div>
-                                <input type="email" value="{{request.user.email}}"name="email" maxlength="254" class="form-control is-invalid" id="id_email">
-                                <div class="invalid-feedback">
-                                    no puedes dejar el campo vacio
-                                </div>
-                            </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="form-label">Usuario</label>
+                        {{form.username}}
+                        <div class="invalid-feedback">
+                            no puedes dejar el campo vacio
                         </div>
-
-
-                        <div class="form-group col-md-6">
-                            <div class="input-group">
-                                <div class="input-group-append">
-                                    <span class="input-group-text">
-                                        <i class="fas fa-text-height" aria-hidden="true"></i>
-                                    </span>
-                                </div>
-                                <input type="password" name="password" maxlength="128" class="form-control is-invalid" required="" id="id_password">
-                                <div class="invalid-feedback">
-                                    no puedes dejar el campo vacio
-                                </div>
-                            </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="form-label">Edad</label>
+                        {{form.age}}
+                        <div class="invalid-feedback">
+                            no puedes dejar el campo vacio
                         </div>
-
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="form-label">Ciudad</label>
+                        {{form.city}}
+                        <div class="invalid-feedback">
+                            no puedes dejar el campo vacio
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="form-label">Titulo</label>
+                        {{form.college_degree}}
+                        <div class="invalid-feedback">
+                            no puedes dejar el campo vacio
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="form-label">Fecha Cumpleaños</label>
+                        {% if form.birthday != '' %}
+                            {{form.birthday}}
+                        {% else %}
+                            {{form.birthday|attr:'type:date'}}
+                        {% endif %}
+                        <div class="invalid-feedback">
+                            no puedes dejar el campo vacio
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="form-label">Freelance</label>
+                        {{form.freelance}}
+                        <div class="invalid-feedback">
+                            no puedes dejar el campo vacio
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="form-label">Sitio Web</label>
+                        {{form.website}}
+                        <div class="invalid-feedback">
+                            no puedes dejar el campo vacio
+                        </div>
                     </div>
                 </div>
-                <div class="card-footer text-right">
-                <button class="btn btn-primary">Save Changes</button>
+                <div class="form-group">
+                    <label class="form-label">Imagen de perfil</label>
+                    {{form.image}}
+                    <div class="invalid-feedback">
+                        no puedes dejar el campo vacio
+                    </div>
                 </div>
-            </form>
-        </div>
-      </div>
+                <div class="form-group">
+                    <label class="form-label">Descripcion</label>
+                    {{form.note|attr:'rows:2'|attr:'style:margin-top: 0px; margin-bottom: 0px; height: 100px;'}}
+                    <div class="invalid-feedback">
+                        no puedes dejar el campo vacio
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4 is-valid">
+                    Guardar <i class="fa fa-save"></i>
+                </button>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </form>
     </div>
-{% endblock %}
+</div>

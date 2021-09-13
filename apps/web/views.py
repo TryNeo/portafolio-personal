@@ -21,6 +21,7 @@ from apps.dashboard.modelos.model_testimonial import *
 from apps.dashboard.modelos.model_skills import *
 from apps.dashboard.modelos.model_interents import *
 from apps.dashboard.modelos.model_resume import *
+from apps.account.models import *
 
 
 import threading
@@ -46,7 +47,8 @@ class AboutView(TemplateView):
         context['proyects'] = Portfolio.objects.all().count()
         context['testimonials_count'] = Testimonial.objects.all().count()
         context['skills_count'] = Skill.objects.all().count()
-        return context    
+        context['User'] = [i.toJSON() for i in User.objects.all()]
+        return context
 
 class ResumeView(TemplateView):
     template_name = 'resume/resume.html'

@@ -1,13 +1,14 @@
 from django import forms 
+from django.contrib.auth.forms import  UserChangeForm
 from .models import *
 
-class UserForm(forms.ModelForm):
+class UserForm(UserChangeForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args,**kwargs)
         for field in iter(self.fields):
             self.fields[field].widget.attrs.update(
                 {
-                    'class':'form-control is-invalid'
+                    'class':'form-control is-valid'
                 }
             )
 
