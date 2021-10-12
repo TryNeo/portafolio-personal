@@ -20,13 +20,12 @@ class ServiceForm(forms.ModelForm):
         try:
             validator = Validators(title)
             filter = Service.objects.get(title=title)
-            if validator.validateExists('El nombre '+title+' ya se encuentra registrado',self.instance,filter):
-                raise validator.validateExists('El nombre '+title+' ya se encuentra registrado',self.instance,filter)
-            if validator.validateStringLength('El nombre debe ser mas largo.',5):
-                raise validator.validateStringLength('El nombre debe ser mas largo.',5)
-
-            if validator.validateString('El nombre contiene numeros'):
-                raise validator.validateString('El nombre contiene numeros')
+            if validator.validateExists(f'El nombre {title} ya se encuentra registrado',self.instance,filter):
+                raise validator.validateExists(f'El nombre {title} ya se encuentra registrado',self.instance,filter)
+            if validator.validateStringLength(5):
+                raise validator.messageAlert('El nombre debe ser mas largo.')
+            if validator.validateString():
+                raise validator.messageAlert('El nombre contiene numeros')
         except Service.DoesNotExist:
             pass
         except Service.MultipleObjectsReturned:
@@ -36,18 +35,17 @@ class ServiceForm(forms.ModelForm):
     def clean_icon(self):
         icon = self.cleaned_data['icon']
         validator = Validators(icon)
+        if validator.validateStringLength(5):
+            raise validator.messageAlert(f'El icono {icon} debe ser mas largo')
 
-        if validator.validateStringLength(f'El icono {icon} debe ser mas largo',5):
-            raise validator.validateStringLength(f'El icono {icon} debe ser mas largo',5)
-
-        if validator.validateString('El nombre del icono contiene numeros'):
-            raise validator.validateString('El nombre del icono contiene numeros')
+        if validator.validateString():
+            raise validator.messageAlert('El nombre del icono contiene numeros')
 
         return icon
 
     def clean_description(self):
         description = self.cleaned_data['description']
         validator = Validators(description)
-        if validator.validateStringLength('La descripcion debe ser mas larga',5):
-            raise validator.validateStringLength('La descripcion debe ser mas larga',5)
+        if validator.validateStringLength(5):
+            raise validator.messageAlert('La descripcion debe ser mas larga')
         return description

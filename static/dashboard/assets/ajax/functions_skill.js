@@ -27,7 +27,6 @@ $(function(){
             }
 
         }
-       
     }
     sendingDataServerSide('#fntSkillCreate',validatorServerSide,fieldsToValidate,true,table_skill);
     sendingDataServerSide('#fntSkillUpdate',validatorServerSide,fieldsToValidate,true,table_skill);

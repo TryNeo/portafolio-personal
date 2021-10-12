@@ -26,6 +26,8 @@ class ResumeListView(LoginRequiredMixin,ListView):
         data = {
             'id_detail_resume': [i.toJSON() for i in DetailResume.objects.all()],
         }
+        if len(data['id_detail_resume']) !=0:
+            print("a")
         b = {}
         dataFin = []
         for i in range(len(data['id_detail_resume'])):

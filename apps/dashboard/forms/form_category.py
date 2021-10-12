@@ -25,11 +25,11 @@ class CategoryForm(forms.ModelForm):
             filter = Category.objects.get(name=name)
             if validator.validateExists('El nombre '+name+' ya se encuentra registrado',self.instance,filter):
                 raise validator.validateExists('El nombre '+name+' ya se encuentra registrado',self.instance,filter)
-            if validator.validateStringLength('El nombre  debe ser mas largo.',2):
-                raise validator.validateStringLength('El nombre debe ser mas largo.',2)
+            if validator.validateStringLength('El nombre  debe ser mas largo',2):
+                raise validator.messageAlert('El nombre debe ser mas largo')
 
-            if validator.validateString('El nombre  contiene numeros'):
-                raise validator.validateString('El nombre contiene numeros')
+            if validator.validateString():
+                raise validator.messageAlert('El nombre contiene numeros')
 
         except Category.DoesNotExist:
             pass

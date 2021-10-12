@@ -16,3 +16,5 @@ class SkillForm(forms.ModelForm):
     class Meta:
         model = Skill
         fields = '__all__'
+
+    

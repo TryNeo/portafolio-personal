@@ -25,13 +25,14 @@ class PortfolioForm(forms.ModelForm):
         try:
             validator = Validators(title)
             filter = Portfolio.objects.get(title =title)
-            if validator.validateExists('El nombre '+title+' ya se encuentra registrado',self.instance,filter):
-                raise validator.validateExists('El nombre '+title+' ya se encuentra registrado',self.instance,filter)
-            if validator.validateStringLength('El nombre del titulo debe ser mas largo.',5):
-                raise validator.validateStringLength('El nombre del titulo debe ser mas largo.',5)
+            if validator.validateExists(f'El nombre {title} ya se encuentra registrado',self.instance,filter):
+                raise validator.validateExists(f'El nombre {title} ya se encuentra registrado',self.instance,filter)
+                
+            if validator.validateStringLength(5):
+                raise validator.messageAlert('El nombre del titulo debe ser mas largo')
 
-            if validator.validateString('El nombre del titulo contiene numeros'):
-                raise validator.validateString('El nombre del titulo contiene numeros')
+            if validator.validateString():
+                raise validator.messageAlert('El nombre del titulo contiene numeros')
         except Portfolio.DoesNotExist:
             pass
         except Portfolio.MultipleObjectsReturned:
@@ -41,16 +42,16 @@ class PortfolioForm(forms.ModelForm):
     def clean_subtitle(self):
         subtitle = self.cleaned_data['title']
         validator = Validators(subtitle)
-        if validator.validateStringLength('El nombre del subtitulo debe ser mas largo.',5):
-            raise validator.validateStringLength('El nombre del subtitulo debe ser mas largo.',5)
-        if validator.validateString('El nombre del subtitulo contiene numeros'):
-            raise validator.validateString('El nombre del subtitulo contiene numeros')
+        if validator.validateStringLength(5):
+            raise validator.messageAlert('El nombre del subtitulo debe ser mas largo')
+        if validator.validateString():
+            raise validator.messageAlert('El nombre del subtitulo contiene numeros')
         return subtitle
 
     
     def clean_description(self):
         description = self.cleaned_data['description']
         validator = Validators(description)
-        if validator.validateStringLength('La descripcion debe ser mas larga',5):
-            raise validator.validateStringLength('La descripcion debe ser mas larga',5)
+        if validator.validateStringLength(5):
+            raise validator.messageAlert('La descripcion debe ser mas larga')
         return description

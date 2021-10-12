@@ -19,3 +19,10 @@ class TestimonialForm(forms.ModelForm):
         model = Testimonial
         fields = '__all__'
 
+
+    def clean_commentary(self):
+        commentary = self.cleaned_data['commentary']
+        validator = Validators(commentary)
+        if validator.validateStringLength(40):
+            raise validator.messageAlert('El testimonio es demasiado corto, ingrese uno nuevo')
+        return commentary
