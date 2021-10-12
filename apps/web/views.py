@@ -11,16 +11,7 @@ from .forms import ContactForm
 from django.conf import settings
 
 
-from apps.dashboard.modelos.model_contact import *
-from apps.dashboard.modelos.model_social_media import *
-from apps.dashboard.modelos.model_service import *
-from apps.dashboard.modelos.model_category import *
-from apps.dashboard.modelos.model_client import *
-from apps.dashboard.modelos.model_portfolio import *
-from apps.dashboard.modelos.model_testimonial import *
-from apps.dashboard.modelos.model_skills import *
-from apps.dashboard.modelos.model_interents import *
-from apps.dashboard.modelos.model_resume import *
+from apps.dashboard.models import *
 from apps.account.models import *
 
 

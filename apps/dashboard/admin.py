@@ -1,6 +1,5 @@
 from django.contrib import admin
 from .models import Contact,SocialMedia,Skill,Interent,Resume,DetailItem,DetailResume
-# Register your models here.
 admin.site.register(Contact)
 admin.site.register(SocialMedia)
 admin.site.register(Skill)

@@ -1,13 +1,13 @@
-from typing import Reversible
 from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.views import generic
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import *
 from .forms import *
 
 
-class UserView(generic.UpdateView):
+class UserView(LoginRequiredMixin,generic.UpdateView):
     form_class = UserForm
     template_name = 'Profile/profile.html'
     success_url = reverse_lazy('dash:index')
