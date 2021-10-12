@@ -13,8 +13,14 @@ const regex_numbers = '^[0-9]+$';
  */
 const regex_username_password = '^[a-zA-Z0-9_-]{4,18}$';
 
-const regex_fechas = '^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$';
+/**
+ * @const {regex} regex_email - contiene una exprecion regular que acepta un correo valido
+ */
 const regex_email = '^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$';
+
+
+
+const regex_fechas = '^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$';
 const regex_url = '/(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi';
 
 
@@ -25,7 +31,7 @@ const regex_url = '/(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z
  * @param  {string} title - recibe el tipo de titulo a mostrar en la alertar
  * @param  {string} text - recibe el mensaje de error a mostrar
  */
- function mensaje(icon,title,text){
+function mensaje(icon,title,text){
     Swal.fire({
         icon: icon,
         title: title,
@@ -43,7 +49,7 @@ function mensaje_json(icon,title,json){
     let message = '<ul style="list-style:none;text-align: center;">';
     for (const dataKey in json ) {
         message+='<li>'+json[dataKey]+'</li>';
-     }
+    }
     message+='</ul>';
     Swal.fire({
         icon: icon,
@@ -184,3 +190,12 @@ function validateUser(value){
     }
     return true;
 }
+
+
+function validateEmail(value){
+    if(value.match(regex_email) === null){
+        return false;
+    }
+    return true;
+}
+
