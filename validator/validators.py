@@ -9,40 +9,26 @@ class Validators(object):
         self.REGEX_INTEGER = '^[0-9]+$'
         self.REGEX_EMAIL = '^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$'
         self.REGEX_NAME = "^([a-zA-Z]{2,}\s[a-zA-Z]{1,}'?-?[a-zA-Z]{2,}\s?([a-zA-Z]{1,})?)"
-        
 
-    def validateStringLength(self,message : str ,minLength : int):
+    def validateStringLength(self,minLength : int):
         if len(self.value) >= minLength:
             return False
-        return ValidationError(
-                (message),
-                params={'value': self.value},
-            )
+        return True
     
-    def validateString(self,message  : str):
+    def validateString(self):
         if re.search(self.REGEX_STRING,self.value):
             return False
-        return ValidationError(
-                (message),
-                params={'value': self.value},
-            )    
+        return True
 
-    def validateEmptyField(self,message  : str):
+    def validateEmptyField(self):
         if len(str(self.value)) >= 2:
             return False
-        return ValidationError(
-                (message),
-                params={'value': self.value},
-            )
-
-
-    def validateNumber(self,message  : str):
+        return True
+    
+    def validateNumber(self):
         if re.search(self.REGEX_INTEGER,self.value):
             return False
-        return ValidationError(
-                (message),
-                params={'value': self.value},
-            ) 
+        return True
     
     def validateExists(self,message  : str,instance,filter):
         filter = filter
@@ -58,18 +44,18 @@ class Validators(object):
                 )
         return False
 
-
-    def validateEmail(self,message  : str):
+    def validateEmail(self):
         if re.search(self.REGEX_EMAIL,self.value):
             return False
-        return ValidationError(
-                (message),
-                params={'value': self.value},
-            )
+        return True
     
-    def validateName(self,message  : str):
+    def validateName(self):
         if re.search(self.REGEX_EMAIL,self.value):
             return False
+        return True
+
+
+    def messageAlert(self,message  : str):
         return ValidationError(
                 (message),
                 params={'value': self.value},
